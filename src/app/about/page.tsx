@@ -247,7 +247,7 @@ export default function AboutPage() {
               </h2>
               <p className="text-lg text-gray-600 leading-relaxed mb-8">
                 We combine technical excellence with a client-first approach to deliver 
-                solutions that truly make a difference. Here's what sets us apart from the rest.
+                solutions that truly make a difference. Here&apos;s what sets us apart from the rest.
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

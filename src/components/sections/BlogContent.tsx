@@ -188,7 +188,7 @@ export default function BlogContent({
                 No articles found
               </h2>
               <p className="text-gray-600 mb-6">
-                We couldn't find any articles matching your criteria. Try adjusting
+                We couldn&apos;t find any articles matching your criteria. Try adjusting
                 your search or browse all posts.
               </p>
               <button

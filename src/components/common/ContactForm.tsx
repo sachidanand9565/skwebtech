@@ -69,7 +69,7 @@ export default function ContactForm() {
           Message Sent Successfully!
         </h3>
         <p className="text-green-600">
-          Thank you for reaching out. We'll get back to you within 24 hours.
+          Thank you for reaching out. We&apos;ll get back to you within 24 hours.
         </p>
       </div>
     );
@@ -208,7 +208,7 @@ export default function ContactForm() {
         <a href="/privacy-policy" className="text-primary-600 hover:underline">
           Privacy Policy
         </a>
-        . We'll never share your information.
+        . We&apos;ll never share your information.
       </p>
     </form>
   );

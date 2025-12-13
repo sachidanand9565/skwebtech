@@ -103,11 +103,11 @@ export default function ContactPage() {
               Get in Touch
             </span>
             <h1 className="text-4xl md:text-5xl font-heading font-bold text-gray-900 mb-6">
-              Let's Build Something Amazing Together
+              Let&apos;s Build Something Amazing Together
             </h1>
             <p className="text-xl text-gray-600 leading-relaxed">
-              Have a project in mind? We'd love to hear about it. Get in touch and 
-              let's discuss how we can help transform your digital presence.
+              Have a project in mind? We&apos;d love to hear about it. Get in touch and 
+              let&apos;s discuss how we can help transform your digital presence.
             </p>
           </div>
         </div>
@@ -123,7 +123,7 @@ export default function ContactPage() {
                 Send Us a Message
               </h2>
               <p className="text-gray-600 mb-8">
-                Fill out the form below and we'll get back to you within 24 hours 
+                Fill out the form below and we&apos;ll get back to you within 24 hours 
                 with a detailed response to your inquiry.
               </p>
               <ContactForm />
@@ -242,7 +242,7 @@ export default function ContactPage() {
             {/* Additional CTA */}
             <div className="text-center mt-12">
               <p className="text-gray-600 mb-4">
-                Have more questions? We're here to help!
+                Have more questions? We&apos;re here to help!
               </p>
               <a
                 href="mailto:hello@skwebtech.com"

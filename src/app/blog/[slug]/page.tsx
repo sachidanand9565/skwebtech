@@ -16,11 +16,11 @@ import {
   Facebook,
   Twitter,
   Linkedin,
-  Copy,
   Tag,
 } from 'lucide-react';
 import BlogCard from '@/components/common/BlogCard';
 import CTASection from '@/components/common/CTASection';
+import CopyLinkButton from '@/components/common/CopyLinkButton';
 import { getPostBySlug, getRelatedPosts, getAllPosts } from '@/data/blog';
 
 // Generate static params for all blog posts
@@ -242,14 +242,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                     >
                       <Linkedin size={18} />
                     </a>
-                    <button
-                      onClick={() => navigator.clipboard?.writeText(shareUrl)}
-                      className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center
-                               text-gray-600 hover:bg-gray-800 hover:text-white transition-all duration-200"
-                      aria-label="Copy link"
-                    >
-                      <Copy size={18} />
-                    </button>
+                    <CopyLinkButton url={shareUrl} />
                   </div>
                 </div>
               </div>
