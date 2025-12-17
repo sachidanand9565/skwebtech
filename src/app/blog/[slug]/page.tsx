@@ -64,7 +64,7 @@ export async function generateMetadata({
           alt: post.title,
         },
       ],
-      url: `https://skwebtech.com/blog/${post.slug}`,
+      url: `https://skwebtech.in/blog/${post.slug}`,
     },
     twitter: {
       card: 'summary_large_image',
@@ -90,7 +90,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
   });
 
   // Social share URLs
-  const shareUrl = `https://skwebtech.com/blog/${post.slug}`;
+  const shareUrl = `https://skwebtech.in/blog/${post.slug}`;
   const encodedUrl = encodeURIComponent(shareUrl);
   const encodedTitle = encodeURIComponent(post.title);
 

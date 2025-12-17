@@ -159,12 +159,12 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="mailto:hello@skwebtech.com"
+                  href="mailto:hello@skwebtech.in"
                   className="flex items-center space-x-3 text-gray-400 
                            hover:text-primary-400 transition-colors duration-200"
                 >
                   <Mail size={20} className="text-primary-400 flex-shrink-0" />
-                  <span>hello@skwebtech.com</span>
+                  <span>hello@skwebtech.in</span>
                 </a>
               </li>
             </ul>

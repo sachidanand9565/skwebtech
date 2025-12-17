@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     description:
       'Explore our portfolio of successful web development, e-commerce, and IT projects.',
     type: 'website',
-    url: 'https://skwebtech.com/portfolio',
+    url: 'https://skwebtech.in/portfolio',
   },
 };
 

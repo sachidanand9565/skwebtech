@@ -9,11 +9,11 @@ export const siteConfig = {
   tagline: 'Professional Web & IT Solutions',
   description:
     'SK WebTech delivers cutting-edge web development, e-commerce solutions, SEO optimization, and IT services to help your business grow online.',
-  url: 'https://skwebtech.com',
+  url: 'https://skwebtech.in',
 
   // Contact information
   contact: {
-    email: 'hello@skwebtech.com',
+    email: 'hello@skwebtech.in',
     phone: '+1 (234) 567-890',
     phoneRaw: '+1234567890',
     whatsapp: '1234567890',

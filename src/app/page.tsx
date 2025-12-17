@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     description:
       'Transform your business with professional web development, e-commerce, SEO, and IT solutions. Partner with SK WebTech for digital success.',
     type: 'website',
-    url: 'https://skwebtech.com',
+    url: 'https://skwebtech.in',
   },
 };
 

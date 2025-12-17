@@ -28,7 +28,7 @@ const poppins = Poppins({
 
 // Default SEO metadata for the website
 export const metadata: Metadata = {
-  metadataBase: new URL('https://skwebtech.com'),
+  metadataBase: new URL('https://skwebtech.in'),
   title: {
     default: 'SK WebTech - Professional Web & IT Solutions',
     template: '%s | SK WebTech',
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://skwebtech.com',
+    url: 'https://skwebtech.in',
     siteName: 'SK WebTech',
     title: 'SK WebTech - Professional Web & IT Solutions',
     description:

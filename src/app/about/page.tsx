@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     description:
       'Learn about our journey, mission, and vision for empowering businesses through technology.',
     type: 'website',
-    url: 'https://skwebtech.com/about',
+    url: 'https://skwebtech.in/about',
   },
 };
 
@@ -292,7 +292,7 @@ export default function AboutPage() {
                   LinkedIn
                 </a>
                 <a
-                  href="mailto:saurabh@skwebtech.com"
+                  href="mailto:saurabh@skwebtech.in"
                   className="inline-flex items-center px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition-colors"
                 >
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

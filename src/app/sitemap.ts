@@ -7,7 +7,7 @@ import { MetadataRoute } from 'next';
 import { getAllPosts } from '@/data/blog';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://skwebtech.com';
+  const baseUrl = 'https://skwebtech.in';
 
   // Static pages
   const staticPages = [

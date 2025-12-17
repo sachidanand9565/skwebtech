@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     description:
       'Get in touch with us for a free consultation on your next digital project.',
     type: 'website',
-    url: 'https://skwebtech.com/contact',
+    url: 'https://skwebtech.in/contact',
   },
 };
 
@@ -49,9 +49,9 @@ const contactInfo = [
   {
     icon: Mail,
     title: 'Email Us',
-    content: 'hello@skwebtech.com',
+    content: 'hello@skwebtech.in',
     subtext: "We'll respond within 24 hours",
-    href: 'mailto:hello@skwebtech.com',
+    href: 'mailto:hello@skwebtech.in',
   },
   {
     icon: MapPin,
@@ -245,11 +245,11 @@ export default function ContactPage() {
                 Have more questions? We&apos;re here to help!
               </p>
               <a
-                href="mailto:hello@skwebtech.com"
+                href="mailto:hello@skwebtech.in"
                 className="inline-flex items-center text-primary-600 font-medium hover:text-primary-700"
               >
                 <Mail size={20} className="mr-2" />
-                Email us at hello@skwebtech.com
+                Email us at hello@skwebtech.in
               </a>
             </div>
           </div>

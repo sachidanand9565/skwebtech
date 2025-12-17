@@ -206,8 +206,8 @@ This project is licensed under the MIT License.
 ## 👨‍💻 Author
 
 **SK WebTech**
-- Website: [skwebtech.com](https://skwebtech.com)
-- Email: hello@skwebtech.com
+- Website: [skwebtech.in](https://skwebtech.in)
+- Email: hello@skwebtech.in
 
 ---
 

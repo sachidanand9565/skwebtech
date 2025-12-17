@@ -1,5 +1,5 @@
 # SK WebTech - Robots.txt
-# https://skwebtech.com
+# https://skwebtech.in
 
 User-agent: *
 Allow: /
@@ -9,4 +9,4 @@ Disallow: /api/
 Disallow: /_next/
 
 # Sitemap location
-Sitemap: https://skwebtech.com/sitemap.xml
+Sitemap: https://skwebtech.in/sitemap.xml

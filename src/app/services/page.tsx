@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     description:
       'Comprehensive IT services including web development, e-commerce, SEO, app development, and more.',
     type: 'website',
-    url: 'https://skwebtech.com/services',
+    url: 'https://skwebtech.in/services',
   },
 };
 
