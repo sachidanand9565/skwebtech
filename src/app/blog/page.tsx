@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     description:
       'Insights, tips, and resources on web development, SEO, and digital marketing.',
     type: 'website',
-    url: 'https://skwebtech.com/blog',
+    url: 'https://skwebtech.in/blog',
   },
 };
 

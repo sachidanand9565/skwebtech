@@ -208,6 +208,104 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Founder Section */}
+      <section className="py-20 bg-white">
+        <div className="container-custom">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Photo */}
+            <div className="relative">
+              <div className="relative aspect-[4/5] max-w-md mx-auto lg:mx-0">
+                {/* Background decoration */}
+                <div className="absolute -top-4 -left-4 w-full h-full bg-primary-100 rounded-3xl" />
+                <div className="absolute -bottom-4 -right-4 w-full h-full bg-accent-100 rounded-3xl" />
+                
+                {/* Photo container */}
+                <div className="relative w-full h-full bg-gradient-to-br from-primary-600 to-primary-700 rounded-3xl overflow-hidden shadow-2xl">
+                  {/* Replace with actual image */}
+                  <Image
+                    src="/images/founder.jpg"
+                    alt="SK - Founder of SK WebTech"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                  {/* Fallback if image not available */}
+                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary-600 to-primary-700">
+                    <span className="text-8xl font-heading font-bold text-white/30">SK</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Details */}
+            <div>
+              <span className="inline-block px-4 py-1.5 bg-accent-100 text-accent-700 text-sm font-medium rounded-full mb-4">
+                Meet the Founder
+              </span>
+              <h2 className="text-3xl md:text-4xl font-heading font-bold text-gray-900 mb-4">
+                Saurabh Kumar
+              </h2>
+              <p className="text-xl text-primary-600 font-medium mb-6">
+                Founder &amp; CEO, SK WebTech
+              </p>
+              <div className="space-y-4 text-gray-600 leading-relaxed">
+                <p>
+                  With over 10 years of experience in the IT industry, I founded SK WebTech 
+                  with a simple mission: to help businesses succeed in the digital world by 
+                  providing top-quality, affordable technology solutions.
+                </p>
+                <p>
+                  My journey started as a passionate developer, and today I lead a team of 
+                  50+ talented professionals who share my vision of empowering businesses 
+                  through innovative technology.
+                </p>
+                <p>
+                  I believe in building lasting relationships with our clients, understanding 
+                  their unique challenges, and delivering solutions that drive real results. 
+                  Every project we undertake is a reflection of our commitment to excellence.
+                </p>
+              </div>
+
+              {/* Quick Info */}
+              <div className="mt-8 grid grid-cols-2 gap-4">
+                <div className="bg-gray-50 rounded-xl p-4">
+                  <div className="text-2xl font-heading font-bold text-primary-600">10+</div>
+                  <div className="text-sm text-gray-600">Years Experience</div>
+                </div>
+                <div className="bg-gray-50 rounded-xl p-4">
+                  <div className="text-2xl font-heading font-bold text-primary-600">500+</div>
+                  <div className="text-sm text-gray-600">Projects Led</div>
+                </div>
+              </div>
+
+              {/* Social/Contact */}
+              <div className="mt-8 flex flex-wrap gap-4">
+                <a
+                  href="https://www.linkedin.com/in/skwebtech"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                  </svg>
+                  LinkedIn
+                </a>
+                <a
+                  href="mailto:saurabh@skwebtech.com"
+                  className="inline-flex items-center px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition-colors"
+                >
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  Email Me
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Core Values */}
       <section className="py-20 bg-gray-50">
         <div className="container-custom">

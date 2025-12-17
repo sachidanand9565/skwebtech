@@ -48,6 +48,18 @@ export const metadata: Metadata = {
   authors: [{ name: 'SK WebTech' }],
   creator: 'SK WebTech',
   publisher: 'SK WebTech',
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-16x16.png', type: 'image/png', sizes: '16x16' },
+      { url: '/favicon-32x32.png', type: 'image/png', sizes: '32x32' },
+      { url: '/android-chrome-192x192.png', type: 'image/png', sizes: '192x192' },
+      { url: '/android-chrome-512x512.png', type: 'image/png', sizes: '512x512' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', type: 'image/png', sizes: '180x180' },
+    ],
+  },
   formatDetection: {
     email: false,
     address: false,
@@ -78,11 +90,11 @@ export const metadata: Metadata = {
     images: ['/og-image.jpg'],
   },
   robots: {
-    index: true,
-    follow: true,
+    index: false,
+    follow: false,
     googleBot: {
-      index: true,
-      follow: true,
+      index: false,
+      follow: false,
       'max-video-preview': -1,
       'max-image-preview': 'large',
       'max-snippet': -1,

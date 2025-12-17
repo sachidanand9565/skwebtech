@@ -4,7 +4,7 @@
  */
 
 import { Metadata } from 'next';
-import PortfolioPreviewSection from '@/components/sections/PortfolioPreviewSection';
+import PortfolioContent from '@/components/sections/PortfolioContent';
 import CTASection from '@/components/common/CTASection';
 
 // SEO Metadata for Portfolio page
@@ -29,80 +29,57 @@ export const metadata: Metadata = {
   },
 };
 
-// Project categories for filtering
-const categories = [
-  { id: 'all', name: 'All Projects' },
-  { id: 'web', name: 'Web Development' },
-  { id: 'ecommerce', name: 'E-Commerce' },
-  { id: 'mobile', name: 'Mobile Apps' },
-  { id: 'dashboard', name: 'Dashboards' },
-  { id: 'edtech', name: 'EdTech' },
-];
-
 export default function PortfolioPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-gradient-to-br from-gray-50 to-primary-50">
+      <section className="pt-32 pb-16 bg-gradient-to-br from-gray-50 via-primary-50/50 to-accent-50/30">
         <div className="container-custom">
           <div className="max-w-3xl mx-auto text-center">
             <span className="inline-block px-4 py-1.5 bg-primary-100 text-primary-700 text-sm font-medium rounded-full mb-4">
-              Our Portfolio
+              My Work
             </span>
-            <h1 className="text-4xl md:text-5xl font-heading font-bold text-gray-900 mb-6">
-              Projects That Speak for Themselves
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-gray-900 mb-6">
+              Latest Projects and<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-accent-500">
+                Creative Solutions
+              </span>
             </h1>
-            <p className="text-xl text-gray-600 leading-relaxed">
+            <p className="text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">
               Explore our diverse portfolio of successful projects across various 
               industries. Each project represents our commitment to quality and innovation.
             </p>
           </div>
-
-          {/* Category Filters */}
-          <div className="flex flex-wrap justify-center gap-3 mt-10">
-            {categories.map((category) => (
-              <button
-                key={category.id}
-                className={`px-5 py-2.5 rounded-full font-medium text-sm transition-all duration-200 ${
-                  category.id === 'all'
-                    ? 'bg-primary-600 text-white'
-                    : 'bg-white text-gray-700 hover:bg-primary-50 hover:text-primary-600'
-                }`}
-              >
-                {category.name}
-              </button>
-            ))}
-          </div>
         </div>
       </section>
 
-      {/* Portfolio Grid - Show all projects */}
-      <PortfolioPreviewSection showAll={true} />
+      {/* Portfolio Grid with Filters */}
+      <PortfolioContent />
 
       {/* Stats Section */}
       <section className="py-20 bg-white">
         <div className="container-custom">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-heading font-bold text-primary-600 mb-2">
+            <div className="text-center group">
+              <div className="text-4xl md:text-5xl font-heading font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-primary-400 mb-2 group-hover:scale-110 transition-transform">
                 500+
               </div>
               <div className="text-gray-600">Projects Delivered</div>
             </div>
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-heading font-bold text-primary-600 mb-2">
+            <div className="text-center group">
+              <div className="text-4xl md:text-5xl font-heading font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-primary-400 mb-2 group-hover:scale-110 transition-transform">
                 100+
               </div>
               <div className="text-gray-600">Happy Clients</div>
             </div>
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-heading font-bold text-primary-600 mb-2">
+            <div className="text-center group">
+              <div className="text-4xl md:text-5xl font-heading font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-primary-400 mb-2 group-hover:scale-110 transition-transform">
                 15+
               </div>
               <div className="text-gray-600">Industries Served</div>
             </div>
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-heading font-bold text-primary-600 mb-2">
+            <div className="text-center group">
+              <div className="text-4xl md:text-5xl font-heading font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-primary-400 mb-2 group-hover:scale-110 transition-transform">
                 98%
               </div>
               <div className="text-gray-600">Client Satisfaction</div>
