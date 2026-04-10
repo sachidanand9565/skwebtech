@@ -10,6 +10,7 @@ import WhyChooseUsSection from '@/components/sections/WhyChooseUsSection';
 import PortfolioPreviewSection from '@/components/sections/PortfolioPreviewSection';
 import TestimonialsSection from '@/components/sections/TestimonialsSection';
 import CTASection from '@/components/common/CTASection';
+import PortfolioContent from '@/components/sections/PortfolioContent';
 
 // Page-specific metadata
 export const metadata: Metadata = {
@@ -59,7 +60,7 @@ export default function HomePage() {
         subtitle="Let's discuss your project and see how we can help your business grow. 
                  Get a free consultation today!"
         primaryCTA={{ text: 'Get Free Consultation', href: '/contact' }}
-        secondaryCTA={{ text: 'Call Us Now', href: 'tel:+1234567890' }}
+        secondaryCTA={{ text: 'Call Us Now', href: 'tel:6386103750' }}
       />
     </>
   );

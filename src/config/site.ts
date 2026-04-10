@@ -8,21 +8,21 @@ export const siteConfig = {
   name: 'SK WebTech',
   tagline: 'Professional Web & IT Solutions',
   description:
-    'SK WebTech delivers cutting-edge web development, e-commerce solutions, SEO optimization, and IT services to help your business grow online.',
+    'SK WebTech, led by experienced digital strategist Sachidanand Kushwaha, delivers cutting-edge web development, e-commerce solutions, SEO optimization, and IT services to help your business grow online.',
   url: 'https://skwebtech.in',
 
   // Contact information
   contact: {
-    email: 'hello@skwebtech.in',
-    phone: '+1 (234) 567-890',
-    phoneRaw: '+1234567890',
-    whatsapp: '1234567890',
+    email: 'sachi274406@gmail.com',
+    phone: '+91 6386103750',
+    phoneRaw: '6386103750',
+    whatsapp: '916386103750',
     address: {
-      street: '123 Tech Street, Suite 456',
-      city: 'San Francisco',
-      state: 'CA',
-      zip: '94102',
-      country: 'USA',
+      street: 'Remote services available worldwide',
+      city: 'India',
+      state: '',
+      zip: '',
+      country: 'Worldwide',
     },
   },
 
@@ -35,10 +35,10 @@ export const siteConfig = {
 
   // Social media links
   social: {
-    facebook: 'https://facebook.com/skwebtech',
-    twitter: 'https://twitter.com/skwebtech',
-    linkedin: 'https://linkedin.com/company/skwebtech',
-    instagram: 'https://instagram.com/skwebtech',
+    facebook: 'https://www.facebook.com/sachidanandkushwaha.sachidanandkushwaha',
+    twitter: 'https://x.com/Sachida38689078',
+    linkedin: 'https://linkedin.com/in/sachidanand-kushwaha',
+    instagram: 'https://www.instagram.com/sachidanand.kushwaha/',
     github: 'https://github.com/skwebtech',
   },
 

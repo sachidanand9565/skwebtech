@@ -63,7 +63,7 @@ const services = [
 
 export default function ServicesSection() {
   return (
-    <section className="py-20 md:py-28 bg-gray-50" id="services">
+    <section className="py-16 md:py-20 bg-gray-50" id="services">
       <div className="container-custom">
         {/* Section Header */}
         <SectionHeader
@@ -74,7 +74,7 @@ export default function ServicesSection() {
         />
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
           {services.map((service, index) => (
             <ServiceCard
               key={service.title}

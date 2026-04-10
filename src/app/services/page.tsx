@@ -25,7 +25,7 @@ import CTASection from '@/components/common/CTASection';
 export const metadata: Metadata = {
   title: 'Our Services - Web Development, SEO, E-Commerce & More',
   description:
-    'Explore SK WebTech\'s comprehensive IT services including web development, e-commerce solutions, SEO optimization, mobile app development, UI/UX design, and website maintenance.',
+    'Explore SK WebTech\'s business-focused IT services led by Sachidanand Kushwaha. From websites and e-commerce stores to SEO, mobile apps, UI/UX design, and managed support — we deliver growth-driven digital solutions.',
   keywords: [
     'web development services',
     'e-commerce development',
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Our Services | SK WebTech',
     description:
-      'Comprehensive IT services including web development, e-commerce, SEO, app development, and more.',
+      'Growth-focused web development, e-commerce, SEO, app development, and managed IT services from SK WebTech.',
     type: 'website',
     url: 'https://skwebtech.in/services',
   },
@@ -129,7 +129,7 @@ const services = [
       'Design system creation',
       'Accessibility compliance',
     ],
-    technologies: ['Figma', 'Adobe XD', 'Sketch', 'InVision', 'Zeplin'],
+    technologies: ['Figma', 'Adobe XD', 'Sketch','InVision', 'Zeplin'],
     color: 'from-pink-500 to-pink-600',
   },
   {
@@ -187,95 +187,117 @@ export default function ServicesPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-to-br from-gray-50 to-primary-50">
+      <section className="pt-20 md:pt-28 pb-16 md:pb-20 bg-gradient-to-br from-gray-50 to-primary-50 overflow-hidden">
         <div className="container-custom">
           <div className="max-w-3xl mx-auto text-center">
-            <span className="inline-block px-4 py-1.5 bg-primary-100 text-primary-700 text-sm font-medium rounded-full mb-4">
+            <span className="inline-block px-3 py-1 bg-primary-100 text-primary-700 text-xs md:text-sm font-medium rounded-full mb-3 md:mb-4">
               Our Services
             </span>
-            <h1 className="text-4xl md:text-5xl font-heading font-bold text-gray-900 mb-6">
-              Comprehensive IT Solutions for Your Business Growth
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-gray-900 mb-4 md:mb-6">
+              Growth-Focused Web & IT Services for Modern Businesses
             </h1>
-            <p className="text-xl text-gray-600 leading-relaxed">
-              From web development to digital marketing, we offer end-to-end solutions 
-              designed to help your business thrive in the digital age.
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 leading-relaxed mx-auto max-w-2xl">
+              Led by Sachidanand Kushwaha, SK WebTech builds websites, e-commerce stores, SEO campaigns, mobile apps, and managed support solutions that help businesses grow faster and compete with confidence.
             </p>
+
+            <div className="mt-8 md:mt-10 grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 text-left">
+              <div className="rounded-2xl md:rounded-3xl border border-gray-200 bg-white p-4 md:p-6 shadow-sm">
+                <p className="text-xs uppercase tracking-[0.24em] text-gray-500 mb-2 md:mb-3">Delivery</p>
+                <p className="text-xl md:text-2xl font-heading font-bold text-gray-900">Fast & Reliable</p>
+              </div>
+              <div className="rounded-2xl md:rounded-3xl border border-gray-200 bg-white p-4 md:p-6 shadow-sm">
+                <p className="text-xs uppercase tracking-[0.24em] text-gray-500 mb-2 md:mb-3">Expertise</p>
+                <p className="text-xl md:text-2xl font-heading font-bold text-gray-900">10+ Years</p>
+              </div>
+              <div className="rounded-2xl md:rounded-3xl border border-gray-200 bg-white p-4 md:p-6 shadow-sm">
+                <p className="text-xs uppercase tracking-[0.24em] text-gray-500 mb-2 md:mb-3">Support</p>
+                <p className="text-xl md:text-2xl font-heading font-bold text-gray-900">24/7 Coverage</p>
+              </div>
+            </div>
+
+            <div className="mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4">
+              <Link href="/contact" className="btn-accent text-base md:text-lg px-6 md:px-8 py-3 md:py-4 w-full sm:w-auto">
+                Book a Free Consultation
+                <ArrowRight size={18} className="ml-2" />
+              </Link>
+              <Link href="/portfolio" className="btn-secondary text-base md:text-lg px-6 md:px-8 py-3 md:py-4 w-full sm:w-auto">
+                View Our Work
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Services List */}
-      <section className="py-20">
+      <section className="py-12 md:py-20 overflow-hidden">
         <div className="container-custom">
-          <div className="space-y-24">
+          <div className="space-y-16 md:space-y-24 w-full">
             {services.map((service, index) => (
               <div
                 key={service.id}
                 id={service.id}
-                className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${
-                  index % 2 === 1 ? 'lg:flex-row-reverse' : ''
-                }`}
+                className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center w-full"
               >
                 {/* Content */}
-                <div className={index % 2 === 1 ? 'lg:order-2' : ''}>
+                <div className={index % 2 !== 0 ? 'lg:order-2' : ''}>
                   <div
-                    className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${service.color} 
-                              flex items-center justify-center mb-6`}
+                    className={`w-12 md:w-16 h-12 md:h-16 rounded-2xl bg-gradient-to-r ${service.color} 
+                              flex items-center justify-center mb-4 md:mb-6`}
                   >
-                    <service.icon size={32} className="text-white" />
+                    <service.icon size={28} className="text-white md:w-8 md:h-8" />
                   </div>
-                  <h2 className="text-3xl md:text-4xl font-heading font-bold text-gray-900 mb-4">
+                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-gray-900 mb-3 md:mb-4">
                     {service.title}
                   </h2>
-                  <p className="text-lg text-gray-600 leading-relaxed mb-8">
+                  <p className="text-base md:text-lg text-gray-600 leading-relaxed mb-6 md:mb-8">
                     {service.description}
                   </p>
 
                   {/* Features List */}
-                  <ul className="space-y-3 mb-8">
+                  <ul className="space-y-2 md:space-y-3 mb-6 md:mb-8">
                     {service.features.map((feature) => (
                       <li key={feature} className="flex items-start">
                         <CheckCircle
-                          size={20}
-                          className="text-green-500 mr-3 mt-0.5 flex-shrink-0"
+                          size={18}
+                          className="text-green-500 mr-2.5 md:mr-3 mt-0.5 flex-shrink-0"
                         />
-                        <span className="text-gray-700">{feature}</span>
+                        <span className="text-gray-700 text-sm md:text-base">{feature}</span>
                       </li>
                     ))}
                   </ul>
 
                   {/* Technologies */}
-                  <div className="flex flex-wrap gap-2 mb-8">
+                  <div className="flex flex-wrap gap-2 mb-6 md:mb-8">
                     {service.technologies.map((tech) => (
                       <span
                         key={tech}
-                        className="px-3 py-1.5 bg-gray-100 text-gray-700 text-sm rounded-lg"
+                        className="px-2.5 md:px-3 py-1 md:py-1.5 bg-gray-100 text-gray-700 text-xs md:text-sm rounded-lg"
                       >
                         {tech}
                       </span>
                     ))}
                   </div>
 
-                  <Link href="/contact" className="btn-primary">
-                    Get Started
-                    <ArrowRight size={18} className="ml-2" />
+                  <Link href="/contact" className="btn-primary text-sm md:text-base">
+                    Book a Free Consultation
+                    <ArrowRight size={16} className="ml-2" />
                   </Link>
                 </div>
 
                 {/* Visual */}
-                <div className={index % 2 === 1 ? 'lg:order-1' : ''}>
+                <div className={`hidden lg:block ${index % 2 !== 0 ? 'lg:order-1' : ''}`}>
                   <div
-                    className={`aspect-square rounded-3xl bg-gradient-to-br ${service.color} 
-                              p-8 flex items-center justify-center relative overflow-hidden`}
+                    className={`aspect-square rounded-2xl md:rounded-3xl bg-gradient-to-br ${service.color} 
+                              p-6 md:p-8 flex items-center justify-center relative overflow-hidden`}
                   >
                     {/* Background decoration */}
                     <div className="absolute inset-0 opacity-10">
-                      <div className="absolute top-10 right-10 w-40 h-40 bg-white rounded-full" />
-                      <div className="absolute bottom-10 left-10 w-32 h-32 bg-white rounded-full" />
+                      <div className="absolute top-8 md:top-10 right-8 md:right-10 w-32 md:w-40 h-32 md:h-40 bg-white rounded-full" />
+                      <div className="absolute bottom-8 md:bottom-10 left-8 md:left-10 w-24 md:w-32 h-24 md:h-32 bg-white rounded-full" />
                     </div>
-                    
+
                     {/* Icon */}
-                    <service.icon size={200} className="text-white/20" />
+                    <service.icon size={140} className="text-white/20 md:w-[200px] md:h-[200px]" />
                   </div>
                 </div>
               </div>
@@ -285,7 +307,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Our Process */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-12 md:py-20 bg-gray-50 overflow-hidden">
         <div className="container-custom">
           <SectionHeader
             badge="Our Process"
@@ -293,23 +315,23 @@ export default function ServicesPage() {
             subtitle="Our streamlined process ensures efficient delivery and exceptional results for every project."
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mt-12 md:mt-16">
             {processSteps.map((step) => (
               <div key={step.step} className="relative">
                 {/* Connector line */}
-                <div className="hidden lg:block absolute top-10 left-full w-full h-0.5 bg-primary-200 -translate-x-1/2 z-0" />
-                
-                <div className="bg-white rounded-2xl p-8 shadow-card relative z-10">
-                  <span className="text-5xl font-heading font-bold text-primary-100">
+                <div className="hidden lg:block absolute top-8 md:top-10 left-full w-full h-0.5 bg-primary-200 -translate-x-1/2 z-0" />
+
+                <div className="bg-white rounded-2xl p-6 md:p-8 shadow-card relative z-10">
+                  <span className="text-4xl md:text-5xl font-heading font-bold text-primary-100">
                     {step.step}
                   </span>
-                  <div className="w-12 h-12 bg-primary-100 rounded-xl flex items-center justify-center my-4">
-                    <step.icon size={24} className="text-primary-600" />
+                  <div className="w-10 md:w-12 h-10 md:h-12 bg-primary-100 rounded-lg md:rounded-xl flex items-center justify-center my-3 md:my-4">
+                    <step.icon size={20} className="text-primary-600 md:w-6 md:h-6" />
                   </div>
-                  <h3 className="text-xl font-heading font-semibold text-gray-900 mb-2">
+                  <h3 className="text-lg md:text-xl font-heading font-semibold text-gray-900 mb-2">
                     {step.title}
                   </h3>
-                  <p className="text-gray-600">{step.description}</p>
+                  <p className="text-sm md:text-base text-gray-600">{step.description}</p>
                 </div>
               </div>
             ))}

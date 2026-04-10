@@ -42,23 +42,23 @@ const contactInfo = [
   {
     icon: Phone,
     title: 'Call Us',
-    content: '+1 (234) 567-890',
+    content: '+91 6386103750',
     subtext: 'Mon-Fri from 9am to 6pm',
-    href: 'tel:+1234567890',
+    href: 'tel:6386103750',
   },
   {
     icon: Mail,
     title: 'Email Us',
-    content: 'hello@skwebtech.in',
+    content: 'sachi274406@gmail.com',
     subtext: "We'll respond within 24 hours",
-    href: 'mailto:hello@skwebtech.in',
+    href: 'mailto:sachi274406@gmail.com',
   },
   {
     icon: MapPin,
-    title: 'Visit Us',
-    content: '123 Tech Street, Suite 456',
-    subtext: 'San Francisco, CA 94102',
-    href: 'https://maps.google.com',
+    title: 'Remote Services',
+    content: 'Worldwide client support',
+    subtext: 'Based in India with global delivery',
+    href: 'https://linkedin.com/in/sachidanand-kushwaha',
   },
   {
     icon: Clock,
@@ -175,7 +175,7 @@ export default function ContactPage() {
                       Chat with us directly for quick responses. We typically reply within minutes!
                     </p>
                     <a
-                      href="https://wa.me/1234567890?text=Hi%20SK%20WebTech!%20I%20would%20like%20to%20inquire%20about%20your%20services."
+                      href="https://wa.me/916386103750?text=Hi%20SK%20WebTech!%20I%20would%20like%20to%20inquire%20about%20your%20services."
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center bg-green-500 text-white px-5 py-2.5 
@@ -194,7 +194,7 @@ export default function ContactPage() {
                   <div className="text-center">
                     <MapPin size={48} className="text-gray-400 mx-auto mb-3" />
                     <p className="text-gray-500">
-                      Interactive map will be displayed here
+                      We work with clients worldwide and deliver projects remotely with trusted communication.
                     </p>
                     <a
                       href="https://maps.google.com"
@@ -245,11 +245,11 @@ export default function ContactPage() {
                 Have more questions? We&apos;re here to help!
               </p>
               <a
-                href="mailto:hello@skwebtech.in"
+                href="mailto:sachi274406@gmail.com"
                 className="inline-flex items-center text-primary-600 font-medium hover:text-primary-700"
               >
                 <Mail size={20} className="mr-2" />
-                Email us at hello@skwebtech.in
+                Email us at sachi274406@gmail.com
               </a>
             </div>
           </div>
@@ -267,11 +267,11 @@ export default function ContactPage() {
             to help you achieve your digital goals.
           </p>
           <a
-            href="tel:+1234567890"
+            href="tel:6386103750"
             className="btn-accent inline-flex text-lg"
           >
             <Phone size={20} className="mr-2" />
-            Call Us: +1 (234) 567-890
+            Call Us: +91 6386103750
           </a>
         </div>
       </section>

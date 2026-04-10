@@ -26,21 +26,31 @@ export default function ContactForm() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setErrorMessage(null);
     setIsSubmitting(true);
 
-    // Simulate form submission
-    // Replace with actual API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+      const result = await response.json();
 
-    // Reset form after showing success
-    setTimeout(() => {
-      setIsSubmitted(false);
+      if (!response.ok) {
+        setErrorMessage(result.error || 'Unable to send message. Please try again later.');
+        setIsSubmitting(false);
+        return;
+      }
+
+      setIsSubmitted(true);
       setFormData({
         name: '',
         email: '',
@@ -48,7 +58,11 @@ export default function ContactForm() {
         service: '',
         message: '',
       });
-    }, 3000);
+    } catch (error) {
+      setErrorMessage('Unable to send message. Please check your connection and try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
@@ -132,7 +146,7 @@ export default function ContactForm() {
             name="phone"
             value={formData.phone}
             onChange={handleChange}
-            placeholder="+1 (234) 567-890"
+            placeholder="+91 6386103750"
             className="form-input"
           />
         </div>
@@ -202,13 +216,15 @@ export default function ContactForm() {
         )}
       </button>
 
+      {errorMessage ? (
+        <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+          {errorMessage}
+        </div>
+      ) : null}
+
       {/* Privacy Note */}
       <p className="text-xs text-gray-500 text-center">
-        By submitting this form, you agree to our{' '}
-        <a href="/privacy-policy" className="text-primary-600 hover:underline">
-          Privacy Policy
-        </a>
-        . We&apos;ll never share your information.
+        We respect your privacy and will never share your personal information without your permission.
       </p>
     </form>
   );

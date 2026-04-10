@@ -6,17 +6,22 @@
 'use client';
 
 import { useState } from 'react';
-import { MessageCircle, X } from 'lucide-react';
+import { MessageCircle } from 'lucide-react';
 
 export default function WhatsAppButton() {
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
   
   // WhatsApp configuration
-  const phoneNumber = '1234567890'; // Replace with actual number
+  const phoneNumber = '916386103750';
   const message = encodeURIComponent(
-    'Hi SK WebTech! I would like to inquire about your services.'
+    'Hi SK WebTech! I would like to inquire about your web or IT services.'
   );
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+
+  const handleWhatsAppClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+  };
 
   return (
     <div className="fixed bottom-6 right-6 z-40">
@@ -45,17 +50,16 @@ export default function WhatsAppButton() {
       {/* WhatsApp Button */}
       <a
         href={whatsappUrl}
-        target="_blank"
-        rel="noopener noreferrer"
+        onClick={handleWhatsAppClick}
         onMouseEnter={() => setIsTooltipVisible(true)}
         onMouseLeave={() => setIsTooltipVisible(false)}
         className="flex items-center justify-center w-14 h-14 bg-green-500 
                  text-white rounded-full shadow-lg hover:bg-green-600 
                  hover:shadow-xl transition-all duration-300
-                 animate-bounce-subtle hover:animate-none"
+                 animate-bounce-subtle hover:animate-none cursor-pointer"
         aria-label="Contact us on WhatsApp"
       >
-        <MessageCircle size={28} fill="currentColor" />
+        <MessageCircle size={24} strokeWidth={2} />
       </a>
 
       {/* Pulse effect */}

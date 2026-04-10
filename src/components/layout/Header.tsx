@@ -138,7 +138,7 @@ export default function Header() {
                 Get Free Quote
               </Link>
               <p className="text-center text-gray-500 text-sm mt-4">
-                Call us: <a href="tel:+1234567890" className="text-primary-600">+1 234 567 890</a>
+                Call us: <a href="tel:6386103750" className="text-primary-600">+91 6386103750</a>
               </p>
             </div>
           </div>

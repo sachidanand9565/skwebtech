@@ -66,7 +66,7 @@ export default function TestimonialsSection({ limit = 3 }: TestimonialsSectionPr
   const displayedTestimonials = testimonials.slice(0, limit);
 
   return (
-    <section className="py-20 md:py-28 bg-white">
+    <section className="py-16 md:py-20 bg-white">
       <div className="container-custom">
         {/* Section Header */}
         <SectionHeader
@@ -77,7 +77,7 @@ export default function TestimonialsSection({ limit = 3 }: TestimonialsSectionPr
         />
 
         {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
           {displayedTestimonials.map((testimonial) => (
             <TestimonialCard
               key={testimonial.name}
@@ -91,7 +91,7 @@ export default function TestimonialsSection({ limit = 3 }: TestimonialsSectionPr
         </div>
 
         {/* Overall Rating */}
-        <div className="mt-16 text-center">
+        <div className="mt-12 text-center">
           <div className="inline-flex items-center bg-primary-50 rounded-full px-8 py-4">
             <div className="flex items-center mr-4">
               {[...Array(5)].map((_, i) => (

@@ -16,12 +16,12 @@ const trustBadges = [
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-gray-50 via-white to-primary-50">
+    <section className="relative overflow-hidden bg-gradient-to-br from-gray-50 via-white to-primary-50">
       {/* Background decorations */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Gradient orbs */}
-        <div className="absolute top-20 right-1/4 w-96 h-96 bg-primary-200/30 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 left-1/4 w-80 h-80 bg-accent-200/20 rounded-full blur-3xl" />
+        <div className="absolute top-16 right-1/4 w-80 h-80 bg-primary-200/30 rounded-full blur-3xl" />
+        <div className="absolute bottom-16 left-1/4 w-72 h-72 bg-accent-200/20 rounded-full blur-3xl" />
         
         {/* Grid pattern */}
         <div
@@ -32,93 +32,93 @@ export default function HeroSection() {
         />
       </div>
 
-      <div className="container-custom pt-24 pb-16 md:pt-32 md:pb-24 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div className="container-custom py-12 md:py-20 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left Column - Content */}
           <div className="text-center lg:text-left">
             {/* Badge */}
-            <div className="inline-flex items-center px-4 py-2 bg-primary-100 rounded-full mb-6">
+            <div className="inline-flex items-center px-3 py-1.5 bg-primary-100 rounded-full mb-3">
               <span className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse" />
-              <span className="text-primary-700 text-sm font-medium">
+              <span className="text-primary-700 text-xs sm:text-sm font-medium">
                 Trusted IT Partner Since 2014
               </span>
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold text-gray-900 leading-tight mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-gray-900 leading-tight mb-4">
               Grow Your Business With{' '}
               <span className="gradient-text">Professional Web & IT Solutions</span>
             </h1>
 
             {/* Subtext */}
-            <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 leading-relaxed mb-6 max-w-xl mx-auto lg:mx-0">
               We help businesses transform their digital presence with cutting-edge 
               web development, e-commerce solutions, and comprehensive IT services 
               tailored to your needs.
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-10">
-              <Link href="/contact" className="btn-accent text-lg px-8 py-4 w-full sm:w-auto">
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 mb-6">
+              <Link href="/contact" className="btn-accent text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 w-full sm:w-auto">
                 Get Free Consultation
-                <ArrowRight size={20} className="ml-2" />
+                <ArrowRight size={18} className="ml-2" />
               </Link>
               <Link
                 href="/portfolio"
-                className="btn-secondary text-lg px-8 py-4 w-full sm:w-auto"
+                className="btn-secondary text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 w-full sm:w-auto"
               >
                 View Our Work
               </Link>
             </div>
 
             {/* Trust Badges */}
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6">
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 text-xs sm:text-sm">
               {trustBadges.map((badge) => (
                 <div key={badge} className="flex items-center text-gray-600">
-                  <CheckCircle size={18} className="text-green-500 mr-2" />
-                  <span className="text-sm font-medium">{badge}</span>
+                  <CheckCircle size={16} className="text-green-500 mr-1.5" />
+                  <span className="font-medium">{badge}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Right Column - Visual */}
-          <div className="relative lg:pl-8">
+          {/* Right Column - Visual (Hidden on mobile) */}
+          <div className="relative hidden lg:block lg:pl-8">
             {/* Main image container */}
             <div className="relative">
               {/* Decorative frame */}
               <div className="absolute -inset-4 bg-gradient-to-r from-primary-500 to-accent-500 rounded-3xl opacity-10 blur-2xl" />
               
               {/* Main image */}
-              <div className="relative bg-gradient-to-br from-primary-600 to-primary-700 rounded-3xl p-8 md:p-12 shadow-soft-lg">
+              <div className="relative bg-gradient-to-br from-primary-600 to-primary-700 rounded-3xl p-6 md:p-8 shadow-soft-lg">
                 {/* Stats cards */}
-                <div className="grid grid-cols-2 gap-6">
-                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-white">
-                    <div className="text-4xl font-bold mb-2">500+</div>
-                    <div className="text-primary-100 text-sm">Projects Completed</div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-white">
+                    <div className="text-3xl font-bold mb-1">500+</div>
+                    <div className="text-primary-100 text-xs">Projects Completed</div>
                   </div>
-                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-white">
-                    <div className="text-4xl font-bold mb-2">100+</div>
-                    <div className="text-primary-100 text-sm">Happy Clients</div>
+                  <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-white">
+                    <div className="text-3xl font-bold mb-1">100+</div>
+                    <div className="text-primary-100 text-xs">Happy Clients</div>
                   </div>
-                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-white">
-                    <div className="text-4xl font-bold mb-2">10+</div>
-                    <div className="text-primary-100 text-sm">Years Experience</div>
+                  <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-white">
+                    <div className="text-3xl font-bold mb-1">10+</div>
+                    <div className="text-primary-100 text-xs">Years Experience</div>
                   </div>
-                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-white">
-                    <div className="text-4xl font-bold mb-2">24/7</div>
-                    <div className="text-primary-100 text-sm">Support Available</div>
+                  <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-white">
+                    <div className="text-3xl font-bold mb-1">24/7</div>
+                    <div className="text-primary-100 text-xs">Support Available</div>
                   </div>
                 </div>
 
                 {/* Floating badge */}
-                <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-soft-lg px-6 py-4 flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                    <CheckCircle size={24} className="text-green-600" />
+                <div className="absolute -bottom-4 -left-4 bg-white rounded-xl shadow-soft-lg px-4 py-2.5 flex items-center space-x-2">
+                  <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                    <CheckCircle size={20} className="text-green-600" />
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900">Rated 5.0</div>
-                    <div className="text-sm text-gray-500">Based on 200+ reviews</div>
+                    <div className="font-semibold text-gray-900 text-sm">Rated 5.0</div>
+                    <div className="text-gray-500 text-xs">200+ reviews</div>
                   </div>
                 </div>
               </div>

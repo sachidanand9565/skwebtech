@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     template: '%s | SK WebTech',
   },
   description:
-    'SK WebTech delivers cutting-edge web development, e-commerce solutions, SEO optimization, and IT services to help your business grow online. Get a free consultation today!',
+    'SK WebTech, led by Sachidanand Kushwaha, delivers cutting-edge web development, e-commerce solutions, SEO optimization, and IT services to help your business grow online. Get a free consultation today!',
   keywords: [
     'web development',
     'IT services',
@@ -90,18 +90,15 @@ export const metadata: Metadata = {
     images: ['/og-image.jpg'],
   },
   robots: {
-    index: false,
-    follow: false,
+    index: true,
+    follow: true,
     googleBot: {
-      index: false,
-      follow: false,
+      index: true,
+      follow: true,
       'max-video-preview': -1,
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
-  },
-  verification: {
-    google: 'your-google-verification-code',
   },
 };
 

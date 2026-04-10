@@ -86,32 +86,27 @@ const whyChooseUs = [
 // Timeline milestones
 const milestones = [
   {
-    year: '2014',
-    title: 'Founded',
-    description: 'SK WebTech was founded with a vision to empower businesses through technology.',
+    year: '2022',
+    title: 'Major Growth',
+    description: 'SK WebTech launched with a vision to empower businesses through innovative technology solutions.',
   },
   {
-    year: '2016',
+    year: '2023',
     title: 'First 100 Clients',
     description: 'Reached our first milestone of 100 satisfied clients across various industries.',
   },
   {
-    year: '2018',
+    year: '2024',
     title: 'Global Expansion',
     description: 'Expanded our services internationally, serving clients in 10+ countries.',
   },
   {
-    year: '2020',
+    year: '2025',
     title: 'Team Growth',
     description: 'Grew our team to 50+ professionals, strengthening our capabilities.',
   },
   {
-    year: '2022',
-    title: '500+ Projects',
-    description: 'Celebrated the completion of our 500th successful project.',
-  },
-  {
-    year: '2024',
+    year: '2026',
     title: 'Innovation Focus',
     description: 'Launched new AI-powered solutions and expanded into emerging technologies.',
   },
@@ -121,28 +116,28 @@ export default function AboutPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-to-br from-gray-50 to-primary-50">
+      <section className="pt-20 md:pt-28 pb-16 md:pb-20 bg-gradient-to-br from-gray-50 to-primary-50 overflow-hidden">
         <div className="container-custom">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             {/* Content */}
             <div>
-              <span className="inline-block px-4 py-1.5 bg-primary-100 text-primary-700 text-sm font-medium rounded-full mb-4">
+              <span className="inline-block px-3 md:px-4 py-1 md:py-1.5 bg-primary-100 text-primary-700 text-xs md:text-sm font-medium rounded-full mb-3 md:mb-4">
                 About SK WebTech
               </span>
-              <h1 className="text-4xl md:text-5xl font-heading font-bold text-gray-900 mb-6">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-gray-900 mb-4 md:mb-6">
                 Empowering Businesses Through Technology
               </h1>
-              <p className="text-xl text-gray-600 leading-relaxed mb-8">
-                Since 2014, SK WebTech has been at the forefront of digital transformation, 
+              <p className="text-base sm:text-lg md:text-xl text-gray-600 leading-relaxed mb-6 md:mb-8">
+                Since 2022, SK WebTech has been at the forefront of digital transformation, 
                 helping businesses of all sizes leverage technology to achieve their goals. 
                 Our passion for innovation and commitment to excellence drives everything we do.
               </p>
-              <div className="flex flex-wrap gap-4">
-                <Link href="/contact" className="btn-primary">
+              <div className="flex flex-col sm:flex-row items-center justify-start gap-3 md:gap-4">
+                <Link href="/contact" className="btn-primary text-base md:text-lg px-6 md:px-8 py-3 md:py-4 w-full sm:w-auto">
                   Get in Touch
                   <ArrowRight size={18} className="ml-2" />
                 </Link>
-                <Link href="/portfolio" className="btn-secondary">
+                <Link href="/portfolio" className="btn-secondary text-base md:text-lg px-6 md:px-8 py-3 md:py-4 w-full sm:w-auto">
                   View Our Work
                 </Link>
               </div>
@@ -172,9 +167,9 @@ export default function AboutPage() {
       </section>
 
       {/* Mission & Vision */}
-      <section className="py-20 bg-white">
+      <section className="py-12 md:py-20 bg-white overflow-hidden">
         <div className="container-custom">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
             {/* Mission */}
             <div className="bg-gradient-to-br from-primary-50 to-primary-100 rounded-3xl p-10">
               <div className="w-16 h-16 bg-primary-600 rounded-2xl flex items-center justify-center mb-6">
@@ -209,9 +204,9 @@ export default function AboutPage() {
       </section>
 
       {/* Founder Section */}
-      <section className="py-20 bg-white">
+      <section className="py-12 md:py-20 bg-white overflow-hidden">
         <div className="container-custom">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             {/* Photo */}
             <div className="relative">
               <div className="relative aspect-[4/5] max-w-md mx-auto lg:mx-0">
@@ -223,46 +218,43 @@ export default function AboutPage() {
                 <div className="relative w-full h-full bg-gradient-to-br from-primary-600 to-primary-700 rounded-3xl overflow-hidden shadow-2xl">
                   {/* Replace with actual image */}
                   <Image
-                    src="/images/founder.jpg"
+                    src="/images/sk.png"
                     alt="SK - Founder of SK WebTech"
                     fill
                     className="object-cover"
                     sizes="(max-width: 768px) 100vw, 50vw"
                   />
                   {/* Fallback if image not available */}
-                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary-600 to-primary-700">
+                  {/* <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary-600 to-primary-700">
                     <span className="text-8xl font-heading font-bold text-white/30">SK</span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
 
             {/* Details */}
             <div>
-              <span className="inline-block px-4 py-1.5 bg-accent-100 text-accent-700 text-sm font-medium rounded-full mb-4">
+              <span className="inline-block px-3 md:px-4 py-1 md:py-1.5 bg-accent-100 text-accent-700 text-xs md:text-sm font-medium rounded-full mb-3 md:mb-4">
                 Meet the Founder
               </span>
-              <h2 className="text-3xl md:text-4xl font-heading font-bold text-gray-900 mb-4">
-                Saurabh Kumar
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-gray-900 mb-3 md:mb-4">
+                Sachidanand Kushwaha
               </h2>
-              <p className="text-xl text-primary-600 font-medium mb-6">
+              <p className="text-lg md:text-xl text-primary-600 font-medium mb-4 md:mb-6">
                 Founder &amp; CEO, SK WebTech
               </p>
               <div className="space-y-4 text-gray-600 leading-relaxed">
-                <p>
-                  With over 10 years of experience in the IT industry, I founded SK WebTech 
-                  with a simple mission: to help businesses succeed in the digital world by 
-                  providing top-quality, affordable technology solutions.
+                <p className="text-gray-700 leading-relaxed text-lg mb-4">
+                  With over 2 years of dedicated innovation in the IT industry, Sachidanand founded SK WebTech 
+                  with a clear mission: to help businesses succeed online through practical, high-quality technology solutions.
                 </p>
                 <p>
-                  My journey started as a passionate developer, and today I lead a team of 
-                  50+ talented professionals who share my vision of empowering businesses 
-                  through innovative technology.
+                  His journey began as a passionate developer and digital strategist, and today he leads a skilled team of 
+                  professionals who share the vision of empowering businesses through thoughtful, results-driven digital products.
                 </p>
                 <p>
-                  I believe in building lasting relationships with our clients, understanding 
-                  their unique challenges, and delivering solutions that drive real results. 
-                  Every project we undertake is a reflection of our commitment to excellence.
+                  Sachidanand believes in building lasting partnerships, understanding each client&apos;s unique challenges, and delivering solutions 
+                  that contribute measurable growth. Connect with him on LinkedIn to discuss your next project.
                 </p>
               </div>
 
@@ -273,7 +265,7 @@ export default function AboutPage() {
                   <div className="text-sm text-gray-600">Years Experience</div>
                 </div>
                 <div className="bg-gray-50 rounded-xl p-4">
-                  <div className="text-2xl font-heading font-bold text-primary-600">500+</div>
+                  <div className="text-2xl font-heading font-bold text-primary-600">50+</div>
                   <div className="text-sm text-gray-600">Projects Led</div>
                 </div>
               </div>
@@ -281,7 +273,7 @@ export default function AboutPage() {
               {/* Social/Contact */}
               <div className="mt-8 flex flex-wrap gap-4">
                 <a
-                  href="https://www.linkedin.com/in/skwebtech"
+                  href="https://www.linkedin.com/in/sachidanand-kushwaha"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
@@ -292,7 +284,7 @@ export default function AboutPage() {
                   LinkedIn
                 </a>
                 <a
-                  href="mailto:saurabh@skwebtech.in"
+                  href="mailto:sachi274406@gmail.com"
                   className="inline-flex items-center px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition-colors"
                 >
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -307,7 +299,7 @@ export default function AboutPage() {
       </section>
 
       {/* Core Values */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-12 md:py-20 bg-gray-50 overflow-hidden">
         <div className="container-custom">
           <SectionHeader
             badge="Our Values"
@@ -315,7 +307,7 @@ export default function AboutPage() {
             subtitle="Our core values guide every decision we make and every project we undertake."
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mt-12 md:mt-16">
             {coreValues.map((value) => (
               <div key={value.title} className="bg-white rounded-2xl p-8 shadow-card text-center">
                 <div className="w-16 h-16 bg-primary-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
@@ -332,18 +324,18 @@ export default function AboutPage() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-20 bg-white">
+      <section className="py-12 md:py-20 bg-white overflow-hidden">
         <div className="container-custom">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             {/* Content */}
             <div>
-              <span className="inline-block px-4 py-1.5 bg-primary-100 text-primary-700 text-sm font-medium rounded-full mb-4">
+              <span className="inline-block px-3 md:px-4 py-1 md:py-1.5 bg-primary-100 text-primary-700 text-xs md:text-sm font-medium rounded-full mb-3 md:mb-4">
                 Why SK WebTech
               </span>
-              <h2 className="text-3xl md:text-4xl font-heading font-bold text-gray-900 mb-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-gray-900 mb-4 md:mb-6">
                 Why Businesses Choose Us
               </h2>
-              <p className="text-lg text-gray-600 leading-relaxed mb-8">
+              <p className="text-base sm:text-lg md:text-lg text-gray-600 leading-relaxed mb-6 md:mb-8">
                 We combine technical excellence with a client-first approach to deliver 
                 solutions that truly make a difference. Here&apos;s what sets us apart from the rest.
               </p>
@@ -390,7 +382,7 @@ export default function AboutPage() {
       </section>
 
       {/* Timeline */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-12 md:py-20 bg-gray-50 overflow-hidden">
         <div className="container-custom">
           <SectionHeader
             badge="Our Journey"
@@ -398,7 +390,7 @@ export default function AboutPage() {
             subtitle="From a small startup to a trusted technology partner for businesses worldwide."
           />
 
-          <div className="mt-16 relative">
+          <div className="mt-12 md:mt-16 relative">
             {/* Timeline line */}
             <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-primary-200 -translate-x-1/2" />
 

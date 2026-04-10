@@ -36,10 +36,10 @@ const serviceLinks = [
 
 // Social media links
 const socialLinks = [
-  { name: 'Facebook', icon: Facebook, href: 'https://facebook.com/skwebtech' },
-  { name: 'Twitter', icon: Twitter, href: 'https://twitter.com/skwebtech' },
-  { name: 'LinkedIn', icon: Linkedin, href: 'https://linkedin.com/company/skwebtech' },
-  { name: 'Instagram', icon: Instagram, href: 'https://instagram.com/skwebtech' },
+  { name: 'Facebook', icon: Facebook, href: 'https://www.facebook.com/sachidanandkushwaha.sachidanandkushwaha' },
+  { name: 'Twitter', icon: Twitter, href: 'https://x.com/Sachida38689078' },
+  { name: 'LinkedIn', icon: Linkedin, href: 'https://linkedin.com/in/sachidanand-kushwaha' },
+  { name: 'Instagram', icon: Instagram, href: 'https://www.instagram.com/sachidanand.kushwaha/' },
 ];
 
 export default function Footer() {
@@ -143,28 +143,28 @@ export default function Footer() {
               <li className="flex items-start space-x-3">
                 <MapPin size={20} className="text-primary-400 mt-1 flex-shrink-0" />
                 <span className="text-gray-400">
-                  123 Tech Street, Suite 456<br />
-                  San Francisco, CA 94102
+                  Remote services available worldwide<br />
+                  Based in India with global delivery
                 </span>
               </li>
               <li>
                 <a
-                  href="tel:+1234567890"
+                  href="tel:6386103750"
                   className="flex items-center space-x-3 text-gray-400 
                            hover:text-primary-400 transition-colors duration-200"
                 >
                   <Phone size={20} className="text-primary-400 flex-shrink-0" />
-                  <span>+1 (234) 567-890</span>
+                  <span>+91 6386103750</span>
                 </a>
               </li>
               <li>
                 <a
-                  href="mailto:hello@skwebtech.in"
+                  href="mailto:sachi274406@gmail.com"
                   className="flex items-center space-x-3 text-gray-400 
                            hover:text-primary-400 transition-colors duration-200"
                 >
                   <Mail size={20} className="text-primary-400 flex-shrink-0" />
-                  <span>hello@skwebtech.in</span>
+                  <span>sachi274406@gmail.com</span>
                 </a>
               </li>
             </ul>
@@ -188,20 +188,6 @@ export default function Footer() {
             <p className="text-gray-500 text-sm">
               © {currentYear} SK WebTech. All rights reserved.
             </p>
-            <div className="flex space-x-6 text-sm">
-              <Link
-                href="/privacy-policy"
-                className="text-gray-500 hover:text-gray-300 transition-colors duration-200"
-              >
-                Privacy Policy
-              </Link>
-              <Link
-                href="/terms-of-service"
-                className="text-gray-500 hover:text-gray-300 transition-colors duration-200"
-              >
-                Terms of Service
-              </Link>
-            </div>
           </div>
         </div>
       </div>

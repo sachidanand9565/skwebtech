@@ -24,7 +24,7 @@ export default function CTASection({
   title = "Ready to Transform Your Digital Presence?",
   subtitle = "Let's discuss your project and see how we can help your business grow. Get a free consultation today!",
   primaryCTA = { text: "Get Free Consultation", href: "/contact" },
-  secondaryCTA = { text: "Call Us Now", href: "tel:+1234567890" },
+  secondaryCTA = { text: "Call Us Now", href: "tel:6386103750" },
   variant = 'gradient',
 }: CTASectionProps) {
   const bgClasses =
@@ -40,7 +40,7 @@ export default function CTASection({
         <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-accent-500/10 rounded-full blur-3xl" />
       </div>
 
-      <div className="container-custom py-20 md:py-24 relative z-10">
+      <div className="container-custom py-16 md:py-20 relative z-10">
         <div className="max-w-3xl mx-auto text-center">
           {/* Title */}
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-white mb-6 text-balance">
@@ -48,7 +48,7 @@ export default function CTASection({
           </h2>
 
           {/* Subtitle */}
-          <p className="text-lg md:text-xl text-primary-100 mb-10 leading-relaxed">
+          <p className="text-lg md:text-xl text-primary-100 mb-8 leading-relaxed">
             {subtitle}
           </p>
 

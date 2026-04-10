@@ -45,7 +45,7 @@ const features = [
 
 export default function WhyChooseUsSection() {
   return (
-    <section className="py-20 md:py-28 bg-white">
+    <section className="py-16 md:py-20 bg-white">
       <div className="container-custom">
         {/* Section Header */}
         <SectionHeader
@@ -56,7 +56,7 @@ export default function WhyChooseUsSection() {
         />
 
         {/* Features Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mt-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
           {features.map((feature) => (
             <FeatureCard
               key={feature.title}
@@ -70,7 +70,7 @@ export default function WhyChooseUsSection() {
         </div>
 
         {/* Additional Trust Elements */}
-        <div className="mt-20 bg-gradient-to-r from-primary-50 to-accent-50 rounded-3xl p-8 md:p-12">
+        <div className="mt-12 bg-gradient-to-r from-primary-50 to-accent-50 rounded-3xl p-6 md:p-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             {/* Left - Content */}
             <div>
