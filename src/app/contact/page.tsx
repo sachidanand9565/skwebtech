@@ -28,6 +28,9 @@ export const metadata: Metadata = {
     'get in touch',
     'free consultation',
   ],
+  alternates: {
+    canonical: 'https://skwebtech.in/contact',
+  },
   openGraph: {
     title: 'Contact Us | SK WebTech',
     description:

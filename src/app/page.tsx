@@ -27,6 +27,9 @@ export const metadata: Metadata = {
     'digital transformation',
     'custom software development',
   ],
+  alternates: {
+    canonical: 'https://skwebtech.in',
+  },
   openGraph: {
     title: 'SK WebTech - Professional Web & IT Solutions',
     description:

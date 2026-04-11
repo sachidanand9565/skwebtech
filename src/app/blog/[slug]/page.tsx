@@ -50,6 +50,9 @@ export async function generateMetadata({
     description: post.excerpt,
     keywords: post.tags,
     authors: [{ name: post.author.name }],
+    alternates: {
+      canonical: `https://skwebtech.in/blog/${post.slug}`,
+    },
     openGraph: {
       title: post.title,
       description: post.excerpt,

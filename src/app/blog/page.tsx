@@ -21,6 +21,9 @@ export const metadata: Metadata = {
     'tech articles',
     'business growth strategies',
   ],
+  alternates: {
+    canonical: 'https://skwebtech.in/blog',
+  },
   openGraph: {
     title: 'Blog | SK WebTech',
     description:

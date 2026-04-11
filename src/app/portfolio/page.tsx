@@ -20,6 +20,9 @@ export const metadata: Metadata = {
     'software development case studies',
     'web design examples',
   ],
+  alternates: {
+    canonical: 'https://skwebtech.in/portfolio',
+  },
   openGraph: {
     title: 'Our Portfolio | SK WebTech',
     description:
