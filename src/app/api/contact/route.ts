@@ -2,24 +2,15 @@ import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 import { siteConfig } from '@/config/site';
 
-const recipient = process.env.CONTACT_EMAIL_RECIPIENT || siteConfig.contact.email;
-const smtpHost = process.env.SMTP_HOST || '';
-const smtpPort = Number(process.env.SMTP_PORT || '587');
-const smtpSecure = process.env.SMTP_SECURE === 'true';
-const smtpUser = process.env.SMTP_USER || '';
-const smtpPass = process.env.SMTP_PASS || '';
+const recipient =
+  process.env.CONTACT_EMAIL_RECIPIENT || siteConfig.contact.email;
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, phone, service, message } = body as {
-      name: string;
-      email: string;
-      phone?: string;
-      service?: string;
-      message: string;
-    };
+    const { name, email, phone, service, message } = body;
 
+    // ✅ Validation
     if (!name || !email || !message) {
       return NextResponse.json(
         { error: 'Name, email, and message are required.' },
@@ -27,52 +18,48 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!smtpHost || !smtpUser || !smtpPass) {
-      return NextResponse.json(
-        {
-          error:
-            'SMTP is not configured. Please set SMTP_HOST, SMTP_PORT, SMTP_USER, and SMTP_PASS in your environment.',
-        },
-        { status: 500 }
-      );
-    }
-
+    // ✅ Transporter (GMAIL SIMPLE SETUP)
     const transporter = nodemailer.createTransport({
-      host: smtpHost,
-      port: smtpPort,
-      secure: smtpSecure,
+      service: 'gmail', // 🔥 direct gmail use
       auth: {
-        user: smtpUser,
-        pass: smtpPass,
+        user: process.env.SMTP_USER, // gmail
+        pass: process.env.SMTP_PASS, // app password
       },
     });
 
+    // ✅ HTML Template
     const htmlBody = `
-      <h2>New contact request from ${name}</h2>
-      <p><strong>Name:</strong> ${name}</p>
-      <p><strong>Email:</strong> ${email}</p>
-      <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
-      <p><strong>Service:</strong> ${service || 'Not specified'}</p>
-      <p><strong>Message:</strong></p>
-      <p>${message.replace(/\n/g, '<br/>')}</p>
+      <div style="font-family:Arial,sans-serif">
+        <h2>📩 New Contact Request</h2>
+        <table border="1" cellpadding="10" cellspacing="0">
+          <tr><td><b>Name</b></td><td>${name}</td></tr>
+          <tr><td><b>Email</b></td><td>${email}</td></tr>
+          <tr><td><b>Phone</b></td><td>${phone || 'Not provided'}</td></tr>
+          <tr><td><b>Service</b></td><td>${service || 'Not specified'}</td></tr>
+          <tr><td><b>Message</b></td><td>${message.replace(/\n/g, '<br/>')}</td></tr>
+        </table>
+      </div>
     `;
 
+    // ✅ Send Mail
     await transporter.sendMail({
-      from: `SK WebTech Contact Form <${smtpUser}>`,
-      to: recipient,
-      subject: `New contact form submission from ${name}`,
-      text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone || 'Not provided'}\nService: ${service || 'Not specified'}\n\nMessage:\n${message}`,
+      from: `"Website Lead" <${process.env.SMTP_USER}>`,
+      to: recipient, // admin mail
+      replyTo: email, // 🔥 direct reply user ko
+      subject: `🚀 New Lead from ${name}`,
+      text: `Name: ${name}\nEmail: ${email}\nPhone: ${
+        phone || 'Not provided'
+      }\nService: ${service || 'Not specified'}\n\nMessage:\n${message}`,
       html: htmlBody,
     });
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Contact form send error:', error);
+    console.error('Mail Error:', error);
+
     return NextResponse.json(
       {
-        error:
-          'There was a problem sending your message. Please try again later or contact us directly at ' +
-          recipient,
+        error: 'Mail not sent. Check SMTP configuration.',
       },
       { status: 500 }
     );
