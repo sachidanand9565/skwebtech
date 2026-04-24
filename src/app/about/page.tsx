@@ -12,12 +12,12 @@ export const metadata: Metadata = {
   description:
     "Learn about SK WebTech's journey, our mission to empower businesses through technology, and our vision for the future of digital transformation. Founded by Sachidanand Kushwaha.",
   keywords: ['about SK WebTech', 'web development agency India', 'Sachidanand Kushwaha', 'IT company', 'digital transformation partner'],
-  alternates: { canonical: 'https://skwebtech.in/about' },
+  alternates: { canonical: 'https://www.skwebtech.in/about' },
   openGraph: {
     title: 'About Us | SK WebTech',
     description: 'Learn about our journey, mission, and vision for empowering businesses through technology.',
     type: 'website',
-    url: 'https://skwebtech.in/about',
+    url: 'https://www.skwebtech.in/about',
   },
 };
 

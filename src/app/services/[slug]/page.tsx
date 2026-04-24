@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title = interpolate(service.metaTitleTemplate, city);
   const description = interpolate(service.metaDescriptionTemplate, city);
   const keywords = service.keywordsTemplate.map((k) => interpolate(k, city));
-  const canonicalUrl = `https://skwebtech.in/services/${params.slug}`;
+  const canonicalUrl = `https://www.skwebtech.in/services/${params.slug}`;
 
   return {
     title,
@@ -95,7 +95,7 @@ export default function ServiceLocationPage({ params }: Props) {
         provider: {
           '@type': 'Organization',
           name: 'SK WebTech',
-          url: 'https://skwebtech.in',
+          url: 'https://www.skwebtech.in',
           telephone: '+916386103750',
           email: 'sachi274406@gmail.com',
           address: {
@@ -118,9 +118,9 @@ export default function ServiceLocationPage({ params }: Props) {
       {
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://skwebtech.in' },
-          { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://skwebtech.in/services' },
-          { '@type': 'ListItem', position: 3, name: h1, item: `https://skwebtech.in/services/${params.slug}` },
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.skwebtech.in' },
+          { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://www.skwebtech.in/services' },
+          { '@type': 'ListItem', position: 3, name: h1, item: `https://www.skwebtech.in/services/${params.slug}` },
         ],
       },
     ],

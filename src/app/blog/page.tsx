@@ -22,14 +22,14 @@ export const metadata: Metadata = {
     'business growth strategies',
   ],
   alternates: {
-    canonical: 'https://skwebtech.in/blog',
+    canonical: 'https://www.skwebtech.in/blog',
   },
   openGraph: {
     title: 'Blog | SK WebTech',
     description:
       'Insights, tips, and resources on web development, SEO, and digital marketing.',
     type: 'website',
-    url: 'https://skwebtech.in/blog',
+    url: 'https://www.skwebtech.in/blog',
   },
 };
 

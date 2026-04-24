@@ -9,7 +9,7 @@ export const siteConfig = {
   tagline: 'Professional Web & IT Solutions',
   description:
     'SK WebTech, led by experienced digital strategist Sachidanand Kushwaha, delivers cutting-edge web development, e-commerce solutions, SEO optimization, and IT services to help your business grow online.',
-  url: 'https://skwebtech.in',
+  url: 'https://www.skwebtech.in',
 
   // Contact information
   contact: {

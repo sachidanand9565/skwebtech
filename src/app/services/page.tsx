@@ -22,13 +22,13 @@ export const metadata: Metadata = {
     'digital marketing services',
     'custom software development',
   ],
-  alternates: { canonical: 'https://skwebtech.in/services' },
+  alternates: { canonical: 'https://www.skwebtech.in/services' },
   openGraph: {
     title: 'Our Services | SK WebTech',
     description:
       'Web development, e-commerce, SEO, mobile apps, WhatsApp Business automation, and IT support from SK WebTech.',
     type: 'website',
-    url: 'https://skwebtech.in/services',
+    url: 'https://www.skwebtech.in/services',
   },
 };
 

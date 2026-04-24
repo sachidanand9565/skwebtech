@@ -4,7 +4,7 @@ import { servicePageTemplates } from '@/data/servicePages';
 import { locations } from '@/data/locations';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://skwebtech.in';
+  const baseUrl = 'https://www.skwebtech.in';
 
   const staticPages = ['', '/services', '/portfolio', '/about', '/contact', '/blog'];
   const staticRoutes = staticPages.map((route) => ({

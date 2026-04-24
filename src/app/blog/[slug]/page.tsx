@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     description: post.excerpt,
     keywords: post.tags,
     authors: [{ name: post.author.name }],
-    alternates: { canonical: `https://skwebtech.in/blog/${post.slug}` },
+    alternates: { canonical: `https://www.skwebtech.in/blog/${post.slug}` },
     openGraph: {
       title: post.title,
       description: post.excerpt,
@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       publishedTime: post.publishedAt,
       authors: [post.author.name],
       images: [{ url: post.coverImage, width: 1200, height: 630, alt: post.title }],
-      url: `https://skwebtech.in/blog/${post.slug}`,
+      url: `https://www.skwebtech.in/blog/${post.slug}`,
     },
     twitter: { card: 'summary_large_image', title: post.title, description: post.excerpt, images: [post.coverImage] },
   };
@@ -40,7 +40,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
 
   const relatedPosts = getRelatedPosts(params.slug, 3);
   const formattedDate = new Date(post.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-  const shareUrl = `https://skwebtech.in/blog/${post.slug}`;
+  const shareUrl = `https://www.skwebtech.in/blog/${post.slug}`;
   const encodedUrl = encodeURIComponent(shareUrl);
   const encodedTitle = encodeURIComponent(post.title);
 

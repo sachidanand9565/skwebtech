@@ -7,12 +7,12 @@ export const metadata: Metadata = {
   description:
     'Get in touch with SK WebTech for a free consultation. Contact us for web development, e-commerce, SEO, and IT services. We respond within 24 hours.',
   keywords: ['contact SK WebTech', 'web development quote', 'IT services consultation', 'hire developers', 'free consultation'],
-  alternates: { canonical: 'https://skwebtech.in/contact' },
+  alternates: { canonical: 'https://www.skwebtech.in/contact' },
   openGraph: {
     title: 'Contact Us | SK WebTech',
     description: 'Get in touch with us for a free consultation on your next digital project.',
     type: 'website',
-    url: 'https://skwebtech.in/contact',
+    url: 'https://www.skwebtech.in/contact',
   },
 };
 

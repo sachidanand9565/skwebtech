@@ -7,12 +7,12 @@ export const metadata: Metadata = {
   description:
     "Explore SK WebTech's portfolio of successful web development, e-commerce, mobile app, and IT projects. See how we've helped businesses transform their digital presence.",
   keywords: ['web development portfolio', 'IT project showcase', 'e-commerce projects', 'mobile app portfolio', 'web design examples'],
-  alternates: { canonical: 'https://skwebtech.in/portfolio' },
+  alternates: { canonical: 'https://www.skwebtech.in/portfolio' },
   openGraph: {
     title: 'Our Portfolio | SK WebTech',
     description: 'Explore our portfolio of successful web development, e-commerce, and IT projects.',
     type: 'website',
-    url: 'https://skwebtech.in/portfolio',
+    url: 'https://www.skwebtech.in/portfolio',
   },
 };
 

@@ -28,14 +28,14 @@ export const metadata: Metadata = {
     'custom software development',
   ],
   alternates: {
-    canonical: 'https://skwebtech.in',
+    canonical: 'https://www.skwebtech.in',
   },
   openGraph: {
     title: 'SK WebTech - Professional Web & IT Solutions',
     description:
       'Transform your business with professional web development, e-commerce, SEO, and IT solutions. Partner with SK WebTech for digital success.',
     type: 'website',
-    url: 'https://skwebtech.in',
+    url: 'https://www.skwebtech.in',
   },
 };
 
