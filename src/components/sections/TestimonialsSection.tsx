@@ -1,112 +1,87 @@
-/**
- * Testimonials Section Component
- * Displays customer testimonials and reviews
- */
+import { Star, Quote } from 'lucide-react';
 
-import SectionHeader from '@/components/common/SectionHeader';
-import TestimonialCard from '@/components/common/TestimonialCard';
-
-// Testimonials data
 const testimonials = [
-  {
-    name: 'Sarah Johnson',
-    role: 'CEO',
-    company: 'TechStart Inc.',
-    content:
-      'SK WebTech transformed our outdated website into a modern, high-converting platform. Their team was professional, responsive, and delivered beyond our expectations. Our online sales increased by 150% within 3 months!',
-    rating: 5,
-  },
-  {
-    name: 'Michael Chen',
-    role: 'Marketing Director',
-    company: 'GrowthHub',
-    content:
-      'The SEO services from SK WebTech have been a game-changer for our business. We went from page 5 to the first page of Google for our main keywords. The team is knowledgeable and always keeps us updated on progress.',
-    rating: 5,
-  },
-  {
-    name: 'Emily Rodriguez',
-    role: 'Founder',
-    company: 'StyleBoutique',
-    content:
-      'Building our e-commerce store with SK WebTech was a seamless experience. They understood our vision perfectly and created a beautiful, user-friendly store. The ongoing support has been exceptional!',
-    rating: 5,
-  },
-  {
-    name: 'David Thompson',
-    role: 'CTO',
-    company: 'FinanceFlow',
-    content:
-      'We needed a complex web application with strict security requirements. SK WebTech delivered a robust, scalable solution that has become central to our operations. Highly recommended for enterprise projects!',
-    rating: 5,
-  },
-  {
-    name: 'Lisa Park',
-    role: 'Product Manager',
-    company: 'HealthTech Solutions',
-    content:
-      'The mobile app developed by SK WebTech exceeded all our expectations. The UI/UX is intuitive, and the app performance is excellent. Our users love it, and so do we!',
-    rating: 5,
-  },
-  {
-    name: 'James Wilson',
-    role: 'Owner',
-    company: 'LocalBites Restaurant',
-    content:
-      'As a small business owner, I was hesitant about investing in a website. SK WebTech made the process easy and affordable. Now I get new customers every day through my website. Best investment ever!',
-    rating: 5,
-  },
+  { name: 'Sarah Johnson', role: 'CEO', company: 'TechStart Inc.', content: 'SK WebTech transformed our outdated website into a modern, high-converting platform. Their team was professional, responsive, and delivered beyond our expectations. Our online sales increased by 150% within 3 months!', rating: 5, avatar: 'SJ' },
+  { name: 'Michael Chen', role: 'Marketing Director', company: 'GrowthHub', content: "The SEO services from SK WebTech have been a game-changer. We went from page 5 to the first page of Google for our main keywords. The team is knowledgeable and always keeps us updated on progress.", rating: 5, avatar: 'MC' },
+  { name: 'Emily Rodriguez', role: 'Founder', company: 'StyleBoutique', content: 'Building our e-commerce store with SK WebTech was a seamless experience. They understood our vision perfectly and created a beautiful, user-friendly store. The ongoing support has been exceptional!', rating: 5, avatar: 'ER' },
+  { name: 'David Thompson', role: 'CTO', company: 'FinanceFlow', content: 'We needed a complex web application with strict security requirements. SK WebTech delivered a robust, scalable solution that has become central to our operations. Highly recommended for enterprise projects!', rating: 5, avatar: 'DT' },
+  { name: 'Lisa Park', role: 'Product Manager', company: 'HealthTech Solutions', content: 'The mobile app developed by SK WebTech exceeded all our expectations. The UI/UX is intuitive, and the app performance is excellent. Our users love it, and so do we!', rating: 5, avatar: 'LP' },
+  { name: 'James Wilson', role: 'Owner', company: 'LocalBites', content: 'As a small business owner, I was hesitant about investing in a website. SK WebTech made the process easy and affordable. Now I get new customers every day through my website. Best investment ever!', rating: 5, avatar: 'JW' },
 ];
 
-interface TestimonialsSectionProps {
-  limit?: number;
-}
+const avatarColors = [
+  'from-blue-500 to-indigo-600',
+  'from-purple-500 to-violet-600',
+  'from-emerald-500 to-green-600',
+  'from-orange-500 to-amber-500',
+  'from-pink-500 to-rose-500',
+  'from-teal-500 to-cyan-600',
+];
 
-export default function TestimonialsSection({ limit = 3 }: TestimonialsSectionProps) {
-  const displayedTestimonials = testimonials.slice(0, limit);
+interface Props { limit?: number; }
+
+export default function TestimonialsSection({ limit = 3 }: Props) {
+  const displayed = testimonials.slice(0, limit);
 
   return (
-    <section className="py-16 md:py-20 bg-white">
+    <section className="py-16 md:py-24 bg-gray-50">
       <div className="container-custom">
-        {/* Section Header */}
-        <SectionHeader
-          badge="Testimonials"
-          title="What Our Clients Say"
-          subtitle="Don't just take our word for it. Here's what our clients have to say 
-                   about their experience working with SK WebTech."
-        />
+        {/* Header */}
+        <div className="text-center mb-14">
+          <span className="inline-block px-3 py-1.5 bg-indigo-100 text-indigo-700 text-xs font-semibold rounded-full uppercase tracking-wider mb-3">
+            Testimonials
+          </span>
+          <h2 className="text-3xl md:text-4xl font-heading font-bold text-gray-900 mb-3">
+            What Our Clients Say
+          </h2>
+          <p className="text-gray-500 max-w-xl mx-auto">
+            Don&apos;t just take our word for it. Here&apos;s what our clients have to say about working with SK WebTech.
+          </p>
+        </div>
 
-        {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-          {displayedTestimonials.map((testimonial) => (
-            <TestimonialCard
-              key={testimonial.name}
-              name={testimonial.name}
-              role={testimonial.role}
-              company={testimonial.company}
-              content={testimonial.content}
-              rating={testimonial.rating}
-            />
+        {/* Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {displayed.map((t, i) => (
+            <div key={t.name} className="bg-white rounded-2xl p-7 shadow-card hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300 flex flex-col">
+              {/* Stars */}
+              <div className="flex gap-1 mb-4">
+                {[...Array(t.rating)].map((_, j) => (
+                  <Star key={j} size={16} className="text-yellow-400 fill-yellow-400" />
+                ))}
+              </div>
+
+              {/* Quote icon */}
+              <Quote size={28} className="text-indigo-100 mb-3" />
+
+              {/* Content */}
+              <p className="text-gray-600 text-sm leading-relaxed flex-1 mb-6">{t.content}</p>
+
+              {/* Author */}
+              <div className="flex items-center gap-3 pt-5 border-t border-gray-100">
+                <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${avatarColors[i % avatarColors.length]} flex items-center justify-center flex-shrink-0 shadow-sm`}>
+                  <span className="text-white text-xs font-bold">{t.avatar}</span>
+                </div>
+                <div>
+                  <p className="font-heading font-semibold text-gray-900 text-sm">{t.name}</p>
+                  <p className="text-gray-400 text-xs">{t.role}, {t.company}</p>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
 
-        {/* Overall Rating */}
+        {/* Overall rating */}
         <div className="mt-12 text-center">
-          <div className="inline-flex items-center bg-primary-50 rounded-full px-8 py-4">
-            <div className="flex items-center mr-4">
+          <div className="inline-flex items-center gap-4 bg-white rounded-2xl px-8 py-4 shadow-card">
+            <div className="flex gap-1">
               {[...Array(5)].map((_, i) => (
-                <svg
-                  key={i}
-                  className="w-6 h-6 text-yellow-400 fill-yellow-400"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
+                <Star key={i} size={20} className="text-yellow-400 fill-yellow-400" />
               ))}
             </div>
+            <div className="w-px h-8 bg-gray-200" />
             <div className="text-left">
-              <div className="font-heading font-bold text-gray-900">5.0 Rating</div>
-              <div className="text-sm text-gray-600">Based on 200+ reviews</div>
+              <div className="font-heading font-bold text-gray-900">5.0 Average Rating</div>
+              <div className="text-sm text-gray-400">Based on 200+ client reviews</div>
             </div>
           </div>
         </div>

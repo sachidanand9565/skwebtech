@@ -5,6 +5,11 @@ const config: Config = {
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/data/**/*.{js,ts}',
+  ],
+  safelist: [
+    { pattern: /^(from|to)-(blue|indigo|emerald|green|purple|violet|orange|red|pink|rose|slate|gray)-(400|500|600|700)$/ },
+    { pattern: /^bg-gradient-to-(r|br|bl|tr)$/ },
   ],
   theme: {
     extend: {

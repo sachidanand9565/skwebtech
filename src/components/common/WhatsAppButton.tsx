@@ -8,62 +8,41 @@
 import { useState } from 'react';
 import { MessageCircle } from 'lucide-react';
 
+const WHATSAPP_URL = `https://wa.me/916386103750?text=${encodeURIComponent('Hi SK WebTech! I would like to inquire about your web or IT services.')}`;
+
 export default function WhatsAppButton() {
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
-  
-  // WhatsApp configuration
-  const phoneNumber = '916386103750';
-  const message = encodeURIComponent(
-    'Hi SK WebTech! I would like to inquire about your web or IT services.'
-  );
-  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
-
-  const handleWhatsAppClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
-  };
 
   return (
     <div className="fixed bottom-6 right-6 z-40">
       {/* Tooltip */}
       <div
         className={`absolute bottom-full right-0 mb-3 transition-all duration-300 ${
-          isTooltipVisible
-            ? 'opacity-100 translate-y-0'
-            : 'opacity-0 translate-y-2 pointer-events-none'
+          isTooltipVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'
         }`}
       >
-        <div className="bg-white rounded-lg shadow-soft-lg px-4 py-3 min-w-[200px]">
-          <p className="text-gray-800 font-medium text-sm">
-            Need help? Chat with us!
-          </p>
-          <p className="text-gray-500 text-xs mt-1">
-            We typically reply in minutes
-          </p>
-          {/* Arrow */}
-          <div className="absolute bottom-0 right-6 translate-y-full">
+        <div className="bg-white rounded-xl shadow-soft-lg px-4 py-3 min-w-[180px]">
+          <p className="text-gray-800 font-semibold text-sm">Chat with us!</p>
+          <p className="text-gray-400 text-xs mt-0.5">Typically reply in minutes</p>
+          <div className="absolute bottom-0 right-5 translate-y-full">
             <div className="border-8 border-transparent border-t-white" />
           </div>
         </div>
       </div>
 
-      {/* WhatsApp Button */}
+      {/* Button */}
       <a
-        href={whatsappUrl}
-        onClick={handleWhatsAppClick}
+        href={WHATSAPP_URL}
+        target="_blank"
+        rel="noopener noreferrer"
         onMouseEnter={() => setIsTooltipVisible(true)}
         onMouseLeave={() => setIsTooltipVisible(false)}
-        className="flex items-center justify-center w-14 h-14 bg-green-500 
-                 text-white rounded-full shadow-lg hover:bg-green-600 
-                 hover:shadow-xl transition-all duration-300
-                 animate-bounce-subtle hover:animate-none cursor-pointer"
+        className="relative flex items-center justify-center w-14 h-14 bg-green-500 text-white rounded-full shadow-lg hover:bg-green-600 hover:scale-110 transition-all duration-300"
         aria-label="Contact us on WhatsApp"
       >
-        <MessageCircle size={24} strokeWidth={2} />
+        <MessageCircle size={26} strokeWidth={2} fill="white" />
+        <span className="absolute inset-0 rounded-full bg-green-400 animate-ping opacity-30" />
       </a>
-
-      {/* Pulse effect */}
-      <span className="absolute inset-0 rounded-full bg-green-500 animate-ping opacity-25" />
     </div>
   );
 }

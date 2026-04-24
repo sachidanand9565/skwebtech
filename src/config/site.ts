@@ -61,7 +61,7 @@ export const siteConfig = {
   // Company stats
   stats: {
     yearsExperience: '10+',
-    projectsCompleted: '500+',
+    projectsCompleted: '80+',
     happyClients: '100+',
     teamMembers: '50+',
     countriesServed: '15+',

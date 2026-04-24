@@ -1,12 +1,7 @@
-/**
- * Blog Content Component
- * Client-side component for blog filtering and search
- */
-
 'use client';
 
 import { useState, useMemo } from 'react';
-import { Search, X } from 'lucide-react';
+import { Search, X, ArrowRight } from 'lucide-react';
 import BlogCard from '@/components/common/BlogCard';
 import { BlogPost } from '@/data/blog';
 
@@ -16,259 +11,169 @@ interface BlogContentProps {
   categories: string[];
 }
 
-export default function BlogContent({
-  allPosts,
-  featuredPosts,
-  categories,
-}: BlogContentProps) {
+export default function BlogContent({ allPosts, featuredPosts, categories }: BlogContentProps) {
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
-  // Filter posts based on category and search query
   const filteredPosts = useMemo(() => {
     let posts = allPosts;
-
-    // Filter by category
-    if (activeCategory !== 'all') {
-      posts = posts.filter((post) => post.category === activeCategory);
-    }
-
-    // Filter by search query
+    if (activeCategory !== 'all') posts = posts.filter((p) => p.category === activeCategory);
     if (searchQuery.trim()) {
-      const query = searchQuery.toLowerCase();
-      posts = posts.filter(
-        (post) =>
-          post.title.toLowerCase().includes(query) ||
-          post.excerpt.toLowerCase().includes(query) ||
-          post.tags.some((tag) => tag.toLowerCase().includes(query)) ||
-          post.category.toLowerCase().includes(query)
+      const q = searchQuery.toLowerCase();
+      posts = posts.filter((p) =>
+        p.title.toLowerCase().includes(q) ||
+        p.excerpt.toLowerCase().includes(q) ||
+        p.tags.some((t) => t.toLowerCase().includes(q)) ||
+        p.category.toLowerCase().includes(q)
       );
     }
-
     return posts;
   }, [allPosts, activeCategory, searchQuery]);
 
-  // Get featured posts for the current filter
-  const displayedFeaturedPosts = useMemo(() => {
-    if (activeCategory === 'all' && !searchQuery.trim()) {
-      return featuredPosts;
-    }
-    return filteredPosts.filter((post) => post.featured);
+  const displayedFeatured = useMemo(() => {
+    if (activeCategory === 'all' && !searchQuery.trim()) return featuredPosts;
+    return filteredPosts.filter((p) => p.featured);
   }, [featuredPosts, filteredPosts, activeCategory, searchQuery]);
 
-  // Get regular posts (non-featured) for the current filter
-  const displayedRegularPosts = useMemo(() => {
-    if (activeCategory === 'all' && !searchQuery.trim()) {
-      return filteredPosts.filter((post) => !post.featured);
-    }
-    return filteredPosts.filter((post) => !post.featured);
-  }, [filteredPosts, activeCategory, searchQuery]);
-
-  // Handle category change
-  const handleCategoryChange = (category: string) => {
-    setActiveCategory(category);
-  };
-
-  // Handle search
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-  };
-
-  // Clear search
-  const clearSearch = () => {
-    setSearchQuery('');
-  };
+  const displayedRegular = useMemo(() => filteredPosts.filter((p) => !p.featured), [filteredPosts]);
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-gradient-to-br from-gray-50 to-primary-50">
-        <div className="container-custom">
-          <div className="max-w-3xl mx-auto text-center">
-            <span className="inline-block px-4 py-1.5 bg-primary-100 text-primary-700 text-sm font-medium rounded-full mb-4">
-              Our Blog
-            </span>
-            <h1 className="text-4xl md:text-5xl font-heading font-bold text-gray-900 mb-6">
-              Insights & Resources
-            </h1>
-            <p className="text-xl text-gray-600 leading-relaxed mb-8">
-              Stay updated with the latest trends, tips, and best practices in
-              web development, SEO, e-commerce, and digital marketing.
-            </p>
+      {/* Hero */}
+      <section className="relative pt-24 md:pt-32 pb-16 bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 overflow-hidden">
+        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-1/4 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl" />
+        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")` }} />
 
-            {/* Search Bar */}
-            <div className="max-w-md mx-auto">
-              <div className="relative">
-                <Search
-                  size={20}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
-                />
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={handleSearch}
-                  placeholder="Search articles..."
-                  className="w-full pl-12 pr-10 py-3 rounded-full border border-gray-200 
-                           focus:ring-2 focus:ring-primary-500 focus:border-primary-500 
-                           transition-all duration-200 outline-none"
-                />
-                {searchQuery && (
-                  <button
-                    onClick={clearSearch}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 
-                             hover:text-gray-600 transition-colors duration-200"
-                    aria-label="Clear search"
-                  >
-                    <X size={18} />
-                  </button>
-                )}
-              </div>
+        <div className="container-custom relative z-10 text-center">
+          <span className="inline-block px-3 py-1.5 bg-white/10 border border-white/20 text-white/80 text-xs font-medium rounded-full mb-5 backdrop-blur-sm">
+            Our Blog
+          </span>
+          <h1 className="text-4xl sm:text-5xl font-heading font-bold text-white mb-5 leading-tight">
+            Insights &{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">
+              Resources
+            </span>
+          </h1>
+          <p className="text-lg text-slate-400 max-w-xl mx-auto mb-10">
+            Stay updated with the latest trends, tips, and best practices in web development, SEO, e-commerce, and digital marketing.
+          </p>
+
+          {/* Search */}
+          <div className="max-w-md mx-auto mb-8">
+            <div className="relative">
+              <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search articles..."
+                className="w-full pl-11 pr-10 py-3.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-slate-400 focus:outline-none focus:border-indigo-400 focus:bg-white/15 transition-all text-sm"
+              />
+              {searchQuery && (
+                <button onClick={() => setSearchQuery('')} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white transition-colors">
+                  <X size={16} />
+                </button>
+              )}
             </div>
           </div>
 
-          {/* Category Filters */}
-          <div className="flex flex-wrap justify-center gap-3 mt-10">
+          {/* Category filters */}
+          <div className="flex flex-wrap justify-center gap-2">
             <button
-              onClick={() => handleCategoryChange('all')}
-              className={`px-5 py-2.5 rounded-full font-medium text-sm transition-all duration-200 ${
-                activeCategory === 'all'
-                  ? 'bg-primary-600 text-white shadow-md'
-                  : 'bg-white text-gray-700 hover:bg-primary-50 hover:text-primary-600'
-              }`}
+              onClick={() => setActiveCategory('all')}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${activeCategory === 'all' ? 'bg-indigo-600 text-white shadow-md' : 'bg-white/10 text-white/70 hover:bg-white/20 border border-white/20'}`}
             >
               All Posts
             </button>
-            {categories.map((category) => (
+            {categories.map((cat) => (
               <button
-                key={category}
-                onClick={() => handleCategoryChange(category)}
-                className={`px-5 py-2.5 rounded-full font-medium text-sm transition-all duration-200 ${
-                  activeCategory === category
-                    ? 'bg-primary-600 text-white shadow-md'
-                    : 'bg-white text-gray-700 hover:bg-primary-50 hover:text-primary-600'
-                }`}
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${activeCategory === cat ? 'bg-indigo-600 text-white shadow-md' : 'bg-white/10 text-white/70 hover:bg-white/20 border border-white/20'}`}
               >
-                {category}
+                {cat}
               </button>
             ))}
           </div>
 
-          {/* Active filters info */}
           {(activeCategory !== 'all' || searchQuery) && (
-            <div className="flex items-center justify-center gap-2 mt-6">
-              <span className="text-gray-500 text-sm">
-                Showing {filteredPosts.length} result{filteredPosts.length !== 1 ? 's' : ''}
-              </span>
-              {(activeCategory !== 'all' || searchQuery) && (
-                <button
-                  onClick={() => {
-                    setActiveCategory('all');
-                    setSearchQuery('');
-                  }}
-                  className="text-primary-600 text-sm font-medium hover:text-primary-700 
-                           underline underline-offset-2"
-                >
-                  Clear all filters
-                </button>
-              )}
+            <div className="flex items-center justify-center gap-2 mt-4">
+              <span className="text-slate-400 text-sm">{filteredPosts.length} result{filteredPosts.length !== 1 ? 's' : ''}</span>
+              <button onClick={() => { setActiveCategory('all'); setSearchQuery(''); }} className="text-indigo-400 text-sm hover:text-indigo-300 underline underline-offset-2">
+                Clear filters
+              </button>
             </div>
           )}
         </div>
       </section>
 
-      {/* No Results */}
+      {/* No results */}
       {filteredPosts.length === 0 && (
         <section className="py-20 bg-white">
           <div className="container-custom text-center">
-            <div className="max-w-md mx-auto">
-              <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Search size={32} className="text-gray-400" />
-              </div>
-              <h2 className="text-2xl font-heading font-bold text-gray-900 mb-4">
-                No articles found
+            <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <Search size={32} className="text-gray-400" />
+            </div>
+            <h2 className="text-2xl font-heading font-bold text-gray-900 mb-3">No articles found</h2>
+            <p className="text-gray-500 mb-6">Try adjusting your search or browse all posts.</p>
+            <button onClick={() => { setActiveCategory('all'); setSearchQuery(''); }} className="btn-primary">
+              View All Posts
+            </button>
+          </div>
+        </section>
+      )}
+
+      {/* Featured */}
+      {displayedFeatured.length > 0 && (
+        <section className="py-14 bg-white">
+          <div className="container-custom">
+            <div className="flex items-center justify-between mb-8">
+              <h2 className="text-xl font-heading font-bold text-gray-900">
+                {activeCategory === 'all' && !searchQuery ? 'Featured Articles' : `Featured in ${activeCategory}`}
               </h2>
-              <p className="text-gray-600 mb-6">
-                We couldn&apos;t find any articles matching your criteria. Try adjusting
-                your search or browse all posts.
-              </p>
-              <button
-                onClick={() => {
-                  setActiveCategory('all');
-                  setSearchQuery('');
-                }}
-                className="btn-primary"
-              >
-                View All Posts
-              </button>
+            </div>
+            <div className="space-y-6">
+              {displayedFeatured.map((post) => <BlogCard key={post.id} post={post} featured />)}
             </div>
           </div>
         </section>
       )}
 
-      {/* Featured Posts */}
-      {displayedFeaturedPosts.length > 0 && (
-        <section className="py-16 bg-white">
+      {/* All posts */}
+      {displayedRegular.length > 0 && (
+        <section className="py-14 bg-gray-50">
           <div className="container-custom">
-            <h2 className="text-2xl font-heading font-bold text-gray-900 mb-8">
-              {activeCategory === 'all' && !searchQuery
-                ? 'Featured Articles'
-                : `Featured in ${activeCategory}`}
+            <h2 className="text-xl font-heading font-bold text-gray-900 mb-8">
+              {activeCategory === 'all' && !searchQuery ? 'Latest Articles' : searchQuery ? 'Search Results' : `${activeCategory} Articles`}
             </h2>
-            <div className="space-y-8">
-              {displayedFeaturedPosts.map((post) => (
-                <BlogCard key={post.id} post={post} featured={true} />
-              ))}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {displayedRegular.map((post) => <BlogCard key={post.id} post={post} />)}
             </div>
           </div>
         </section>
       )}
 
-      {/* All Posts Grid */}
-      {displayedRegularPosts.length > 0 && (
-        <section className="py-16 bg-gray-50">
-          <div className="container-custom">
-            <h2 className="text-2xl font-heading font-bold text-gray-900 mb-8">
-              {activeCategory === 'all' && !searchQuery
-                ? 'Latest Articles'
-                : searchQuery
-                ? 'Search Results'
-                : `${activeCategory} Articles`}
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {displayedRegularPosts.map((post) => (
-                <BlogCard key={post.id} post={post} />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Newsletter Section */}
-      <section className="py-20 bg-white">
+      {/* Newsletter */}
+      <section className="py-16 bg-white">
         <div className="container-custom">
-          <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl font-heading font-bold text-gray-900 mb-4">
-              Subscribe to Our Newsletter
-            </h2>
-            <p className="text-gray-600 mb-8">
-              Get the latest articles, tips, and insights delivered directly to
-              your inbox. No spam, unsubscribe anytime.
-            </p>
-            <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-3 rounded-lg border border-gray-300 
-                         focus:ring-2 focus:ring-primary-500 focus:border-primary-500 
-                         transition-all duration-200 outline-none"
-              />
-              <button type="submit" className="btn-primary whitespace-nowrap">
-                Subscribe
-              </button>
-            </form>
-            <p className="text-xs text-gray-500 mt-4">
-              By subscribing, you agree to our Privacy Policy.
-            </p>
+          <div className="max-w-2xl mx-auto bg-gradient-to-br from-slate-950 to-indigo-950 rounded-3xl p-10 text-center relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-40 h-40 bg-indigo-500/10 rounded-full blur-2xl -translate-y-1/2" />
+            <div className="relative z-10">
+              <h2 className="text-2xl font-heading font-bold text-white mb-3">Subscribe to Our Newsletter</h2>
+              <p className="text-slate-400 text-sm mb-7">Get the latest articles, tips, and insights delivered to your inbox. No spam, unsubscribe anytime.</p>
+              <form className="flex flex-col sm:flex-row gap-3 max-w-sm mx-auto">
+                <input
+                  type="email"
+                  placeholder="Your email address"
+                  className="flex-1 px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 focus:outline-none focus:border-indigo-400 text-sm"
+                />
+                <button type="submit" className="btn-accent whitespace-nowrap flex items-center gap-2 text-sm">
+                  Subscribe <ArrowRight size={15} />
+                </button>
+              </form>
+              <p className="text-xs text-slate-500 mt-4">By subscribing, you agree to our Privacy Policy.</p>
+            </div>
           </div>
         </div>
       </section>

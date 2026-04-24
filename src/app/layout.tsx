@@ -50,8 +50,7 @@ export const metadata: Metadata = {
   publisher: 'SK WebTech',
   icons: {
     icon: [
-      { url: '/favicon.ico', sizes: 'any' },
-      { url: '/favicon-16x16.png', type: 'image/png', sizes: '16x16' },
+      { url: '/images/logo.png', type: 'image/png', sizes: 'any' },
       { url: '/favicon-32x32.png', type: 'image/png', sizes: '32x32' },
       { url: '/android-chrome-192x192.png', type: 'image/png', sizes: '192x192' },
       { url: '/android-chrome-512x512.png', type: 'image/png', sizes: '512x512' },
@@ -59,6 +58,7 @@ export const metadata: Metadata = {
     apple: [
       { url: '/apple-touch-icon.png', type: 'image/png', sizes: '180x180' },
     ],
+    shortcut: '/images/logo.png',
   },
   formatDetection: {
     email: false,
@@ -110,11 +110,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
       <head>
-        {/* Favicon */}
-        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" type="image/png" href="/images/logo.png" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#4f46e5" />
+        <meta name="theme-color" content="#0a0f1e" />
       </head>
       <body className="font-sans">
         {/* Skip to main content for accessibility */}
