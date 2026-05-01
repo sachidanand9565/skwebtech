@@ -38,7 +38,7 @@ export const projects: Project[] = [
   {
     id: '3',
     title: 'AI Automation Tool for Content Creation and SEO Optimization with GMB Management',
-    description: 'Built a full-stack AI-powered platform that automates blog writing, meta tag generation, and keyword-rich content creation. Integrated Google My Business (GMB) management to schedule posts, respond to reviews, and track local SEO performance — all from a single dashboard. Reduced content production time by 80% for agencies and small businesses..',
+    description: 'Built a full-stack AI-powered platform that automates blog writing, meta tag generation, and keyword-rich content creation. Integrated Google My Business (GMB) management to schedule posts, respond to reviews, and track local SEO performance - all from a single dashboard. Reduced content production time by 80% for agencies and small businesses..',
     image: '/images/portfolio/limbuai.png',
     category: 'edtech',
     technologies: ['Next.js', 'MongoDB', 'Tailwind CSS', 'AWS'],

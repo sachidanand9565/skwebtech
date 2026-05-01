@@ -81,7 +81,7 @@ export default function CTASection({
             className="inline-flex items-center gap-2 text-green-400 hover:text-green-300 text-sm transition-colors"
           >
             <MessageCircle size={16} />
-            Or chat directly on WhatsApp — we reply in minutes
+            Or chat directly on WhatsApp - we reply in minutes
           </a>
 
           {/* Trust row */}

@@ -23,7 +23,7 @@ const services = [
   },
   {
     title: 'WhatsApp Business Platform',
-    description: 'Automate customer communication, run campaigns, and connect your WhatsApp Business API — all from one powerful dashboard.',
+    description: 'Automate customer communication, run campaigns, and connect your WhatsApp Business API - all from one powerful dashboard.',
     icon: MessageSquare,
     href: 'https://wa.skwebtech.in',
     color: 'from-green-500 to-green-600',
@@ -68,7 +68,7 @@ export default function ServicesSection() {
         <SectionHeader
           badge="Our Services"
           title="Comprehensive Digital Solutions for Your Business"
-          subtitle="From websites and e-commerce stores to WhatsApp automation and mobile apps — we cover every aspect of your digital growth."
+          subtitle="From websites and e-commerce stores to WhatsApp automation and mobile apps - we cover every aspect of your digital growth."
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">

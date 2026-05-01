@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 const contactInfo = [
   { icon: Phone, title: 'Call Us', content: '+91 6386103750', subtext: 'Mon–Fri, 9am–6pm IST', href: 'tel:6386103750', color: 'from-blue-500 to-indigo-600' },
   { icon: Mail, title: 'Email Us', content: 'sachi274406@gmail.com', subtext: 'Reply within 24 hours', href: 'mailto:sachi274406@gmail.com', color: 'from-purple-500 to-violet-600' },
-  { icon: MapPin, title: 'Location', content: 'Remote — India', subtext: 'Serving clients worldwide', href: undefined, color: 'from-emerald-500 to-green-600' },
+  { icon: MapPin, title: 'Location', content: 'Remote - India', subtext: 'Serving clients worldwide', href: undefined, color: 'from-emerald-500 to-green-600' },
   { icon: Clock, title: 'Business Hours', content: 'Mon–Fri: 9am–6pm', subtext: 'Sat: 10am–4pm', href: undefined, color: 'from-orange-500 to-amber-500' },
 ];
 

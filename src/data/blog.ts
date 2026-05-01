@@ -32,7 +32,7 @@ export const blogPosts: BlogPost[] = [
     content: `
 ## The Digital Imperative
 
-In 2025, your website is often the first interaction potential customers have with your business. A professional website isn't just a digital business card—it's your 24/7 salesperson, brand ambassador, and customer service representative all rolled into one.
+In 2025, your website is often the first interaction potential customers have with your business. A professional website isn't just a digital business card-it's your 24/7 salesperson, brand ambassador, and customer service representative all rolled into one.
 
 ### First Impressions Matter
 
@@ -276,7 +276,7 @@ Need help deciding? [Let's discuss your project](/contact) and find the best app
     slug: 'importance-of-ui-ux-design-for-conversions',
     title: 'The Importance of UI/UX Design for Higher Conversions',
     excerpt:
-      'Great design isn\'t just about aesthetics—it directly impacts your bottom line. Learn how UI/UX design drives conversions.',
+      'Great design isn\'t just about aesthetics-it directly impacts your bottom line. Learn how UI/UX design drives conversions.',
     content: `
 ## Design That Converts
 
@@ -321,7 +321,7 @@ Studies show:
 
 ### Investing in Design
 
-Professional UI/UX design isn't an expense—it's an investment with measurable returns. The right design choices can dramatically impact your business success.
+Professional UI/UX design isn't an expense-it's an investment with measurable returns. The right design choices can dramatically impact your business success.
 
 Ready to improve your conversions through better design? [Contact our design team](/contact) today.
     `,
@@ -344,7 +344,7 @@ Ready to improve your conversions through better design? [Contact our design tea
     content: `
 ## Securing Your Digital Assets
 
-Cyber threats are more sophisticated than ever. Protecting your website isn't just about technology—it's about protecting your customers and your reputation.
+Cyber threats are more sophisticated than ever. Protecting your website isn't just about technology-it's about protecting your customers and your reputation.
 
 ### Essential Security Measures
 

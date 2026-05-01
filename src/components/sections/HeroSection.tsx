@@ -33,7 +33,7 @@ export default function HeroSection() {
       <div className="container-custom relative z-10 py-24 md:py-32">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
-          {/* Left — Content */}
+          {/* Left - Content */}
           <div>
             {/* Status badge */}
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/8 backdrop-blur-sm border border-white/15 rounded-full mb-7">
@@ -79,7 +79,7 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* Right — Visual Cards */}
+          {/* Right - Visual Cards */}
           <div className="hidden lg:block">
             <div className="relative">
               {/* Main stats card */}

@@ -129,7 +129,7 @@ const services = [
     id: 'uiux',
     title: 'UI/UX Design',
     description:
-      'User-centered designs that engage users and drive conversions. From research and wireframes to pixel-perfect visuals and interactive Figma prototypes — we craft interfaces users love.',
+      'User-centered designs that engage users and drive conversions. From research and wireframes to pixel-perfect visuals and interactive Figma prototypes - we craft interfaces users love.',
     icon: Palette,
     features: [
       'User research & personas',
@@ -199,7 +199,7 @@ export default function ServicesPage() {
               </span>
             </h1>
             <p className="text-base md:text-lg text-slate-400 leading-relaxed max-w-2xl mb-8">
-              From websites and e-commerce to WhatsApp automation and mobile apps — SK WebTech delivers end-to-end digital solutions that drive real business growth.
+              From websites and e-commerce to WhatsApp automation and mobile apps - SK WebTech delivers end-to-end digital solutions that drive real business growth.
             </p>
 
             <div className="grid grid-cols-3 gap-3 max-w-lg mb-8">
@@ -305,7 +305,7 @@ export default function ServicesPage() {
                   )}
                 </div>
 
-                {/* Visual — Service Showcase Card */}
+                {/* Visual - Service Showcase Card */}
                 <div className={`hidden lg:block ${index % 2 !== 0 ? 'lg:order-1' : ''}`}>
                   <div className="relative">
                     {/* Glow effect */}
@@ -332,7 +332,7 @@ export default function ServicesPage() {
                           )}
                         </div>
 
-                        {/* Feature grid — top 4 features */}
+                        {/* Feature grid - top 4 features */}
                         <div className="grid grid-cols-2 gap-3 mb-5">
                           {service.features.slice(0, 4).map((feature) => (
                             <div key={feature} className="bg-gray-50 rounded-xl p-3 border border-gray-100">

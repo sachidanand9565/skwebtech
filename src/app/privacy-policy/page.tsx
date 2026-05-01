@@ -69,7 +69,7 @@ const sections = [
       },
       {
         heading: 'Trusted Service Providers',
-        body: 'We may share your information with carefully selected third-party service providers who assist us in operating our website and delivering services — such as hosting providers, email services, and analytics platforms. These providers are contractually obligated to keep your data confidential.',
+        body: 'We may share your information with carefully selected third-party service providers who assist us in operating our website and delivering services - such as hosting providers, email services, and analytics platforms. These providers are contractually obligated to keep your data confidential.',
       },
       {
         heading: 'Legal Requirements',
@@ -129,7 +129,7 @@ const sections = [
       },
       {
         heading: 'Deletion & Restriction',
-        body: 'You may request that we delete your personal data or restrict its processing in certain circumstances — for example, if you believe the data is no longer necessary for the purpose it was collected, or if you withdraw consent.',
+        body: 'You may request that we delete your personal data or restrict its processing in certain circumstances - for example, if you believe the data is no longer necessary for the purpose it was collected, or if you withdraw consent.',
       },
       {
         heading: 'Data Portability & Objection',
@@ -296,7 +296,7 @@ export default function PrivacyPolicyPage() {
           </div>
           <h2 className="text-3xl font-heading font-bold text-white mb-4">Questions About Your Privacy?</h2>
           <p className="text-slate-400 leading-relaxed mb-8 max-w-xl mx-auto">
-            If you have any questions about this Privacy Policy, how we handle your data, or would like to exercise any of your rights, please reach out — we&apos;re here to help.
+            If you have any questions about this Privacy Policy, how we handle your data, or would like to exercise any of your rights, please reach out - we&apos;re here to help.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/contact" className="btn-accent">

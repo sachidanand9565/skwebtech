@@ -52,7 +52,7 @@ export const servicePageTemplates: ServicePageTemplate[] = [
     subIntroTemplate:
       'From a simple landing page to a complex enterprise portal, our team in {city} delivers pixel-perfect, SEO-friendly websites that grow your business. Every project is built with modern technology and best practices.',
     features: [
-      { title: 'Custom Website Design', desc: 'Pixel-perfect, brand-aligned designs built from scratch — no templates' },
+      { title: 'Custom Website Design', desc: 'Pixel-perfect, brand-aligned designs built from scratch - no templates' },
       { title: 'Next.js & React Development', desc: 'Blazing-fast web apps with server-side rendering and modern frameworks' },
       { title: 'SEO-Ready Architecture', desc: 'Built to rank on Google from day one with clean code and proper structure' },
       { title: 'Mobile-First Responsive', desc: 'Flawless experience on all devices, screens, and browsers' },
@@ -83,7 +83,7 @@ export const servicePageTemplates: ServicePageTemplate[] = [
       },
       {
         q: 'Will my website rank on Google?',
-        a: 'All our websites are built with on-page SEO best practices — fast loading speed, clean code, proper meta tags, structured data, and mobile responsiveness. We also offer dedicated SEO services to improve your rankings in {city}.',
+        a: 'All our websites are built with on-page SEO best practices - fast loading speed, clean code, proper meta tags, structured data, and mobile responsiveness. We also offer dedicated SEO services to improve your rankings in {city}.',
       },
       {
         q: 'Can you redesign my existing website?',
@@ -109,7 +109,7 @@ export const servicePageTemplates: ServicePageTemplate[] = [
       'online shopping website development {city}',
       'ecommerce solution {city}',
     ],
-    h1Template: 'E-Commerce Development in {city} — Launch Your Online Store',
+    h1Template: 'E-Commerce Development in {city} - Launch Your Online Store',
     introTemplate:
       'SK WebTech builds high-converting e-commerce stores for businesses in {city}. From Shopify and WooCommerce to fully custom solutions, we create online stores that sell.',
     subIntroTemplate:
@@ -137,7 +137,7 @@ export const servicePageTemplates: ServicePageTemplate[] = [
         a: 'E-commerce development in {city} starts at ₹25,000 for a basic Shopify/WooCommerce store. Custom e-commerce platforms range from ₹75,000 to ₹5,00,000+ based on features. Contact us for a free estimate.',
       },
       {
-        q: 'Which platform is best for e-commerce — Shopify or custom development?',
+        q: 'Which platform is best for e-commerce - Shopify or custom development?',
         a: 'Shopify is great for quick launches with standard features. Custom development is better for unique business logic, marketplace features, or deep integrations. Our {city} team helps you choose the right fit.',
       },
       {
@@ -156,7 +156,7 @@ export const servicePageTemplates: ServicePageTemplate[] = [
     title: 'SEO Services',
     color: 'from-purple-600 to-violet-600',
     textColor: 'text-purple-600',
-    metaTitleTemplate: 'SEO Services in {city} | SK WebTech — Rank #1 on Google',
+    metaTitleTemplate: 'SEO Services in {city} | SK WebTech - Rank #1 on Google',
     metaDescriptionTemplate:
       'Boost your Google rankings with professional SEO services in {city}. SK WebTech provides technical SEO, local SEO, content strategy & link building. Get a free audit!',
     keywordsTemplate: [
@@ -169,7 +169,7 @@ export const servicePageTemplates: ServicePageTemplate[] = [
       'SEO expert {city}',
       'affordable SEO {city}',
     ],
-    h1Template: 'SEO Services in {city} — Rank #1 on Google',
+    h1Template: 'SEO Services in {city} - Rank #1 on Google',
     introTemplate:
       'SK WebTech delivers result-driven SEO services in {city} that improve your Google rankings, drive organic traffic, and generate quality leads for your business.',
     subIntroTemplate:
@@ -181,7 +181,7 @@ export const servicePageTemplates: ServicePageTemplate[] = [
       { title: 'Local SEO', desc: 'Google My Business optimization, local citations, and map pack rankings' },
       { title: 'Link Building', desc: 'High-authority backlink acquisition through white-hat outreach strategies' },
       { title: 'Content Strategy', desc: 'SEO-focused blog posts, landing pages, and content calendar execution' },
-      { title: 'Core Web Vitals', desc: 'Speed optimization for LCP, FID, and CLS — Google ranking factors' },
+      { title: 'Core Web Vitals', desc: 'Speed optimization for LCP, FID, and CLS - Google ranking factors' },
       { title: 'Monthly Reporting', desc: 'Transparent reports on rankings, traffic, conversions, and ROI' },
     ],
     technologies: ['Google Search Console', 'Google Analytics 4', 'SEMrush', 'Ahrefs', 'Screaming Frog', 'Moz', 'SurferSEO'],
@@ -189,7 +189,7 @@ export const servicePageTemplates: ServicePageTemplate[] = [
       { title: 'Organic Traffic Growth', desc: 'Consistent month-over-month increase in qualified organic visitors', icon: '📈' },
       { title: 'Local Dominance', desc: 'Rank in the top 3 Google Map Pack results for your {city} keywords', icon: '📍' },
       { title: 'ROI-Focused', desc: 'We target keywords that bring buyers, not just traffic', icon: '💡' },
-      { title: 'Transparent Reporting', desc: 'Monthly reports with clear metrics — no jargon, just results', icon: '📊' },
+      { title: 'Transparent Reporting', desc: 'Monthly reports with clear metrics - no jargon, just results', icon: '📊' },
     ],
     faqsTemplate: [
       {
@@ -228,15 +228,15 @@ export const servicePageTemplates: ServicePageTemplate[] = [
       'Flutter developer {city}',
       'cross-platform app development {city}',
     ],
-    h1Template: 'Mobile App Development in {city} — iOS & Android',
+    h1Template: 'Mobile App Development in {city} - iOS & Android',
     introTemplate:
       'SK WebTech is a leading mobile app development company in {city}, building powerful iOS and Android applications for startups, enterprises, and everything in between.',
     subIntroTemplate:
-      'Our {city} app development team transforms your idea into a feature-rich, user-friendly mobile application — from concept and design to app store launch and beyond.',
+      'Our {city} app development team transforms your idea into a feature-rich, user-friendly mobile application - from concept and design to app store launch and beyond.',
     features: [
       { title: 'Native iOS Development', desc: 'Swift-powered iOS apps with exceptional performance and Apple design guidelines' },
       { title: 'Native Android Development', desc: 'Kotlin-based Android apps with Material Design and Google Play compliance' },
-      { title: 'Cross-Platform Apps', desc: 'Single codebase for iOS & Android with React Native or Flutter — 60% cost savings' },
+      { title: 'Cross-Platform Apps', desc: 'Single codebase for iOS & Android with React Native or Flutter - 60% cost savings' },
       { title: 'UI/UX for Mobile', desc: 'Intuitive mobile interfaces with smooth animations and user-first design' },
       { title: 'Backend & API Development', desc: 'Scalable REST/GraphQL APIs and cloud infrastructure for your app' },
       { title: 'Push Notifications', desc: 'Targeted push notifications to boost user engagement and retention' },
@@ -288,11 +288,11 @@ export const servicePageTemplates: ServicePageTemplate[] = [
       'web design {city}',
       'user experience design {city}',
     ],
-    h1Template: 'UI/UX Design Services in {city} — Beautiful Interfaces That Convert',
+    h1Template: 'UI/UX Design Services in {city} - Beautiful Interfaces That Convert',
     introTemplate:
       'SK WebTech delivers user-centered UI/UX design services in {city} that create memorable digital experiences, improve usability, and drive conversions for web and mobile products.',
     subIntroTemplate:
-      'Our {city} design team combines research, strategy, and visual craft to create interfaces that your users love — and that achieve your business goals.',
+      'Our {city} design team combines research, strategy, and visual craft to create interfaces that your users love - and that achieve your business goals.',
     features: [
       { title: 'User Research & Personas', desc: 'In-depth research to understand your users\' needs, pain points, and behavior' },
       { title: 'Information Architecture', desc: 'Logical content structure and navigation that users intuitively understand' },
@@ -307,7 +307,7 @@ export const servicePageTemplates: ServicePageTemplate[] = [
     benefits: [
       { title: 'Higher Conversions', desc: 'Well-designed UX can increase conversion rates by up to 400%', icon: '📈' },
       { title: 'Reduced Dev Cost', desc: 'Catching UX issues in design is 100x cheaper than fixing them post-launch', icon: '💡' },
-      { title: 'User Retention', desc: 'Great UX keeps users coming back — lowering churn and increasing LTV', icon: '❤️' },
+      { title: 'User Retention', desc: 'Great UX keeps users coming back - lowering churn and increasing LTV', icon: '❤️' },
       { title: 'Brand Credibility', desc: 'Professional design builds trust and makes a lasting first impression', icon: '✨' },
     ],
     faqsTemplate: [
@@ -347,7 +347,7 @@ export const servicePageTemplates: ServicePageTemplate[] = [
       'WhatsApp Business solution {city}',
       'WhatsApp CRM integration {city}',
     ],
-    h1Template: 'WhatsApp Business Solutions in {city} — Automate & Scale Customer Communication',
+    h1Template: 'WhatsApp Business Solutions in {city} - Automate & Scale Customer Communication',
     introTemplate:
       'SK WebTech provides complete WhatsApp Business API solutions in {city} that help you automate customer support, run marketing campaigns, and scale communication to thousands of customers instantly.',
     subIntroTemplate:
@@ -376,7 +376,7 @@ export const servicePageTemplates: ServicePageTemplate[] = [
       },
       {
         q: 'What is the difference between WhatsApp Business App and WhatsApp Business API?',
-        a: 'The WhatsApp Business App is for small businesses with manual communication. The API is for medium-to-large businesses that need automation, bulk messaging, chatbots, and CRM integration — which is what we provide.',
+        a: 'The WhatsApp Business App is for small businesses with manual communication. The API is for medium-to-large businesses that need automation, bulk messaging, chatbots, and CRM integration - which is what we provide.',
       },
       {
         q: 'Can I send bulk promotional messages on WhatsApp?',
@@ -406,11 +406,11 @@ export const servicePageTemplates: ServicePageTemplate[] = [
       'website security {city}',
       'website monitoring {city}',
     ],
-    h1Template: 'Website Maintenance & Support in {city} — 24/7 Peace of Mind',
+    h1Template: 'Website Maintenance & Support in {city} - 24/7 Peace of Mind',
     introTemplate:
       'SK WebTech provides comprehensive website maintenance and support services in {city}, keeping your digital assets secure, fast, and always online.',
     subIntroTemplate:
-      'Focus on your business while our {city} team handles all technical aspects — from security patches and speed optimization to content updates and emergency fixes.',
+      'Focus on your business while our {city} team handles all technical aspects - from security patches and speed optimization to content updates and emergency fixes.',
     features: [
       { title: '24/7 Uptime Monitoring', desc: 'Real-time monitoring with instant alerts and rapid response to downtime' },
       { title: 'Security Updates & Patching', desc: 'Regular CMS, plugin, and server security updates to prevent vulnerabilities' },

@@ -41,7 +41,7 @@ export default function Header() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 z-50 flex-shrink-0" aria-label="SK WebTech - Home">
-            {/* Icon — always dark bg so it looks branded on both light & dark headers */}
+            {/* Icon - always dark bg so it looks branded on both light & dark headers */}
             <div className="w-10 h-10 rounded-xl overflow-hidden flex-shrink-0 bg-slate-950 shadow-soft">
               <Image
                 src="/images/logo.png"
