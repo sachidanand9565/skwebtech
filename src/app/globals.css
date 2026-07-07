@@ -1,158 +1,270 @@
-/* 
- * SK WebTech - Global Styles
- * Modern, professional IT services agency website
+/*
+ * SK WebTech — Global Styles
+ * Premium dark design system: deep-space surfaces, cyan/violet energy,
+ * glassmorphism, soft glows and fluid motion.
  */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Base layer customizations */
+/* ---------------------------------- Base ---------------------------------- */
 @layer base {
-  /* Smooth scrolling for the entire page */
   html {
-    scroll-behavior: smooth;
+    /* Lenis drives smooth scrolling; keep anchor offset for the fixed header */
+    scroll-padding-top: 6rem;
   }
 
-  /* Default body styles */
   body {
-    @apply bg-white text-gray-800 antialiased;
+    @apply bg-void text-slate-300 antialiased;
+    text-rendering: optimizeLegibility;
   }
 
-  /* Heading styles with Poppins font */
   h1, h2, h3, h4, h5, h6 {
-    @apply font-heading font-semibold tracking-tight;
+    @apply font-heading font-semibold tracking-tight text-white;
   }
 
-  /* Link hover transitions */
   a {
     @apply transition-colors duration-200;
   }
+
+  ::selection {
+    background: rgba(0, 229, 255, 0.28);
+    color: #ffffff;
+  }
+
+  /* Slim, dark scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #050816;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, rgba(0, 229, 255, 0.35), rgba(123, 97, 255, 0.35));
+    border-radius: 8px;
+    border: 2px solid #050816;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, rgba(0, 229, 255, 0.55), rgba(123, 97, 255, 0.55));
+  }
+
+  /* Visible focus for keyboard users */
+  :focus-visible {
+    outline: 2px solid rgba(0, 229, 255, 0.7);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
 }
 
-/* Component layer - reusable patterns */
+/* ------------------------------- Components ------------------------------- */
 @layer components {
-  /* Container for consistent max-width */
   .container-custom {
-    @apply max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8;
+    @apply max-w-7xl mx-auto px-4 sm:px-5 md:px-8 lg:px-10;
   }
 
-  /* Primary button style */
+  /* Primary button — electric cyan, dark label, glow on hover */
   .btn-primary {
-    @apply inline-flex items-center justify-center px-6 py-3 
-           bg-primary-600 text-white font-medium rounded-lg
-           hover:bg-primary-700 focus:outline-none focus:ring-2 
-           focus:ring-primary-500 focus:ring-offset-2
-           transition-all duration-200 shadow-soft
-           hover:shadow-soft-lg hover:-translate-y-0.5;
+    @apply relative inline-flex items-center justify-center px-6 py-3
+           bg-primary-500 text-void font-heading font-semibold rounded-full
+           transition-all duration-300 ease-out-expo
+           hover:bg-primary-400 hover:shadow-glow hover:-translate-y-0.5
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-400
+           active:scale-[0.98];
   }
 
-  /* Secondary button style */
+  /* Secondary button — glass outline */
   .btn-secondary {
     @apply inline-flex items-center justify-center px-6 py-3
-           bg-white text-primary-600 font-medium rounded-lg
-           border-2 border-primary-600
-           hover:bg-primary-50 focus:outline-none focus:ring-2 
-           focus:ring-primary-500 focus:ring-offset-2
-           transition-all duration-200;
+           bg-white/[0.04] text-white font-heading font-medium rounded-full
+           border border-white/15 backdrop-blur-sm
+           transition-all duration-300 ease-out-expo
+           hover:bg-white/[0.09] hover:border-primary-500/40 hover:-translate-y-0.5
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-400
+           active:scale-[0.98];
   }
 
-  /* Accent/CTA button style (Orange) */
+  /* Accent / hero CTA — animated cyan→violet gradient */
   .btn-accent {
-    @apply inline-flex items-center justify-center px-6 py-3
-           bg-accent-500 text-white font-medium rounded-lg
-           hover:bg-accent-600 focus:outline-none focus:ring-2 
-           focus:ring-accent-500 focus:ring-offset-2
-           transition-all duration-200 shadow-soft
-           hover:shadow-soft-lg hover:-translate-y-0.5;
+    @apply relative inline-flex items-center justify-center px-6 py-3 overflow-hidden
+           text-void font-heading font-semibold rounded-full
+           transition-all duration-300 ease-out-expo
+           hover:shadow-glow hover:-translate-y-0.5
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-400
+           active:scale-[0.98];
+    background: linear-gradient(120deg, #00e5ff, #22d3ee 45%, #7b61ff);
+    background-size: 200% 200%;
+    animation: gradientX 6s ease infinite;
+    color: #050816;
   }
 
-  /* Card component style */
+  /* Glass card */
   .card {
-    @apply bg-white rounded-2xl p-6 shadow-card
-           transition-all duration-300
-           hover:shadow-card-hover hover:-translate-y-1;
+    @apply relative bg-white/[0.03] border border-white/10 rounded-2xl p-6
+           backdrop-blur-sm shadow-card transition-all duration-300 ease-out-expo
+           hover:border-primary-500/30 hover:shadow-card-hover hover:-translate-y-1;
   }
 
-  /* Section title style */
   .section-title {
-    @apply text-3xl md:text-4xl font-heading font-bold text-gray-900;
+    @apply text-3xl md:text-4xl font-heading font-bold text-white;
   }
 
-  /* Section subtitle style */
   .section-subtitle {
-    @apply text-lg text-gray-600 mt-4 max-w-2xl;
+    @apply text-lg text-slate-400 mt-4 max-w-2xl;
   }
 
-  /* Gradient text effect */
   .gradient-text {
-    @apply bg-gradient-to-r from-primary-600 to-primary-400 
-           bg-clip-text text-transparent;
+    @apply bg-brand-gradient bg-clip-text text-transparent;
   }
 
-  /* Form input style */
+  /* Section eyebrow chip */
+  .badge-chip {
+    @apply inline-flex items-center gap-2 px-4 py-1.5 rounded-full
+           bg-white/[0.04] border border-white/10 backdrop-blur-md
+           text-[11px] font-semibold uppercase tracking-[0.18em] text-primary-300;
+  }
+
+  /* Dark glass form controls */
   .form-input {
-    @apply w-full px-4 py-3 rounded-lg border border-gray-300
-           focus:ring-2 focus:ring-primary-500 focus:border-primary-500
+    @apply w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10
+           text-sm text-white placeholder-slate-500
+           focus:bg-white/[0.06] focus:border-primary-500/50 focus:ring-2 focus:ring-primary-500/20
            transition-all duration-200 outline-none;
   }
 
-  /* Form textarea style */
   .form-textarea {
-    @apply w-full px-4 py-3 rounded-lg border border-gray-300
-           focus:ring-2 focus:ring-primary-500 focus:border-primary-500
-           transition-all duration-200 outline-none resize-none;
+    @apply w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10
+           text-sm text-white placeholder-slate-500 resize-none
+           focus:bg-white/[0.06] focus:border-primary-500/50 focus:ring-2 focus:ring-primary-500/20
+           transition-all duration-200 outline-none;
+  }
+
+  .glass-panel {
+    @apply bg-white/[0.05] backdrop-blur-xl border border-white/10 shadow-soft;
+  }
+
+  .glass-panel-dark {
+    @apply bg-void-50/60 backdrop-blur-xl border border-white/5 shadow-2xl;
+  }
+
+  /* Gradient hairline border (cyan → violet) */
+  .border-glow {
+    position: relative;
+  }
+
+  .border-glow::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(0, 229, 255, 0.45), rgba(123, 97, 255, 0.08) 45%, rgba(123, 97, 255, 0.4));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Ambient glow orb — position with utilities, color via bg-* */
+  .glow-orb {
+    @apply absolute rounded-full blur-[110px] pointer-events-none;
   }
 }
 
-/* Utilities layer - custom utilities */
+/* -------------------------------- Utilities ------------------------------- */
 @layer utilities {
-  /* Text balance for better typography */
   .text-balance {
     text-wrap: balance;
   }
 
-  /* Hide scrollbar but keep functionality */
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-  
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
 
-  /* Backdrop blur fallback */
   .backdrop-blur-safari {
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
   }
+
+  /* Subtle dot matrix backdrop */
+  .bg-dots {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.09) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  /* Blueprint grid backdrop */
+  .bg-grid {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  /* Fade grid/dots toward edges */
+  .mask-radial-fade {
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 35%, transparent 78%);
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 35%, transparent 78%);
+  }
+
+  .mask-fade-bottom {
+    -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
+  }
+
+  .text-glow {
+    text-shadow: 0 0 28px rgba(0, 229, 255, 0.45);
+  }
+
+  /* Shimmer sweep for skeletons / hover accents */
+  .bg-shimmer {
+    background: linear-gradient(100deg, transparent 32%, rgba(255, 255, 255, 0.07) 50%, transparent 68%);
+    background-size: 200% 100%;
+  }
+
+  /* GPU hint for animated layers */
+  .will-change-transform {
+    will-change: transform;
+  }
 }
 
-/* Custom animations */
+/* ------------------------- Legacy keyframe aliases ------------------------ */
+/* Kept for any inline usages; primary keyframes live in tailwind.config.ts */
 @keyframes pulse-slow {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.7;
-  }
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
 }
 
 .animate-pulse-slow {
-  animation: pulse-slow 3s ease-in-out infinite;
+  animation: pulse-slow 3.5s ease-in-out infinite;
 }
 
-/* WhatsApp floating button animation */
 @keyframes bounce-subtle {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-5px);
-  }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
 }
 
 .animate-bounce-subtle {
   animation: bounce-subtle 2s ease-in-out infinite;
+}
+
+@keyframes gradientX {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* --------------------------- Reduced motion guard ------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

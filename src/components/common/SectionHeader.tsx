@@ -4,6 +4,7 @@
  */
 
 import { ReactNode } from 'react';
+import Reveal from '@/components/motion/Reveal';
 
 interface SectionHeaderProps {
   title: string;
@@ -28,22 +29,27 @@ export default function SectionHeader({
     <div className={`max-w-3xl ${alignmentClasses} ${className}`}>
       {/* Optional Badge */}
       {badge && (
-        <span className="inline-block px-3 md:px-4 py-1 md:py-1.5 bg-primary-100 text-primary-700 
-                       text-xs md:text-sm font-medium rounded-full mb-3 md:mb-4">
-          {badge}
-        </span>
+        <Reveal y={14}>
+          <span className="badge-chip mb-4 md:mb-5">{badge}</span>
+        </Reveal>
       )}
-      
+
       {/* Title */}
-      <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-gray-900 text-balance mb-3 md:mb-4">{title}</h2>
-      
+      <Reveal delay={0.08}>
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-white text-balance mb-3 md:mb-4">
+          {title}
+        </h2>
+      </Reveal>
+
       {/* Subtitle */}
       {subtitle && (
-        <p className={`text-base md:text-lg text-gray-600 leading-relaxed ${align === 'center' ? 'mx-auto' : ''}`}>
-          {subtitle}
-        </p>
+        <Reveal delay={0.16}>
+          <p className={`text-base md:text-lg text-slate-400 leading-relaxed ${align === 'center' ? 'mx-auto' : ''}`}>
+            {subtitle}
+          </p>
+        </Reveal>
       )}
-      
+
       {/* Optional additional content */}
       {children}
     </div>

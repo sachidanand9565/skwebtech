@@ -4,12 +4,17 @@
  */
 
 import type { Metadata } from 'next';
-import { Inter, Poppins } from 'next/font/google';
+import { Inter, Space_Grotesk } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import WhatsAppButton from '@/components/common/WhatsAppButton';
 import CallButton from '@/components/common/CallButton';
+import ChatBot from '@/components/common/ChatBot';
+import SmoothScroll from '@/components/motion/SmoothScroll';
+import CursorGlow from '@/components/motion/CursorGlow';
+import PageLoader from '@/components/motion/PageLoader';
+import ScrollProgress from '@/components/motion/ScrollProgress';
 
 // Load Inter font for body text
 const inter = Inter({
@@ -18,11 +23,11 @@ const inter = Inter({
   display: 'swap',
 });
 
-// Load Poppins font for headings
-const poppins = Poppins({
+// Load Space Grotesk font for display headings
+const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
-  variable: '--font-poppins',
+  variable: '--font-space-grotesk',
   display: 'swap',
 });
 
@@ -108,22 +113,28 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
+    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
       <head>
         <link rel="icon" type="image/png" href="/images/logo.png" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#0a0f1e" />
+        <meta name="theme-color" content="#050816" />
       </head>
       <body className="font-sans">
         {/* Skip to main content for accessibility */}
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 
-                     bg-primary-600 text-white px-4 py-2 rounded-lg z-50"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4
+                     bg-primary-500 text-void px-4 py-2 rounded-lg z-[80] font-semibold"
         >
           Skip to main content
         </a>
+
+        {/* Global motion layer */}
+        <PageLoader />
+        <SmoothScroll />
+        <ScrollProgress />
+        <CursorGlow />
 
         {/* Sticky Header */}
         <Header />
@@ -139,6 +150,7 @@ export default function RootLayout({
         {/* Floating buttons */}
         <WhatsAppButton />
         <CallButton />
+        <ChatBot />
       </body>
     </html>
   );

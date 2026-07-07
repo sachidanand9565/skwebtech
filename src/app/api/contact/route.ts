@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 import { siteConfig } from '@/config/site';
+import { getContacts, saveContacts, ContactMessage } from '@/lib/db';
 
 const recipient =
   process.env.CONTACT_EMAIL_RECIPIENT || siteConfig.contact.email;
@@ -16,6 +17,27 @@ export async function POST(request: NextRequest) {
         { error: 'Name, email, and message are required.' },
         { status: 400 }
       );
+    }
+
+    // ✅ Save to local database
+    let dbSaved = false;
+    try {
+      const newContact: ContactMessage = {
+        id: Date.now().toString(),
+        name,
+        email,
+        phone: phone || '',
+        service: service || '',
+        message,
+        status: 'Pending',
+        createdAt: new Date().toISOString(),
+      };
+      const contacts = await getContacts();
+      contacts.unshift(newContact); // Insert at beginning so newest shows first
+      await saveContacts(contacts);
+      dbSaved = true;
+    } catch (dbErr) {
+      console.error('Failed to save contact lead to database:', dbErr);
     }
 
     // ✅ Transporter (GMAIL SIMPLE SETUP)
@@ -41,17 +63,30 @@ export async function POST(request: NextRequest) {
       </div>
     `;
 
-    // ✅ Send Mail
-    await transporter.sendMail({
-      from: `"Website Lead" <${process.env.SMTP_USER}>`,
-      to: recipient, // admin mail
-      replyTo: email, // 🔥 direct reply user ko
-      subject: `🚀 New Lead from ${name}`,
-      text: `Name: ${name}\nEmail: ${email}\nPhone: ${
-        phone || 'Not provided'
-      }\nService: ${service || 'Not specified'}\n\nMessage:\n${message}`,
-      html: htmlBody,
-    });
+    // ✅ Send Mail — the lead is already in the database, so an email failure
+    // should not show an error to the visitor (they'd resubmit or leave).
+    try {
+      await transporter.sendMail({
+        from: `"Website Lead" <${process.env.SMTP_USER}>`,
+        to: recipient, // admin mail
+        replyTo: email, // 🔥 direct reply user ko
+        subject: `🚀 New Lead from ${name}`,
+        text: `Name: ${name}\nEmail: ${email}\nPhone: ${
+          phone || 'Not provided'
+        }\nService: ${service || 'Not specified'}\n\nMessage:\n${message}`,
+        html: htmlBody,
+      });
+    } catch (mailErr) {
+      console.error('Mail Error:', mailErr);
+      if (dbSaved) {
+        // Lead captured in DB — visitor ke liye ye success hai
+        return NextResponse.json({ success: true, emailSent: false });
+      }
+      return NextResponse.json(
+        { error: 'Mail not sent. Check SMTP configuration.' },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {

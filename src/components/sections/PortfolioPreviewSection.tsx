@@ -1,91 +1,63 @@
-/**
- * Portfolio Preview Section Component
- * Shows a preview of featured portfolio projects
- */
-
 import Link from 'next/link';
 import SectionHeader from '@/components/common/SectionHeader';
 import PortfolioCard from '@/components/common/PortfolioCard';
 import { ArrowRight } from 'lucide-react';
-
-// Featured projects data
-const featuredProjects = [
-  {
-    title: 'AI-Powered Automation Platform',
-    category: 'Web Application',
-    description:
-      'A comprehensive SaaS platform for project management with real-time collaboration features.',
-    image: '/images/portfolio/limbuai.png',
-    tags: ['React', 'Node.js', 'MongoDB'],
-    href: '/portfolio',
-  },
-  {
-    title: 'Affiliate marketing website',
-    category: 'Education',
-    description:
-      'e-commerce store with advanced filtering, wishlist, and seamless checkout.',
-    image: '/images/portfolio/profitway.png',
-    tags: ['Next.js', 'vercel', 'mysql'],
-    href: '/portfolio',
-  },
- 
-  {
-    title: 'E-commerce Services booking website',
-    category: 'website',
-    description:
-      'Real-time energy monitoring dashboard with analytics and predictive maintenance alerts.',
-    image: '/images/portfolio/rocare.png',
-    tags: ['next.js', 'Aws', 'mysql'],
-    href: '/portfolio',
-  },
-
-];
+import { StaggerContainer, StaggerItem } from '@/components/motion/Stagger';
+import { getProjects } from '@/lib/db';
 
 interface PortfolioPreviewSectionProps {
   showAll?: boolean;
   limit?: number;
 }
 
-export default function PortfolioPreviewSection({
+export default async function PortfolioPreviewSection({
   showAll = false,
   limit = 3,
 }: PortfolioPreviewSectionProps) {
+  const allProjects = await getProjects();
+  const featuredProjects = allProjects.filter(p => p.featured || showAll);
+
   const displayedProjects = showAll
-    ? featuredProjects
+    ? allProjects
     : featuredProjects.slice(0, limit);
 
   return (
-    <section className="py-16 md:py-20 bg-gray-50" id="portfolio">
-      <div className="container-custom">
+    <section className="relative py-20 md:py-24 bg-void-50 overflow-hidden" id="portfolio">
+      {/* Ambient background */}
+      <div className="glow-orb top-[10%] left-[15%] w-[420px] h-[380px] bg-primary-500/[0.05]" />
+      <div className="glow-orb bottom-0 right-[10%] w-[380px] h-[340px] bg-secondary-500/[0.06]" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
+      <div className="container-custom relative z-10">
         {/* Section Header */}
         <SectionHeader
           badge="Our Portfolio"
           title="Projects That Speak for Themselves"
-          subtitle="Explore our recent work and see how we've helped businesses transform 
-                   their digital presence with innovative solutions."
+          subtitle="Explore our recent work and see how we've helped businesses transform their digital presence with innovative solutions."
         />
 
         {/* Portfolio Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-14">
           {displayedProjects.map((project) => (
-            <PortfolioCard
-              key={project.title}
-              title={project.title}
-              category={project.category}
-              description={project.description}
-              image={project.image}
-              tags={project.tags}
-              href={project.href}
-            />
+            <StaggerItem key={project.id} className="h-full">
+              <PortfolioCard
+                title={project.title}
+                category={project.category === 'ecommerce' ? 'E-Commerce' : project.category === 'dashboard' ? 'Dashboard' : project.category === 'edtech' ? 'EdTech' : 'Web Application'}
+                description={project.description}
+                image={project.image}
+                tags={project.technologies}
+                href={project.liveUrl || '/portfolio'}
+              />
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
 
-        {/* View All Button - Only show on homepage preview */}
+        {/* View All Button */}
         {!showAll && (
-          <div className="text-center mt-10">
-            <Link href="/portfolio" className="btn-primary inline-flex">
+          <div className="text-center mt-14">
+            <Link href="/portfolio" className="btn-primary inline-flex group">
               View All Projects
-              <ArrowRight size={20} className="ml-2" />
+              <ArrowRight size={20} className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </div>
         )}

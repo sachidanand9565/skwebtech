@@ -24,10 +24,9 @@ export default function TestimonialCard({
   rating = 5,
 }: TestimonialCardProps) {
   return (
-    <div className="bg-white rounded-2xl p-8 shadow-card hover:shadow-card-hover 
-                  transition-all duration-300 relative">
+    <div className="card relative p-8">
       {/* Quote Icon */}
-      <div className="absolute top-6 right-6 text-primary-100">
+      <div className="absolute top-6 right-6 text-primary-500/15">
         <Quote size={48} fill="currentColor" />
       </div>
 
@@ -39,22 +38,22 @@ export default function TestimonialCard({
             size={18}
             className={`${
               index < rating
-                ? 'text-yellow-400 fill-yellow-400'
-                : 'text-gray-300'
+                ? 'text-amber-400 fill-amber-400'
+                : 'text-slate-700'
             }`}
           />
         ))}
       </div>
 
       {/* Testimonial Content */}
-      <p className="text-gray-700 leading-relaxed mb-6 relative z-10">
+      <p className="text-slate-300 leading-relaxed mb-6 relative z-10">
         &ldquo;{content}&rdquo;
       </p>
 
       {/* Author Info */}
       <div className="flex items-center space-x-4">
         {/* Avatar */}
-        <div className="relative w-12 h-12 rounded-full overflow-hidden bg-primary-100">
+        <div className="relative w-12 h-12 rounded-full overflow-hidden bg-primary-500/15 border border-primary-500/25">
           {avatar ? (
             <Image
               src={avatar}
@@ -63,8 +62,8 @@ export default function TestimonialCard({
               className="object-cover"
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center 
-                          text-primary-600 font-semibold text-lg">
+            <div className="w-full h-full flex items-center justify-center
+                          text-primary-300 font-semibold text-lg">
               {name.charAt(0)}
             </div>
           )}
@@ -72,8 +71,8 @@ export default function TestimonialCard({
 
         {/* Name & Role */}
         <div>
-          <h4 className="font-heading font-semibold text-gray-900">{name}</h4>
-          <p className="text-sm text-gray-500">
+          <h4 className="font-heading font-semibold text-white">{name}</h4>
+          <p className="text-sm text-slate-500">
             {role}, {company}
           </p>
         </div>

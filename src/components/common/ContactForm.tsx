@@ -16,7 +16,24 @@ interface FormData {
   message: string;
 }
 
-export default function ContactForm() {
+interface ServiceOption {
+  id: string;
+  title: string;
+}
+
+// Fallback when no services are passed from the database
+const DEFAULT_SERVICES: ServiceOption[] = [
+  { id: 'web-development', title: 'Web Development' },
+  { id: 'whatsapp-business', title: 'WhatsApp Business API' },
+  { id: 'ecommerce', title: 'E-Commerce Solutions' },
+  { id: 'seo', title: 'SEO Optimization' },
+  { id: 'app-development', title: 'App Development' },
+  { id: 'uiux', title: 'UI/UX Design' },
+  { id: 'maintenance', title: 'Maintenance & Support' },
+];
+
+export default function ContactForm({ services }: { services?: ServiceOption[] }) {
+  const serviceOptions = services && services.length > 0 ? services : DEFAULT_SERVICES;
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -75,14 +92,14 @@ export default function ContactForm() {
   // Success state
   if (isSubmitted) {
     return (
-      <div className="bg-green-50 border border-green-200 rounded-2xl p-8 text-center">
-        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <CheckCircle size={32} className="text-green-600" />
+      <div className="rounded-2xl border border-green-500/25 bg-green-500/[0.06] p-8 text-center backdrop-blur-sm">
+        <div className="w-16 h-16 bg-green-500/15 border border-green-500/25 rounded-full flex items-center justify-center mx-auto mb-4">
+          <CheckCircle size={32} className="text-green-400" />
         </div>
-        <h3 className="font-heading font-semibold text-xl text-green-800 mb-2">
+        <h3 className="font-heading font-semibold text-xl text-white mb-2">
           Message Sent Successfully!
         </h3>
-        <p className="text-green-600">
+        <p className="text-green-400/90">
           Thank you for reaching out. We&apos;ll get back to you within 24 hours.
         </p>
       </div>
@@ -96,7 +113,7 @@ export default function ContactForm() {
         <div>
           <label
             htmlFor="name"
-            className="block text-sm font-medium text-gray-700 mb-2"
+            className="block text-sm font-medium text-slate-300 mb-2"
           >
             Full Name *
           </label>
@@ -114,7 +131,7 @@ export default function ContactForm() {
         <div>
           <label
             htmlFor="email"
-            className="block text-sm font-medium text-gray-700 mb-2"
+            className="block text-sm font-medium text-slate-300 mb-2"
           >
             Email Address *
           </label>
@@ -136,7 +153,7 @@ export default function ContactForm() {
         <div>
           <label
             htmlFor="phone"
-            className="block text-sm font-medium text-gray-700 mb-2"
+            className="block text-sm font-medium text-slate-300 mb-2"
           >
             Phone Number
           </label>
@@ -146,14 +163,14 @@ export default function ContactForm() {
             name="phone"
             value={formData.phone}
             onChange={handleChange}
-            placeholder="+91 6386103750"
+            placeholder="+91 9654603750"
             className="form-input"
           />
         </div>
         <div>
           <label
             htmlFor="service"
-            className="block text-sm font-medium text-gray-700 mb-2"
+            className="block text-sm font-medium text-slate-300 mb-2"
           >
             Service Interested In
           </label>
@@ -162,15 +179,14 @@ export default function ContactForm() {
             name="service"
             value={formData.service}
             onChange={handleChange}
-            className="form-input"
+            className="form-input [&>option]:bg-void-100 [&>option]:text-white"
           >
             <option value="">Select a service</option>
-            <option value="web-development">Web Development</option>
-            <option value="ecommerce">E-Commerce Solutions</option>
-            <option value="seo">SEO Optimization</option>
-            <option value="app-development">App Development</option>
-            <option value="uiux">UI/UX Design</option>
-            <option value="maintenance">Maintenance & Support</option>
+            {serviceOptions.map((s) => (
+              <option key={s.id} value={s.id}>
+                {s.title}
+              </option>
+            ))}
             <option value="other">Other</option>
           </select>
         </div>
@@ -180,7 +196,7 @@ export default function ContactForm() {
       <div>
         <label
           htmlFor="message"
-          className="block text-sm font-medium text-gray-700 mb-2"
+          className="block text-sm font-medium text-slate-300 mb-2"
         >
           Your Message *
         </label>
@@ -200,8 +216,8 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="btn-primary w-full justify-center text-lg py-4 
-                 disabled:opacity-70 disabled:cursor-not-allowed"
+        className="btn-accent w-full justify-center text-lg py-4
+                 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none"
       >
         {isSubmitting ? (
           <>
@@ -217,13 +233,13 @@ export default function ContactForm() {
       </button>
 
       {errorMessage ? (
-        <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+        <div className="rounded-2xl border border-red-500/25 bg-red-500/[0.07] px-4 py-3 text-sm text-red-300">
           {errorMessage}
         </div>
       ) : null}
 
       {/* Privacy Note */}
-      <p className="text-xs text-gray-500 text-center">
+      <p className="text-xs text-slate-500 text-center">
         We respect your privacy and will never share your personal information without your permission.
       </p>
     </form>

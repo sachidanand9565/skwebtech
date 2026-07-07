@@ -6,7 +6,7 @@
 import { Metadata } from 'next';
 import BlogContent from '@/components/sections/BlogContent';
 import CTASection from '@/components/common/CTASection';
-import { getAllPosts, getFeaturedPosts, getAllCategories } from '@/data/blog';
+import { getAllPosts, getFeaturedPosts, getAllCategories } from '@/lib/db';
 
 // SEO Metadata
 export const metadata: Metadata = {
@@ -33,10 +33,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function BlogPage() {
-  const allPosts = getAllPosts();
-  const featuredPosts = getFeaturedPosts();
-  const categories = getAllCategories();
+export default async function BlogPage() {
+  const allPosts = await getAllPosts();
+  const featuredPosts = await getFeaturedPosts();
+  const categories = await getAllCategories();
 
   return (
     <>

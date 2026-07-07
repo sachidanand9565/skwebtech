@@ -13,10 +13,10 @@ export const siteConfig = {
 
   // Contact information
   contact: {
-    email: 'sachi274406@gmail.com',
-    phone: '+91 6386103750',
-    phoneRaw: '6386103750',
-    whatsapp: '916386103750',
+    email: 'info@skwebtech.in',
+    phone: '+91 9654603750',
+    phoneRaw: '9654603750',
+    whatsapp: '919654603750',
     address: {
       street: 'Remote services available worldwide',
       city: 'India',
@@ -33,12 +33,12 @@ export const siteConfig = {
     sunday: 'Closed',
   },
 
-  // Social media links
+  // Social media links (company accounts)
   social: {
-    facebook: 'https://www.facebook.com/sachidanandkushwaha.sachidanandkushwaha',
+    facebook: 'https://www.facebook.com/profile.php?id=61591755982616',
     twitter: 'https://x.com/Sachida38689078',
-    linkedin: 'https://linkedin.com/in/sachidanand-kushwaha',
-    instagram: 'https://www.instagram.com/sachidanand.kushwaha/',
+    linkedin: 'https://www.linkedin.com/in/sk-webtech-40a86441b',
+    instagram: 'https://www.instagram.com/skwebtech',
     github: 'https://github.com/skwebtech',
   },
 

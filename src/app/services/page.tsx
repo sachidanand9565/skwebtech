@@ -2,10 +2,16 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import {
   Globe, ShoppingCart, Search, Smartphone, Settings, Palette,
-  MessageSquare, ArrowRight, CheckCircle, Zap, Shield, Clock, ExternalLink,
+  ArrowRight, CheckCircle, Zap, Shield, Clock, ExternalLink,
 } from 'lucide-react';
 import SectionHeader from '@/components/common/SectionHeader';
+import WhatsAppIcon from '@/components/common/WhatsAppIcon';
 import CTASection from '@/components/common/CTASection';
+import Reveal from '@/components/motion/Reveal';
+import TextReveal from '@/components/motion/TextReveal';
+import TiltCard from '@/components/motion/TiltCard';
+import ParticleField from '@/components/motion/ParticleField';
+import { StaggerContainer, StaggerItem } from '@/components/motion/Stagger';
 
 export const metadata: Metadata = {
   title: 'Our Services - Web Development, SEO, WhatsApp Business & More | SK WebTech',
@@ -48,7 +54,7 @@ const services = [
       'API integrations',
     ],
     technologies: ['React', 'Next.js', 'Node.js', 'WordPress', 'TypeScript'],
-    color: 'from-blue-500 to-indigo-600',
+    color: 'from-cyan-500 to-blue-600',
     dynamicSlug: 'web-development',
   },
   {
@@ -56,7 +62,7 @@ const services = [
     title: 'WhatsApp Business Solutions',
     description:
       'Scale customer communication with official WhatsApp Business API integration, AI-powered chatbots, broadcast campaigns, and our dedicated WhatsApp Business Platform at wa.skwebtech.in.',
-    icon: MessageSquare,
+    icon: WhatsAppIcon,
     features: [
       'Official WhatsApp Business API setup',
       'AI-powered chatbot development',
@@ -104,7 +110,7 @@ const services = [
       'Monthly ranking reports',
     ],
     technologies: ['Google Analytics 4', 'Search Console', 'SEMrush', 'Ahrefs', 'SurferSEO'],
-    color: 'from-purple-500 to-violet-600',
+    color: 'from-violet-500 to-purple-600',
     dynamicSlug: 'seo-services',
   },
   {
@@ -180,196 +186,209 @@ export default function ServicesPage() {
   return (
     <>
       {/* Hero */}
-      <section className="pt-24 md:pt-32 pb-16 bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 relative overflow-hidden">
-        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-1/4 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl" />
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")` }}
-        />
+      <section className="relative pt-28 md:pt-36 pb-16 bg-void overflow-hidden">
+        <ParticleField density={0.7} />
+        <div className="absolute inset-0 bg-grid opacity-50 mask-radial-fade pointer-events-none" />
+        <div className="glow-orb top-[20%] right-1/4 w-96 h-96 bg-primary-500/[0.08] animate-aurora" />
+        <div className="glow-orb bottom-0 left-1/4 w-72 h-72 bg-secondary-500/[0.09] animate-aurora" style={{ animationDelay: '4s' }} />
+
         <div className="container-custom relative z-10">
           <div className="max-w-3xl">
-            <span className="inline-block px-3 py-1.5 bg-white/10 border border-white/20 text-white/80 text-xs font-medium rounded-full mb-5 backdrop-blur-sm">
-              Our Services
-            </span>
+            <Reveal y={16}>
+              <span className="badge-chip mb-6">Our Services</span>
+            </Reveal>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-white mb-5 leading-tight">
-              Growth-Focused Digital Services for{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">
-                Modern Businesses
-              </span>
+              <TextReveal text="Growth-Focused Digital Services for" delay={0.1} as="span" />{' '}
+              <TextReveal text="Modern Businesses" delay={0.4} as="span" className="gradient-text" />
             </h1>
-            <p className="text-base md:text-lg text-slate-400 leading-relaxed max-w-2xl mb-8">
-              From websites and e-commerce to WhatsApp automation and mobile apps - SK WebTech delivers end-to-end digital solutions that drive real business growth.
-            </p>
+            <Reveal delay={0.5}>
+              <p className="text-base md:text-lg text-slate-400 leading-relaxed max-w-2xl mb-8">
+                From websites and e-commerce to WhatsApp automation and mobile apps - SK WebTech delivers end-to-end digital solutions that drive real business growth.
+              </p>
+            </Reveal>
 
-            <div className="grid grid-cols-3 gap-3 max-w-lg mb-8">
-              {[
-                { label: 'Delivery', value: 'Fast & Reliable' },
-                { label: 'Expertise', value: '10+ Years' },
-                { label: 'Support', value: '24/7 Coverage' },
-              ].map((item) => (
-                <div key={item.label} className="bg-white/8 backdrop-blur-sm border border-white/15 rounded-2xl p-4">
-                  <p className="text-slate-500 text-[10px] uppercase tracking-widest mb-1">{item.label}</p>
-                  <p className="text-white font-heading font-bold text-sm">{item.value}</p>
-                </div>
-              ))}
-            </div>
+            <Reveal delay={0.6}>
+              <div className="grid grid-cols-3 gap-3 max-w-lg mb-8">
+                {[
+                  { label: 'Delivery', value: 'Fast & Reliable' },
+                  { label: 'Expertise', value: '10+ Years' },
+                  { label: 'Support', value: '24/7 Coverage' },
+                ].map((item) => (
+                  <div key={item.label} className="rounded-2xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur-sm transition-colors duration-300 hover:border-primary-500/30">
+                    <p className="text-slate-500 text-[10px] uppercase tracking-[0.2em] mb-1">{item.label}</p>
+                    <p className="text-white font-heading font-bold text-sm">{item.value}</p>
+                  </div>
+                ))}
+              </div>
+            </Reveal>
 
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Link href="/contact" className="btn-accent">
-                Book Free Consultation <ArrowRight size={18} className="ml-2" />
-              </Link>
-              <Link href="/portfolio" className="inline-flex items-center justify-center px-6 py-3 bg-white/8 border border-white/20 text-white font-medium rounded-lg hover:bg-white/15 transition-all">
-                View Our Work
-              </Link>
-            </div>
+            <Reveal delay={0.7}>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Link href="/contact" className="btn-accent group">
+                  Book Free Consultation
+                  <ArrowRight size={18} className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+                </Link>
+                <Link href="/portfolio" className="btn-secondary">
+                  View Our Work
+                </Link>
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>
 
       {/* Services List */}
-      <section className="py-16 md:py-24">
-        <div className="container-custom">
-          <div className="space-y-20 md:space-y-28">
+      <section className="relative py-16 md:py-24 bg-void overflow-hidden">
+        <div className="absolute inset-0 bg-dots opacity-[0.15] pointer-events-none" />
+        <div className="container-custom relative z-10">
+          <div className="space-y-24 md:space-y-32">
             {services.map((service, index) => (
               <div
                 key={service.id}
                 id={service.id}
-                className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-center"
+                className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-center scroll-mt-28"
               >
                 {/* Content */}
-                <div className={index % 2 !== 0 ? 'lg:order-2' : ''}>
-                  {service.featured && (
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-100 text-green-700 text-xs font-bold rounded-full mb-4">
-                      <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
-                      New Platform Available
-                    </div>
-                  )}
-                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-r ${service.color} flex items-center justify-center mb-5 shadow-soft`}>
-                    <service.icon size={26} className="text-white" />
-                  </div>
-                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-gray-900 mb-4">
-                    {service.title}
-                  </h2>
-                  <p className="text-base md:text-lg text-gray-600 leading-relaxed mb-7">{service.description}</p>
-
-                  <ul className="space-y-2.5 mb-7">
-                    {service.features.map((feature) => (
-                      <li key={feature} className="flex items-start gap-3">
-                        <CheckCircle size={17} className="text-green-500 mt-0.5 flex-shrink-0" />
-                        <span className="text-gray-700 text-sm">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className="flex flex-wrap gap-2 mb-7">
-                    {service.technologies.map((tech) => (
-                      <span key={tech} className="px-3 py-1.5 bg-gray-100 text-gray-600 text-xs rounded-lg font-medium">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="flex flex-wrap gap-3">
-                    {service.platformLink ? (
-                      <a
-                        href={service.platformLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-5 py-2.5 bg-green-500 text-white text-sm font-semibold rounded-xl hover:bg-green-600 transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5"
-                      >
-                        <MessageSquare size={16} /> Launch WA Platform <ExternalLink size={13} />
-                      </a>
-                    ) : null}
-                    <Link href="/contact" className="btn-primary text-sm">
-                      Get Free Consultation <ArrowRight size={15} className="ml-1.5" />
-                    </Link>
-                  </div>
-
-                  {/* City quick links */}
-                  {service.dynamicSlug && (
-                    <div className="mt-6 pt-5 border-t border-gray-100">
-                      <p className="text-xs text-gray-400 uppercase tracking-wider mb-2.5">Also available in:</p>
-                      <div className="flex flex-wrap gap-2">
-                        {topCities.map((city) => (
-                          <Link
-                            key={city}
-                            href={`/services/${service.dynamicSlug}-in-${citySlugMap[city]}`}
-                            className="px-3 py-1 bg-gray-50 border border-gray-200 text-gray-500 text-xs rounded-full hover:border-indigo-300 hover:text-indigo-600 transition-all"
-                          >
-                            {city}
-                          </Link>
-                        ))}
+                <Reveal x={index % 2 !== 0 ? 28 : -28} y={0} className={index % 2 !== 0 ? 'lg:order-2' : ''}>
+                  <div>
+                    {service.featured && (
+                      <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-500/10 border border-green-500/25 text-green-400 text-xs font-bold rounded-full mb-4">
+                        <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
+                        New Platform Available
+                      </div>
+                    )}
+                    <div className="relative mb-6 w-14 h-14">
+                      <div className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${service.color} opacity-40 blur-lg`} />
+                      <div className={`relative w-14 h-14 rounded-2xl bg-gradient-to-r ${service.color} flex items-center justify-center shadow-soft`}>
+                        <service.icon size={26} className="text-white" />
                       </div>
                     </div>
-                  )}
-                </div>
+                    <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-white mb-4">
+                      {service.title}
+                    </h2>
+                    <p className="text-base md:text-lg text-slate-400 leading-relaxed mb-7">{service.description}</p>
+
+                    <ul className="space-y-2.5 mb-7">
+                      {service.features.map((feature) => (
+                        <li key={feature} className="flex items-start gap-3">
+                          <CheckCircle size={17} className="text-primary-400 mt-0.5 flex-shrink-0" />
+                          <span className="text-slate-300 text-sm">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <div className="flex flex-wrap gap-2 mb-7">
+                      {service.technologies.map((tech) => (
+                        <span key={tech} className="px-3 py-1.5 bg-white/[0.05] border border-white/10 text-slate-300 text-xs rounded-lg font-medium">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="flex flex-wrap gap-3">
+                      {service.platformLink ? (
+                        <a
+                          href={service.platformLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-5 py-2.5 bg-green-500 text-white text-sm font-semibold rounded-full hover:bg-green-600 transition-all shadow-sm hover:shadow-lg hover:shadow-green-500/25 hover:-translate-y-0.5"
+                        >
+                          <WhatsAppIcon size={16} /> Launch WA Platform <ExternalLink size={13} />
+                        </a>
+                      ) : null}
+                      <Link href="/contact" className="btn-primary text-sm group">
+                        Get Free Consultation
+                        <ArrowRight size={15} className="ml-1.5 transition-transform duration-300 group-hover:translate-x-1" />
+                      </Link>
+                    </div>
+
+                    {/* City quick links */}
+                    {service.dynamicSlug && (
+                      <div className="mt-6 pt-5 border-t border-white/[0.08]">
+                        <p className="text-xs text-slate-500 uppercase tracking-[0.2em] mb-2.5">Also available in:</p>
+                        <div className="flex flex-wrap gap-2">
+                          {topCities.map((city) => (
+                            <Link
+                              key={city}
+                              href={`/services/${service.dynamicSlug}-in-${citySlugMap[city]}`}
+                              className="px-3 py-1 bg-white/[0.03] border border-white/10 text-slate-400 text-xs rounded-full hover:border-primary-500/40 hover:text-primary-300 transition-all"
+                            >
+                              {city}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </Reveal>
 
                 {/* Visual - Service Showcase Card */}
-                <div className={`hidden lg:block ${index % 2 !== 0 ? 'lg:order-1' : ''}`}>
-                  <div className="relative">
-                    {/* Glow effect */}
-                    <div className={`absolute -inset-1 bg-gradient-to-r ${service.color} rounded-3xl opacity-20 blur-xl`} />
+                <Reveal x={index % 2 !== 0 ? -28 : 28} y={0} delay={0.15} className={`hidden lg:block ${index % 2 !== 0 ? 'lg:order-1' : ''}`}>
+                  <TiltCard max={6} className="group">
+                    <div className="relative">
+                      {/* Glow effect */}
+                      <div className={`absolute -inset-1 bg-gradient-to-r ${service.color} rounded-3xl opacity-20 blur-xl transition-opacity duration-500 group-hover:opacity-30`} />
 
-                    <div className="relative bg-white rounded-3xl shadow-card-hover overflow-hidden">
-                      {/* Top gradient bar */}
-                      <div className={`h-2 w-full bg-gradient-to-r ${service.color}`} />
+                      <div className="relative rounded-3xl border border-white/10 bg-void-100/80 shadow-2xl backdrop-blur-xl overflow-hidden">
+                        {/* Top gradient bar */}
+                        <div className={`h-1.5 w-full bg-gradient-to-r ${service.color}`} />
 
-                      <div className="p-7">
-                        {/* Header */}
-                        <div className="flex items-center gap-3 mb-6">
-                          <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center shadow-soft flex-shrink-0`}>
-                            <service.icon size={22} className="text-white" />
-                          </div>
-                          <div>
-                            <h3 className="font-heading font-bold text-gray-900 text-base leading-tight">{service.title}</h3>
-                            <p className="text-xs text-gray-400 mt-0.5">by SK WebTech</p>
-                          </div>
-                          {service.featured && (
-                            <span className="ml-auto px-2.5 py-1 bg-green-100 text-green-700 text-[10px] font-bold rounded-full uppercase tracking-wide">
-                              New
-                            </span>
-                          )}
-                        </div>
-
-                        {/* Feature grid - top 4 features */}
-                        <div className="grid grid-cols-2 gap-3 mb-5">
-                          {service.features.slice(0, 4).map((feature) => (
-                            <div key={feature} className="bg-gray-50 rounded-xl p-3 border border-gray-100">
-                              <CheckCircle size={14} className="text-green-500 mb-1.5" />
-                              <p className="text-gray-700 text-xs font-medium leading-tight">{feature}</p>
+                        <div className="p-7">
+                          {/* Header */}
+                          <div className="flex items-center gap-3 mb-6">
+                            <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center shadow-soft flex-shrink-0`}>
+                              <service.icon size={22} className="text-white" />
                             </div>
-                          ))}
-                        </div>
-
-                        {/* Remaining features */}
-                        <div className="space-y-2 mb-5">
-                          {service.features.slice(4).map((feature) => (
-                            <div key={feature} className="flex items-center gap-2">
-                              <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${service.color} flex-shrink-0`} />
-                              <span className="text-gray-500 text-xs">{feature}</span>
+                            <div>
+                              <h3 className="font-heading font-bold text-white text-base leading-tight">{service.title}</h3>
+                              <p className="text-xs text-slate-500 mt-0.5">by SK WebTech</p>
                             </div>
-                          ))}
-                        </div>
-
-                        {/* Divider */}
-                        <div className="border-t border-gray-100 pt-4">
-                          <p className="text-[10px] text-gray-400 uppercase tracking-wider mb-2.5">Technologies</p>
-                          <div className="flex flex-wrap gap-1.5">
-                            {service.technologies.map((tech) => (
-                              <span
-                                key={tech}
-                                className={`px-2.5 py-1 text-[11px] font-medium rounded-lg bg-gradient-to-r ${service.color} text-white`}
-                              >
-                                {tech}
+                            {service.featured && (
+                              <span className="ml-auto px-2.5 py-1 bg-green-500/15 border border-green-500/30 text-green-400 text-[10px] font-bold rounded-full uppercase tracking-wide">
+                                New
                               </span>
+                            )}
+                          </div>
+
+                          {/* Feature grid - top 4 features */}
+                          <div className="grid grid-cols-2 gap-3 mb-5">
+                            {service.features.slice(0, 4).map((feature) => (
+                              <div key={feature} className="rounded-xl border border-white/[0.07] bg-white/[0.03] p-3">
+                                <CheckCircle size={14} className="text-primary-400 mb-1.5" />
+                                <p className="text-slate-300 text-xs font-medium leading-tight">{feature}</p>
+                              </div>
                             ))}
+                          </div>
+
+                          {/* Remaining features */}
+                          <div className="space-y-2 mb-5">
+                            {service.features.slice(4).map((feature) => (
+                              <div key={feature} className="flex items-center gap-2">
+                                <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${service.color} flex-shrink-0`} />
+                                <span className="text-slate-400 text-xs">{feature}</span>
+                              </div>
+                            ))}
+                          </div>
+
+                          {/* Divider */}
+                          <div className="border-t border-white/[0.08] pt-4">
+                            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-2.5">Technologies</p>
+                            <div className="flex flex-wrap gap-1.5">
+                              {service.technologies.map((tech) => (
+                                <span
+                                  key={tech}
+                                  className={`px-2.5 py-1 text-[11px] font-medium rounded-lg bg-gradient-to-r ${service.color} text-white`}
+                                >
+                                  {tech}
+                                </span>
+                              ))}
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
+                  </TiltCard>
+                </Reveal>
               </div>
             ))}
           </div>
@@ -377,30 +396,35 @@ export default function ServicesPage() {
       </section>
 
       {/* Process */}
-      <section className="py-16 md:py-24 bg-gray-50">
-        <div className="container-custom">
+      <section className="relative py-16 md:py-24 bg-void-50 overflow-hidden">
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        <div className="glow-orb top-[30%] left-[10%] w-80 h-80 bg-primary-500/[0.05]" />
+
+        <div className="container-custom relative z-10">
           <SectionHeader
             badge="Our Process"
             title="How We Work"
             subtitle="A streamlined process that ensures efficient delivery and exceptional results for every project."
           />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-14">
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-14">
             {processSteps.map((step, i) => (
-              <div key={step.step} className="relative">
-                {i < processSteps.length - 1 && (
-                  <div className="hidden lg:block absolute top-10 left-full w-full h-px bg-gradient-to-r from-indigo-200 to-transparent -translate-x-1/2 z-0" />
-                )}
-                <div className="bg-white rounded-2xl p-7 shadow-card relative z-10">
-                  <span className="text-5xl font-heading font-bold text-indigo-100">{step.step}</span>
-                  <div className="w-11 h-11 bg-indigo-100 rounded-xl flex items-center justify-center my-4">
-                    <step.icon size={20} className="text-indigo-600" />
+              <StaggerItem key={step.step} className="h-full">
+                <div className="relative h-full">
+                  {i < processSteps.length - 1 && (
+                    <div className="hidden lg:block absolute top-10 left-full w-full h-px bg-gradient-to-r from-primary-500/40 to-transparent -translate-x-1/2 z-0" />
+                  )}
+                  <div className="relative z-10 h-full rounded-2xl border border-white/[0.08] bg-white/[0.03] p-7 backdrop-blur-sm transition-all duration-300 hover:border-primary-500/30 hover:-translate-y-1">
+                    <span className="font-heading text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-primary-500/40 to-primary-500/5">{step.step}</span>
+                    <div className="my-4 flex h-11 w-11 items-center justify-center rounded-xl border border-primary-500/20 bg-primary-500/10">
+                      <step.icon size={20} className="text-primary-400" />
+                    </div>
+                    <h3 className="text-lg font-heading font-semibold text-white mb-2">{step.title}</h3>
+                    <p className="text-sm text-slate-400 leading-relaxed">{step.description}</p>
                   </div>
-                  <h3 className="text-lg font-heading font-semibold text-gray-900 mb-2">{step.title}</h3>
-                  <p className="text-sm text-gray-500 leading-relaxed">{step.description}</p>
                 </div>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 

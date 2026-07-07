@@ -1,12 +1,10 @@
 import { MetadataRoute } from 'next';
-import { getAllPosts } from '@/data/blog';
-import { servicePageTemplates } from '@/data/servicePages';
-import { locations } from '@/data/locations';
+import { getAllPosts, getServicePageTemplates, getLocations } from '@/lib/db';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.skwebtech.in';
 
-  const staticPages = ['', '/services', '/portfolio', '/about', '/contact', '/blog'];
+  const staticPages = ['', '/services', '/portfolio', '/about', '/contact', '/blog', '/privacy-policy', '/terms-and-conditions', '/refund-policy'];
   const staticRoutes = staticPages.map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
@@ -14,7 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: route === '' ? 1 : 0.8,
   }));
 
-  const posts = getAllPosts();
+  const posts = await getAllPosts();
   const blogRoutes = posts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastModified: new Date(post.publishedAt),
@@ -22,8 +20,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
+  const templates = await getServicePageTemplates();
+  const locations = await getLocations();
   const serviceLocationRoutes: MetadataRoute.Sitemap = [];
-  for (const service of servicePageTemplates) {
+  
+  for (const service of templates) {
     for (const location of locations) {
       serviceLocationRoutes.push({
         url: `${baseUrl}/services/${service.slug}-in-${location.slug}`,

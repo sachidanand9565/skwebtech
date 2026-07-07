@@ -6,14 +6,16 @@ import { Calendar, Clock, ArrowLeft, Share2, Facebook, Twitter, Linkedin, Tag } 
 import BlogCard from '@/components/common/BlogCard';
 import CTASection from '@/components/common/CTASection';
 import CopyLinkButton from '@/components/common/CopyLinkButton';
-import { getPostBySlug, getRelatedPosts, getAllPosts } from '@/data/blog';
+import Reveal from '@/components/motion/Reveal';
+import { getPostBySlug, getRelatedPosts, getAllPosts } from '@/lib/db';
 
 export async function generateStaticParams() {
-  return getAllPosts().map((post) => ({ slug: post.slug }));
+  const posts = await getAllPosts();
+  return posts.map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const post = getPostBySlug(params.slug);
+  const post = await getPostBySlug(params.slug);
   if (!post) return { title: 'Post Not Found' };
   return {
     title: post.title,
@@ -34,11 +36,11 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
-  const post = getPostBySlug(params.slug);
+export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+  const post = await getPostBySlug(params.slug);
   if (!post) notFound();
 
-  const relatedPosts = getRelatedPosts(params.slug, 3);
+  const relatedPosts = await getRelatedPosts(params.slug, 3);
   const formattedDate = new Date(post.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
   const shareUrl = `https://www.skwebtech.in/blog/${post.slug}`;
   const encodedUrl = encodeURIComponent(shareUrl);
@@ -48,83 +50,96 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     <>
       <article>
         {/* Hero header */}
-        <header className="relative pt-24 md:pt-32 pb-12 bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 overflow-hidden">
-          <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl" />
-          <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")` }} />
+        <header className="relative pt-28 md:pt-36 pb-14 bg-void overflow-hidden">
+          <div className="absolute inset-0 bg-grid opacity-40 mask-radial-fade pointer-events-none" />
+          <div className="glow-orb top-[20%] right-1/4 w-96 h-96 bg-primary-500/[0.08] animate-aurora" />
+          <div className="glow-orb bottom-0 left-1/5 w-72 h-72 bg-secondary-500/[0.08]" />
 
           <div className="container-custom relative z-10">
-            <Link href="/blog" className="inline-flex items-center gap-2 text-slate-400 hover:text-white text-sm font-medium mb-8 transition-colors">
-              <ArrowLeft size={16} /> Back to Blog
+            <Link href="/blog" className="inline-flex items-center gap-2 text-slate-400 hover:text-white text-sm font-medium mb-8 transition-colors group">
+              <ArrowLeft size={16} className="transition-transform duration-300 group-hover:-translate-x-1" /> Back to Blog
             </Link>
 
             <div className="max-w-3xl">
-              <div className="flex items-center gap-3 mb-5">
-                <span className="px-3 py-1.5 bg-indigo-500/20 border border-indigo-500/30 text-indigo-300 text-xs font-semibold rounded-full">
-                  {post.category}
-                </span>
-                <span className="text-slate-500 text-sm flex items-center gap-1.5">
-                  <Clock size={13} /> {post.readTime}
-                </span>
-              </div>
+              <Reveal y={16}>
+                <div className="flex items-center gap-3 mb-5">
+                  <span className="px-3 py-1.5 bg-primary-500/10 border border-primary-500/25 text-primary-300 text-xs font-semibold rounded-full">
+                    {post.category}
+                  </span>
+                  <span className="text-slate-500 text-sm flex items-center gap-1.5">
+                    <Clock size={13} /> {post.readTime}
+                  </span>
+                </div>
+              </Reveal>
 
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-white mb-5 leading-tight">
-                {post.title}
-              </h1>
-              <p className="text-lg text-slate-400 leading-relaxed mb-8">{post.excerpt}</p>
+              <Reveal delay={0.1}>
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-white mb-5 leading-tight">
+                  {post.title}
+                </h1>
+              </Reveal>
+              <Reveal delay={0.2}>
+                <p className="text-lg text-slate-400 leading-relaxed mb-8">{post.excerpt}</p>
+              </Reveal>
 
-              <div className="flex flex-wrap items-center gap-6">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center">
-                    <span className="text-indigo-300 font-bold text-sm">{post.author.name.charAt(0)}</span>
+              <Reveal delay={0.3}>
+                <div className="flex flex-wrap items-center gap-6">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500/30 to-secondary-500/30 border border-white/10 flex items-center justify-center">
+                      <span className="text-primary-300 font-bold text-sm">{post.author.name.charAt(0)}</span>
+                    </div>
+                    <div>
+                      <div className="font-medium text-white text-sm">{post.author.name}</div>
+                      <div className="text-xs text-slate-500">{post.author.role}</div>
+                    </div>
                   </div>
-                  <div>
-                    <div className="font-medium text-white text-sm">{post.author.name}</div>
-                    <div className="text-xs text-slate-400">{post.author.role}</div>
+                  <div className="flex items-center gap-1.5 text-slate-500 text-sm">
+                    <Calendar size={14} /> {formattedDate}
                   </div>
                 </div>
-                <div className="flex items-center gap-1.5 text-slate-400 text-sm">
-                  <Calendar size={14} /> {formattedDate}
-                </div>
-              </div>
+              </Reveal>
             </div>
           </div>
         </header>
 
         {/* Cover Image */}
         <div className="container-custom -mt-6 relative z-10">
-          <div className="relative aspect-[21/9] rounded-2xl overflow-hidden shadow-soft-lg">
-            <Image src={post.coverImage} alt={post.title} fill priority sizes="100vw" className="object-cover" />
-          </div>
+          <Reveal delay={0.15} y={36}>
+            <div className="relative aspect-[21/9] rounded-2xl overflow-hidden border border-white/10 shadow-soft-lg">
+              <Image src={post.coverImage} alt={post.title} fill priority sizes="100vw" className="object-cover" />
+              <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-2xl" />
+            </div>
+          </Reveal>
         </div>
 
         {/* Content */}
-        <div className="py-14">
+        <div className="py-14 bg-void">
           <div className="container-custom">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
               {/* Main */}
               <div className="lg:col-span-8">
                 <div
-                  className="prose prose-lg max-w-none
-                    prose-headings:font-heading prose-headings:font-bold prose-headings:text-gray-900
+                  className="prose prose-lg prose-invert max-w-none
+                    prose-headings:font-heading prose-headings:font-bold prose-headings:text-white
                     prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
                     prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
-                    prose-p:text-gray-600 prose-p:leading-relaxed
-                    prose-a:text-indigo-600 prose-a:no-underline hover:prose-a:underline
-                    prose-strong:text-gray-900
-                    prose-ul:text-gray-600 prose-ol:text-gray-600
-                    prose-li:marker:text-indigo-500
-                    prose-blockquote:border-indigo-500 prose-blockquote:text-gray-700 prose-blockquote:bg-indigo-50 prose-blockquote:rounded-r-xl prose-blockquote:py-1
-                    prose-code:bg-gray-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-indigo-600
-                    prose-pre:bg-slate-950 prose-pre:rounded-2xl"
+                    prose-p:text-slate-300 prose-p:leading-relaxed
+                    prose-a:text-primary-400 prose-a:no-underline hover:prose-a:underline
+                    prose-strong:text-white
+                    prose-ul:text-slate-300 prose-ol:text-slate-300
+                    prose-li:marker:text-primary-400
+                    prose-blockquote:border-primary-500 prose-blockquote:text-slate-200 prose-blockquote:bg-primary-500/[0.06] prose-blockquote:rounded-r-xl prose-blockquote:py-1
+                    prose-code:bg-white/[0.07] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-primary-300
+                    prose-pre:bg-void-100 prose-pre:border prose-pre:border-white/10 prose-pre:rounded-2xl
+                    prose-hr:border-white/10 prose-img:rounded-2xl"
                   dangerouslySetInnerHTML={{ __html: formatContent(post.content) }}
                 />
 
                 {/* Tags */}
-                <div className="mt-12 pt-8 border-t border-gray-200">
+                <div className="mt-12 pt-8 border-t border-white/10">
                   <div className="flex items-center flex-wrap gap-2">
-                    <Tag size={16} className="text-gray-400" />
+                    <Tag size={16} className="text-slate-500" />
                     {post.tags.map((tag) => (
-                      <span key={tag} className="px-3 py-1.5 bg-gray-100 text-gray-600 text-sm rounded-full hover:bg-indigo-100 hover:text-indigo-700 transition-colors cursor-pointer">
+                      <span key={tag} className="px-3 py-1.5 bg-white/[0.05] border border-white/10 text-slate-300 text-sm rounded-full hover:border-primary-500/40 hover:text-primary-300 transition-colors cursor-pointer">
                         {tag}
                       </span>
                     ))}
@@ -132,9 +147,9 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                 </div>
 
                 {/* Share */}
-                <div className="mt-8 pt-8 border-t border-gray-200">
+                <div className="mt-8 pt-8 border-t border-white/10">
                   <div className="flex items-center gap-4">
-                    <span className="flex items-center gap-2 text-gray-500 text-sm font-medium">
+                    <span className="flex items-center gap-2 text-slate-400 text-sm font-medium">
                       <Share2 size={16} /> Share:
                     </span>
                     <div className="flex gap-2">
@@ -144,7 +159,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                         { href: `https://www.linkedin.com/shareArticle?mini=true&url=${encodedUrl}&title=${encodedTitle}`, Icon: Linkedin, label: 'LinkedIn', hover: 'hover:bg-blue-700' },
                       ].map(({ href, Icon, label, hover }) => (
                         <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={`Share on ${label}`}
-                          className={`w-9 h-9 bg-gray-100 rounded-xl flex items-center justify-center text-gray-500 ${hover} hover:text-white transition-all`}>
+                          className={`w-9 h-9 bg-white/[0.05] border border-white/10 rounded-xl flex items-center justify-center text-slate-400 ${hover} hover:text-white hover:border-transparent transition-all`}>
                           <Icon size={16} />
                         </a>
                       ))}
@@ -158,38 +173,41 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
               <aside className="lg:col-span-4">
                 <div className="sticky top-24 space-y-6">
                   {/* Author */}
-                  <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
-                    <h3 className="font-heading font-semibold text-gray-900 mb-4 text-sm uppercase tracking-wide">About the Author</h3>
+                  <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] p-6 backdrop-blur-sm">
+                    <h3 className="font-heading font-semibold text-white mb-4 text-sm uppercase tracking-[0.18em]">About the Author</h3>
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold text-lg">{post.author.name.charAt(0)}</span>
+                      <div className="w-14 h-14 rounded-2xl bg-brand-gradient flex items-center justify-center flex-shrink-0">
+                        <span className="text-void font-bold text-lg">{post.author.name.charAt(0)}</span>
                       </div>
                       <div>
-                        <div className="font-heading font-semibold text-gray-900">{post.author.name}</div>
-                        <div className="text-xs text-gray-400">{post.author.role}</div>
+                        <div className="font-heading font-semibold text-white">{post.author.name}</div>
+                        <div className="text-xs text-slate-500">{post.author.role}</div>
                       </div>
                     </div>
-                    <p className="text-gray-500 text-sm leading-relaxed">Passionate about helping businesses succeed in the digital world through innovative technology and strategic solutions.</p>
+                    <p className="text-slate-400 text-sm leading-relaxed">Passionate about helping businesses succeed in the digital world through innovative technology and strategic solutions.</p>
                   </div>
 
                   {/* Newsletter */}
-                  <div className="bg-gradient-to-br from-indigo-600 to-indigo-700 rounded-2xl p-6 text-white">
-                    <h3 className="font-heading font-bold mb-2">Stay Updated</h3>
-                    <p className="text-indigo-200 text-sm mb-4">Get the latest articles delivered to your inbox.</p>
-                    <form className="space-y-3">
-                      <input type="email" placeholder="Your email" className="w-full px-4 py-2.5 rounded-xl bg-white/15 border border-white/20 text-white placeholder-indigo-300 focus:outline-none focus:border-white text-sm" />
-                      <button type="submit" className="w-full py-2.5 bg-white text-indigo-700 font-semibold rounded-xl hover:bg-indigo-50 transition-colors text-sm">Subscribe</button>
-                    </form>
+                  <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-void-100/90 p-6 border-glow">
+                    <div className="glow-orb -top-8 -right-8 w-32 h-32 bg-primary-500/[0.18]" />
+                    <div className="relative z-10">
+                      <h3 className="font-heading font-bold text-white mb-2">Stay Updated</h3>
+                      <p className="text-slate-400 text-sm mb-4">Get the latest articles delivered to your inbox.</p>
+                      <form className="space-y-3">
+                        <input type="email" placeholder="Your email" className="w-full px-4 py-2.5 rounded-xl bg-white/[0.06] border border-white/15 text-white placeholder-slate-500 focus:outline-none focus:border-primary-500/50 text-sm transition-colors" />
+                        <button type="submit" className="w-full py-2.5 bg-primary-500 text-void font-heading font-semibold rounded-xl hover:bg-primary-400 hover:shadow-glow-sm transition-all text-sm">Subscribe</button>
+                      </form>
+                    </div>
                   </div>
 
                   {/* Quick links */}
-                  <div className="bg-white border border-gray-100 rounded-2xl p-6 shadow-card">
-                    <h3 className="font-heading font-semibold text-gray-900 mb-4 text-sm uppercase tracking-wide">Quick Links</h3>
+                  <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] p-6 backdrop-blur-sm">
+                    <h3 className="font-heading font-semibold text-white mb-4 text-sm uppercase tracking-[0.18em]">Quick Links</h3>
                     <ul className="space-y-2.5">
                       {[{ label: 'Our Services', href: '/services' }, { label: 'View Portfolio', href: '/portfolio' }, { label: 'Contact Us', href: '/contact' }].map(({ label, href }) => (
                         <li key={href}>
-                          <Link href={href} className="text-gray-500 hover:text-indigo-600 text-sm transition-colors flex items-center gap-2 group">
-                            <span className="w-1.5 h-1.5 rounded-full bg-gray-300 group-hover:bg-indigo-500 transition-colors" />
+                          <Link href={href} className="text-slate-400 hover:text-primary-300 text-sm transition-colors flex items-center gap-2 group">
+                            <span className="w-1.5 h-1.5 rounded-full bg-slate-600 group-hover:bg-primary-400 transition-colors" />
                             {label}
                           </Link>
                         </li>
@@ -205,9 +223,13 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
 
       {/* Related posts */}
       {relatedPosts.length > 0 && (
-        <section className="py-14 bg-gray-50">
+        <section className="relative py-14 bg-void-50">
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
           <div className="container-custom">
-            <h2 className="text-xl font-heading font-bold text-gray-900 mb-8">Related Articles</h2>
+            <div className="flex items-center gap-3 mb-8">
+              <span className="h-px w-8 bg-brand-gradient" />
+              <h2 className="text-xl font-heading font-bold text-white">Related Articles</h2>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {relatedPosts.map((post) => <BlogCard key={post.id} post={post} />)}
             </div>
