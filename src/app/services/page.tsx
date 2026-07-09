@@ -46,6 +46,8 @@ interface ServiceEntry {
   features: string[];
   technologies: string[];
   color: string;
+  /** Starting price shown on the page, e.g. '₹9,999' or '₹7,999/month' */
+  price: string;
   featured?: boolean;
   platformLink?: string;
   dynamicSlug: string;
@@ -68,6 +70,7 @@ const services: ServiceEntry[] = [
     ],
     technologies: ['React', 'Next.js', 'Node.js', 'WordPress', 'TypeScript'],
     color: 'from-cyan-500 to-blue-600',
+    price: '₹9,999',
     dynamicSlug: 'web-development',
   },
   /* TEMP-WA-DISABLED: WhatsApp Business service — uncomment to bring back
@@ -89,6 +92,7 @@ const services: ServiceEntry[] = [
     color: 'from-green-500 to-emerald-600',
     featured: true,
     platformLink: 'https://wa.skwebtech.in',
+    price: '₹4,999',
     dynamicSlug: 'whatsapp-business',
   },
   */
@@ -108,6 +112,7 @@ const services: ServiceEntry[] = [
     ],
     technologies: ['Shopify', 'WooCommerce', 'Next.js', 'Stripe', 'Razorpay'],
     color: 'from-emerald-500 to-green-600',
+    price: '₹24,999',
     dynamicSlug: 'ecommerce-development',
   },
   {
@@ -126,6 +131,7 @@ const services: ServiceEntry[] = [
     ],
     technologies: ['Google Analytics 4', 'Search Console', 'SEMrush', 'Ahrefs', 'SurferSEO'],
     color: 'from-violet-500 to-purple-600',
+    price: '₹7,999/month',
     dynamicSlug: 'seo-services',
   },
   {
@@ -144,6 +150,7 @@ const services: ServiceEntry[] = [
     ],
     technologies: ['React Native', 'Flutter', 'Swift', 'Kotlin', 'Firebase'],
     color: 'from-orange-500 to-red-500',
+    price: '₹49,999',
     dynamicSlug: 'mobile-app-development',
   },
   {
@@ -162,6 +169,7 @@ const services: ServiceEntry[] = [
     ],
     technologies: ['Figma', 'Adobe XD', 'Framer', 'Principle', 'Maze'],
     color: 'from-pink-500 to-rose-500',
+    price: '₹14,999',
     dynamicSlug: 'ui-ux-design',
   },
   {
@@ -180,6 +188,7 @@ const services: ServiceEntry[] = [
     ],
     technologies: ['AWS', 'Cloudflare', 'Docker', 'Pingdom', 'Sucuri'],
     color: 'from-slate-500 to-gray-700',
+    price: '₹2,999/month',
     dynamicSlug: 'website-maintenance',
   },
 ];
@@ -300,6 +309,12 @@ export default function ServicesPage() {
                       ))}
                     </div>
 
+                    {/* Starting price */}
+                    <div className="inline-flex items-baseline gap-2.5 mb-7 rounded-2xl border border-primary-500/25 bg-primary-500/[0.06] px-5 py-3">
+                      <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">Starting at</span>
+                      <span className="font-heading text-2xl font-bold gradient-text">{service.price}</span>
+                    </div>
+
                     <div className="flex flex-wrap gap-3">
                       {service.platformLink ? (
                         <a
@@ -383,6 +398,12 @@ export default function ServicesPage() {
                                 <span className="text-slate-400 text-xs">{feature}</span>
                               </div>
                             ))}
+                          </div>
+
+                          {/* Price strip */}
+                          <div className="mb-5 flex items-center justify-between rounded-xl border border-white/[0.07] bg-white/[0.03] px-4 py-3">
+                            <span className="text-[10px] uppercase tracking-[0.2em] text-slate-500">Starting Price</span>
+                            <span className="font-heading text-lg font-bold text-white">{service.price}</span>
                           </div>
 
                           {/* Divider */}

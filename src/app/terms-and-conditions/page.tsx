@@ -7,8 +7,9 @@ import {
 
 export const metadata: Metadata = {
   title: 'Terms & Conditions - SK WebTech',
+  // TEMP-WA-DISABLED original: '...app development, and WhatsApp Business solutions.'
   description:
-    'Read the Terms & Conditions for using SK WebTech services including web development, e-commerce, SEO, app development, and WhatsApp Business solutions.',
+    'Read the Terms & Conditions for using SK WebTech services including web development, e-commerce, SEO, app development, and website maintenance.',
   keywords: ['terms and conditions', 'SK WebTech terms', 'service agreement', 'web development terms'],
   alternates: { canonical: 'https://www.skwebtech.in/terms-and-conditions' },
   openGraph: {
@@ -28,7 +29,7 @@ const sections = [
     content: [
       {
         heading: 'Agreement to Terms',
-        body: 'By accessing our website (www.skwebtech.in), requesting a quote, or engaging SK WebTech for any service, you agree to be bound by these Terms & Conditions. If you do not agree with any part of these terms, please do not use our services.',
+        body: 'By accessing our website (www.skwebtech.in), requesting a quote, or engaging SK WebTech — owned and operated by Sachhidanand Kushwaha — for any service, you agree to be bound by these Terms & Conditions. All references to "SK WebTech", "we", "us", or "our" in this document mean SK WebTech by Sachhidanand Kushwaha. If you do not agree with any part of these terms, please do not use our services.',
       },
       {
         heading: 'Eligibility',
@@ -44,7 +45,8 @@ const sections = [
     content: [
       {
         heading: 'Scope of Services',
-        body: 'SK WebTech provides web development, e-commerce development, SEO optimization, mobile app development, UI/UX design, WhatsApp Business solutions, and website maintenance services. The exact scope, deliverables, timeline, and cost of each project are defined in the written proposal or quotation shared with you before work begins.',
+        // TEMP-WA-DISABLED original: '...UI/UX design, WhatsApp Business solutions, and website maintenance services...'
+        body: 'SK WebTech provides web development, e-commerce development, SEO optimization, mobile app development, UI/UX design, and website maintenance services. The exact scope, deliverables, timeline, and cost of each project are defined in the written proposal or quotation shared with you before work begins.',
       },
       {
         heading: 'Quotes & Proposals',
@@ -92,7 +94,8 @@ const sections = [
       },
       {
         heading: 'Third-Party Costs',
-        body: 'Costs for third-party services such as domain names, hosting, SSL certificates, premium plugins, stock assets, WhatsApp API charges, and advertising budgets are separate from our service fees unless explicitly included in the proposal. These are governed by the respective third party’s terms.',
+        // TEMP-WA-DISABLED original: '...stock assets, WhatsApp API charges, and advertising budgets...'
+        body: 'Costs for third-party services such as domain names, hosting, SSL certificates, premium plugins, stock assets, and advertising budgets are separate from our service fees unless explicitly included in the proposal. These are governed by the respective third party’s terms.',
       },
     ],
   },
@@ -190,6 +193,9 @@ export default function TermsAndConditionsPage() {
           </h1>
           <p className="text-lg text-slate-400 leading-relaxed max-w-2xl mx-auto mb-8">
             These terms define how we work together — from proposals and payments to delivery and support. Please read them carefully before engaging our services.
+          </p>
+          <p className="text-sm text-slate-500 mb-2">
+            <span className="text-slate-300 font-medium">SK WebTech</span> · by Sachhidanand Kushwaha
           </p>
           <p className="text-sm text-slate-500">
             Last updated: <span className="text-slate-400 font-medium">July 7, 2026</span>
