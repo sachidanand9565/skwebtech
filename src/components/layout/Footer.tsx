@@ -47,7 +47,7 @@ export default function Footer() {
       <div className="glow-orb -bottom-24 right-1/5 w-[420px] h-[260px] bg-secondary-500/[0.07]" />
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary-500/40 to-transparent" />
 
-      {/* WhatsApp Platform Banner */}
+      {/* TEMP-WA-DISABLED: WhatsApp Platform banner — uncomment to bring back
       <div className="relative border-b border-white/5">
         <div className="container-custom py-6">
           <Reveal>
@@ -76,6 +76,7 @@ export default function Footer() {
           </Reveal>
         </div>
       </div>
+      */}
 
       {/* Main Footer */}
       <div className="container-custom py-14 relative">
@@ -165,6 +166,7 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+              {/* TEMP-WA-DISABLED: WhatsApp Platform link — uncomment to bring back
               <li>
                 <a
                   href="https://wa.skwebtech.in"
@@ -177,6 +179,7 @@ export default function Footer() {
                   <span className="px-1.5 py-0.5 bg-green-500/20 text-green-400 text-[9px] font-bold rounded uppercase tracking-wide">New</span>
                 </a>
               </li>
+              */}
             </ul>
           </div>
 

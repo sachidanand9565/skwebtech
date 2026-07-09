@@ -55,8 +55,9 @@ const milestones = [
   { year: '2022', title: 'SK WebTech Founded', description: 'Launched with a clear vision: to help businesses succeed online through high-quality technology solutions.' },
   { year: '2023', title: 'First 100 Clients', description: 'Reached the milestone of 100 satisfied clients across e-commerce, SaaS, and service industries.' },
   { year: '2024', title: 'Global Expansion', description: 'Expanded services internationally, serving clients across 15+ countries.' },
-  { year: '2025', title: 'WhatsApp Platform Launch', description: 'Launched our own WhatsApp Business Platform at wa.skwebtech.in for campaign management.' },
-  { year: '2026', title: 'AI & Automation Focus', description: 'Expanded into AI-powered web solutions, automation, and WhatsApp Business integration.' },
+  // TEMP-WA-DISABLED: { year: '2025', title: 'WhatsApp Platform Launch', description: 'Launched our own WhatsApp Business Platform at wa.skwebtech.in for campaign management.' },
+  // TEMP-WA-DISABLED original: 'Expanded into AI-powered web solutions, automation, and WhatsApp Business integration.'
+  { year: '2026', title: 'AI & Automation Focus', description: 'Expanded into AI-powered web solutions and business automation.' },
 ];
 
 export default function AboutPage() {

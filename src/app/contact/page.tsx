@@ -41,8 +41,11 @@ const promises = ['Free consultation, no obligation', 'Response within 24 hours'
 export default async function ContactPage() {
   // Service dropdown options come from the database, so services added in the
   // admin panel show up in the form automatically
+  // TEMP-WA-DISABLED: WhatsApp Business filter laga hai — hatane ke liye .filter() remove karo
   const dbServices = await getServices();
-  const serviceOptions = dbServices.map(({ id, title }) => ({ id, title }));
+  const serviceOptions = dbServices
+    .filter(({ id }) => id !== 'whatsapp-business')
+    .map(({ id, title }) => ({ id, title }));
 
   return (
     <>

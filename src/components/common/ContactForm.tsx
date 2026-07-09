@@ -24,7 +24,7 @@ interface ServiceOption {
 // Fallback when no services are passed from the database
 const DEFAULT_SERVICES: ServiceOption[] = [
   { id: 'web-development', title: 'Web Development' },
-  { id: 'whatsapp-business', title: 'WhatsApp Business API' },
+  // TEMP-WA-DISABLED: { id: 'whatsapp-business', title: 'WhatsApp Business API' },
   { id: 'ecommerce', title: 'E-Commerce Solutions' },
   { id: 'seo', title: 'SEO Optimization' },
   { id: 'app-development', title: 'App Development' },

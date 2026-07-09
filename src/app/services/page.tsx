@@ -38,7 +38,20 @@ export const metadata: Metadata = {
   },
 };
 
-const services = [
+interface ServiceEntry {
+  id: string;
+  title: string;
+  description: string;
+  icon: React.ElementType;
+  features: string[];
+  technologies: string[];
+  color: string;
+  featured?: boolean;
+  platformLink?: string;
+  dynamicSlug: string;
+}
+
+const services: ServiceEntry[] = [
   {
     id: 'web-development',
     title: 'Web Development',
@@ -57,6 +70,7 @@ const services = [
     color: 'from-cyan-500 to-blue-600',
     dynamicSlug: 'web-development',
   },
+  /* TEMP-WA-DISABLED: WhatsApp Business service — uncomment to bring back
   {
     id: 'whatsapp-business',
     title: 'WhatsApp Business Solutions',
@@ -77,6 +91,7 @@ const services = [
     platformLink: 'https://wa.skwebtech.in',
     dynamicSlug: 'whatsapp-business',
   },
+  */
   {
     id: 'ecommerce',
     title: 'E-Commerce Development',

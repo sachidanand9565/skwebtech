@@ -7,7 +7,9 @@ import { StaggerContainer, StaggerItem } from '@/components/motion/Stagger';
 import { getServices } from '@/lib/db';
 
 export default async function ServicesSection() {
-  const dynamicServices = await getServices();
+  // TEMP-WA-DISABLED: WhatsApp Business service hidden for now — remove the
+  // .filter() below to bring it back (data DB me safe hai, delete nahi hua)
+  const dynamicServices = (await getServices()).filter((s) => s.id !== 'whatsapp-business');
 
   const getIconComponent = (iconName: string) => {
     // Map string names to Lucide icons
