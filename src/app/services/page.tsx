@@ -14,16 +14,19 @@ import ParticleField from '@/components/motion/ParticleField';
 import { StaggerContainer, StaggerItem } from '@/components/motion/Stagger';
 
 export const metadata: Metadata = {
-  title: 'Our Services - Web Development, SEO, WhatsApp Business & More | SK WebTech',
+  // TEMP-WA-DISABLED original title: 'Our Services - Web Development, SEO, WhatsApp Business & More | SK WebTech'
+  // (layout template khud '| SK WebTech' laga deta hai, isliye yahan nahi likha)
+  title: 'Our Services - Web Development, SEO, Apps & More',
+  // TEMP-WA-DISABLED original description: '...UI/UX design, WhatsApp Business automation, and website maintenance...'
   description:
-    'Explore SK WebTech\'s full range of digital services: web development, e-commerce, SEO, mobile apps, UI/UX design, WhatsApp Business automation, and website maintenance. Get a free consultation!',
+    'Explore SK WebTech\'s full range of digital services: web development, e-commerce, SEO, mobile apps, UI/UX design, and website maintenance. Get a free consultation!',
   keywords: [
     'web development services',
     'e-commerce development',
     'SEO services India',
     'mobile app development',
     'UI/UX design services',
-    'WhatsApp Business API',
+    /* TEMP-WA-DISABLED: 'WhatsApp Business API', */
     'website maintenance',
     'digital marketing services',
     'custom software development',
@@ -31,8 +34,9 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://www.skwebtech.in/services' },
   openGraph: {
     title: 'Our Services | SK WebTech',
+    // TEMP-WA-DISABLED original: 'Web development, e-commerce, SEO, mobile apps, WhatsApp Business automation, and IT support from SK WebTech.'
     description:
-      'Web development, e-commerce, SEO, mobile apps, WhatsApp Business automation, and IT support from SK WebTech.',
+      'Web development, e-commerce, SEO, mobile apps, and IT support from SK WebTech.',
     type: 'website',
     url: 'https://www.skwebtech.in/services',
   },
@@ -227,7 +231,8 @@ export default function ServicesPage() {
             </h1>
             <Reveal delay={0.5}>
               <p className="text-base md:text-lg text-slate-400 leading-relaxed max-w-2xl mb-8">
-                From websites and e-commerce to WhatsApp automation and mobile apps - SK WebTech delivers end-to-end digital solutions that drive real business growth.
+                {/* TEMP-WA-DISABLED original: "From websites and e-commerce to WhatsApp automation and mobile apps - ..." */}
+                From websites and e-commerce to mobile apps and SEO - SK WebTech delivers end-to-end digital solutions that drive real business growth.
               </p>
             </Reveal>
 

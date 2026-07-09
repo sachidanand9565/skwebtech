@@ -23,8 +23,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const templates = await getServicePageTemplates();
   const locations = await getLocations();
   const serviceLocationRoutes: MetadataRoute.Sitemap = [];
-  
+
   for (const service of templates) {
+    if (service.slug === 'whatsapp-business') continue; // TEMP-WA-DISABLED
     for (const location of locations) {
       serviceLocationRoutes.push({
         url: `${baseUrl}/services/${service.slug}-in-${location.slug}`,
