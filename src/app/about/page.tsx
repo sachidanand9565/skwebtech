@@ -15,8 +15,8 @@ import { StaggerContainer, StaggerItem } from '@/components/motion/Stagger';
 export const metadata: Metadata = {
   title: 'About Us - SK WebTech | Our Story, Mission & Vision',
   description:
-    "Learn about SK WebTech's journey, our mission to empower businesses through technology, and our vision for the future of digital transformation. Founded by Sachidanand Kushwaha.",
-  keywords: ['about SK WebTech', 'web development agency India', 'Sachidanand Kushwaha', 'IT company', 'digital transformation partner'],
+    "Learn about SK WebTech's journey, our mission to empower businesses through technology, and our vision for the future of digital transformation. Founded by Sachhidanand Kushwaha.",
+  keywords: ['about SK WebTech', 'web development agency India', 'Sachhidanand Kushwaha', 'IT company', 'digital transformation partner'],
   alternates: { canonical: 'https://www.skwebtech.in/about' },
   openGraph: {
     title: 'About Us | SK WebTech',
@@ -167,7 +167,7 @@ export default function AboutPage() {
                 <div className="absolute -top-4 -left-4 w-full h-full rounded-3xl border border-primary-500/20 bg-primary-500/[0.04]" />
                 <div className="absolute -bottom-4 -right-4 w-full h-full rounded-3xl border border-secondary-500/20 bg-secondary-500/[0.04]" />
                 <div className="relative aspect-[4/5] max-w-md mx-auto lg:mx-0 rounded-3xl overflow-hidden border border-white/10 shadow-soft-lg">
-                  <Image src="/images/sk.png" alt="Sachidanand Kushwaha - Founder SK WebTech" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
+                  <Image src="/images/sk.png" alt="Sachhidanand Kushwaha - Founder SK WebTech" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
                   <div className="absolute inset-0 bg-gradient-to-t from-void/60 via-transparent to-transparent" />
                 </div>
               </div>
@@ -177,7 +177,7 @@ export default function AboutPage() {
               <div>
                 <span className="badge-chip mb-5">Meet the Founder</span>
                 <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-2">
-                  Sachidanand Kushwaha
+                  Sachhidanand Kushwaha
                 </h2>
                 <p className="gradient-text font-heading font-semibold text-lg mb-6">Founder & CEO, SK WebTech</p>
 
