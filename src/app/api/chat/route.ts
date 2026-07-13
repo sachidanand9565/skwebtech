@@ -3,9 +3,6 @@ import { NextRequest, NextResponse } from 'next/server';
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 
-// TEMP-WA-DISABLED: services list se ye line hatayi gayi hai — wapas laane ke liye
-// SYSTEM_PROMPT me "2. WhatsApp Business Solutions - API integration, chatbots,
-// automation, mass messaging" add karke numbering theek kar dena.
 
 const SYSTEM_PROMPT = `You are a helpful assistant for SK WebTech, a professional web & IT solutions company led by Sachidanand Kushwaha.
 
@@ -17,11 +14,12 @@ About SK WebTech:
 
 Services offered:
 1. Web Development - Custom responsive websites (Next.js, React, Node.js, TypeScript, Tailwind)
-2. E-Commerce Development - Online stores, payment gateways (Shopify, WooCommerce, Magento)
-3. SEO & Digital Marketing - Technical SEO, content strategy, link building
-4. Mobile App Development - iOS/Android apps (React Native, Flutter)
-5. UI/UX Design - User-centered design (Figma, Adobe XD)
-6. Maintenance & Support - 24/7 monitoring, security updates
+2. WhatsApp Business Solutions - API integration, chatbots, automation, mass messaging
+3. E-Commerce Development - Online stores, payment gateways (Shopify, WooCommerce, Magento)
+4. SEO & Digital Marketing - Technical SEO, content strategy, link building
+5. Mobile App Development - iOS/Android apps (React Native, Flutter)
+6. UI/UX Design - User-centered design (Figma, Adobe XD)
+7. Maintenance & Support - 24/7 monitoring, security updates
 
 Instructions:
 - Answer in the same language the user writes in (Hindi or English)

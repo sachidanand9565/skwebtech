@@ -7,9 +7,7 @@ import { StaggerContainer, StaggerItem } from '@/components/motion/Stagger';
 import { getServices } from '@/lib/db';
 
 export default async function ServicesSection() {
-  // TEMP-WA-DISABLED: WhatsApp Business service hidden for now — remove the
-  // .filter() below to bring it back (data DB me safe hai, delete nahi hua)
-  const dynamicServices = (await getServices()).filter((s) => s.id !== 'whatsapp-business');
+  const dynamicServices = await getServices();
 
   const getIconComponent = (iconName: string) => {
     // Map string names to Lucide icons
@@ -25,11 +23,10 @@ export default async function ServicesSection() {
       <div className="glow-orb bottom-0 left-[8%] w-[380px] h-[380px] bg-primary-500/[0.06]" />
 
       <div className="container-custom relative z-10">
-        {/* TEMP-WA-DISABLED original subtitle: "From websites and e-commerce stores to WhatsApp automation and mobile apps - we cover every aspect of your digital growth." */}
         <SectionHeader
           badge="Our Services"
           title="Comprehensive Digital Solutions for Your Business"
-          subtitle="From websites and e-commerce stores to mobile apps and SEO - we cover every aspect of your digital growth."
+          subtitle="From websites and e-commerce stores to WhatsApp automation and mobile apps - we cover every aspect of your digital growth."
         />
 
         <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-14">

@@ -7,9 +7,8 @@ import {
 
 export const metadata: Metadata = {
   title: 'Terms & Conditions - SK WebTech',
-  // TEMP-WA-DISABLED original: '...app development, and WhatsApp Business solutions.'
   description:
-    'Read the Terms & Conditions for using SK WebTech services including web development, e-commerce, SEO, app development, and website maintenance.',
+    'Read the Terms & Conditions for using SK WebTech services including web development, e-commerce, SEO, app development, and WhatsApp Business solutions.',
   keywords: ['terms and conditions', 'SK WebTech terms', 'service agreement', 'web development terms'],
   alternates: { canonical: 'https://www.skwebtech.in/terms-and-conditions' },
   openGraph: {
@@ -45,8 +44,7 @@ const sections = [
     content: [
       {
         heading: 'Scope of Services',
-        // TEMP-WA-DISABLED original: '...UI/UX design, WhatsApp Business solutions, and website maintenance services...'
-        body: 'SK WebTech provides web development, e-commerce development, SEO optimization, mobile app development, UI/UX design, and website maintenance services. The exact scope, deliverables, timeline, and cost of each project are defined in the written proposal or quotation shared with you before work begins.',
+        body: 'SK WebTech provides web development, e-commerce development, SEO optimization, mobile app development, UI/UX design, WhatsApp Business solutions, and website maintenance services. The exact scope, deliverables, timeline, and cost of each project are defined in the written proposal or quotation shared with you before work begins.',
       },
       {
         heading: 'Quotes & Proposals',
@@ -94,8 +92,7 @@ const sections = [
       },
       {
         heading: 'Third-Party Costs',
-        // TEMP-WA-DISABLED original: '...stock assets, WhatsApp API charges, and advertising budgets...'
-        body: 'Costs for third-party services such as domain names, hosting, SSL certificates, premium plugins, stock assets, and advertising budgets are separate from our service fees unless explicitly included in the proposal. These are governed by the respective third party’s terms.',
+        body: 'Costs for third-party services such as domain names, hosting, SSL certificates, premium plugins, stock assets, WhatsApp API charges, and advertising budgets are separate from our service fees unless explicitly included in the proposal. These are governed by the respective third party’s terms.',
       },
     ],
   },

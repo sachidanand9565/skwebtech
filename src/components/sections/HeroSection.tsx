@@ -15,7 +15,7 @@ const trustBadges = [
 
 const techStack = [
   'Next.js', 'React', 'Node.js', 'TypeScript', 'Tailwind CSS', 'WordPress',
-  'Shopify', 'React Native', 'Flutter', 'AWS', 'MySQL', /* TEMP-WA-DISABLED: 'WhatsApp API', */ 'Figma',
+  'Shopify', 'React Native', 'Flutter', 'AWS', 'MySQL', 'WhatsApp API', 'Figma',
 ];
 
 export default function HeroSection() {
@@ -58,9 +58,8 @@ export default function HeroSection() {
             </h1>
 
             <Reveal delay={0.55} mode="mount">
-              {/* TEMP-WA-DISABLED original copy: "We build fast, secure, and SEO-ready websites, e-commerce stores, mobile apps, and WhatsApp Business automation for businesses across India." */}
               <p className="text-lg text-slate-400 leading-relaxed mb-8 max-w-xl">
-                We build fast, secure, and SEO-ready websites, e-commerce stores, and mobile apps for businesses across India.
+                We build fast, secure, and SEO-ready websites, e-commerce stores, mobile apps, and WhatsApp Business automation for businesses across India.
               </p>
             </Reveal>
 

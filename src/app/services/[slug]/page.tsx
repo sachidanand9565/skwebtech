@@ -23,16 +23,11 @@ interface Props {
   params: { slug: string };
 }
 
-// TEMP-WA-DISABLED: WhatsApp Business city pages hidden for now.
-// Wapas laane ke liye neeche ke saare `HIDDEN_SERVICES` checks hata do.
-const HIDDEN_SERVICES = ['whatsapp-business'];
-
 export async function generateStaticParams() {
   const templates = await getServicePageTemplates();
   const locs = await getLocations();
   const params: { slug: string }[] = [];
   for (const service of templates) {
-    if (HIDDEN_SERVICES.includes(service.slug)) continue; // TEMP-WA-DISABLED
     for (const location of locs) {
       params.push({ slug: `${service.slug}-in-${location.slug}` });
     }
@@ -43,7 +38,6 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const parsed = parseServiceLocationSlug(params.slug);
   if (!parsed) return { title: 'Not Found' };
-  if (HIDDEN_SERVICES.includes(parsed.serviceSlug)) return { title: 'Not Found' }; // TEMP-WA-DISABLED
 
   const service = await getServiceTemplate(parsed.serviceSlug);
   const location = await getLocationBySlug(parsed.locationSlug);
@@ -83,7 +77,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ServiceLocationPage({ params }: Props) {
   const parsed = parseServiceLocationSlug(params.slug);
   if (!parsed) notFound();
-  if (HIDDEN_SERVICES.includes(parsed.serviceSlug)) notFound(); // TEMP-WA-DISABLED
 
   const service = await getServiceTemplate(parsed.serviceSlug);
   const location = await getLocationBySlug(parsed.locationSlug);

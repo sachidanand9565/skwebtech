@@ -96,7 +96,6 @@ export default function Header() {
 
           {/* Desktop Right Actions */}
           <div className="hidden lg:flex items-center gap-3">
-            {/* TEMP-WA-DISABLED: WhatsApp Platform button — uncomment to bring back
             <a
               href="https://wa.skwebtech.in"
               target="_blank"
@@ -107,7 +106,6 @@ export default function Header() {
               WA Platform
               <ExternalLink size={11} className="opacity-70 group-hover:opacity-100" />
             </a>
-            */}
 
             {/* CTA */}
             <Link href="/contact" className="btn-accent text-sm px-5 py-2.5 group">
@@ -168,7 +166,6 @@ export default function Header() {
                   ))}
                 </nav>
 
-                {/* TEMP-WA-DISABLED: WhatsApp Platform mobile card — uncomment to bring back
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -194,7 +191,6 @@ export default function Header() {
                     Open Platform <ExternalLink size={14} />
                   </a>
                 </motion.div>
-                */}
 
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}

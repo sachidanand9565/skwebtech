@@ -28,8 +28,7 @@ const sections = [
     content: [
       {
         heading: 'Our Commitment',
-        // TEMP-WA-DISABLED original: '...UI/UX design, WhatsApp Business solutions, and maintenance plans.'
-        body: 'At SK WebTech, we aim for complete client satisfaction on every project. Since our services involve dedicated time, custom development, and third-party costs, refunds are governed by the conditions below. This policy applies to all services including web development, e-commerce, SEO, app development, UI/UX design, and maintenance plans.',
+        body: 'At SK WebTech, we aim for complete client satisfaction on every project. Since our services involve dedicated time, custom development, and third-party costs, refunds are governed by the conditions below. This policy applies to all services including web development, e-commerce, SEO, app development, UI/UX design, WhatsApp Business solutions, and maintenance plans.',
       },
       {
         heading: 'Written Agreements First',
@@ -73,8 +72,7 @@ const sections = [
       },
       {
         heading: 'Third-Party Costs',
-        // TEMP-WA-DISABLED original: '...stock assets, WhatsApp API/Meta charges, and advertising budgets...'
-        body: 'Amounts spent on third-party products and services — domain names, hosting, SSL certificates, premium themes/plugins, stock assets, and advertising budgets — are strictly non-refundable, as these are governed by the respective providers.',
+        body: 'Amounts spent on third-party products and services — domain names, hosting, SSL certificates, premium themes/plugins, stock assets, WhatsApp API/Meta charges, and advertising budgets — are strictly non-refundable, as these are governed by the respective providers.',
       },
       {
         heading: 'SEO & Marketing Services',

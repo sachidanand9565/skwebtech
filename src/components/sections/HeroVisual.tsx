@@ -25,7 +25,7 @@ const stats = [
 const floatingServices = [
   { icon: Globe, label: 'Web Development', color: 'from-cyan-400 to-blue-500' },
   { icon: ShoppingCart, label: 'E-Commerce', color: 'from-emerald-400 to-teal-500' },
-  // TEMP-WA-DISABLED: { icon: WhatsAppIcon, label: 'WhatsApp Platform', color: 'from-green-400 to-emerald-600' },
+  { icon: WhatsAppIcon, label: 'WhatsApp Platform', color: 'from-green-400 to-emerald-600' },
   { icon: Smartphone, label: 'Mobile Apps', color: 'from-violet-400 to-purple-500' },
 ];
 
@@ -137,7 +137,6 @@ export default function HeroVisual() {
             ))}
           </div>
 
-          {/* TEMP-WA-DISABLED: WhatsApp platform banner — uncomment to bring back
           <div data-hero-item className="rounded-2xl border border-green-500/20 bg-gradient-to-r from-green-500/10 to-emerald-500/5 p-5">
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
@@ -159,7 +158,6 @@ export default function HeroVisual() {
               </a>
             </div>
           </div>
-          */}
         </div>
       </TiltCard>
 
