@@ -11,6 +11,7 @@ import Footer from '@/components/layout/Footer';
 import WhatsAppButton from '@/components/common/WhatsAppButton';
 import CallButton from '@/components/common/CallButton';
 import ChatBot from '@/components/common/ChatBot';
+import SiteChrome from '@/components/layout/SiteChrome';
 import SmoothScroll from '@/components/motion/SmoothScroll';
 import CursorGlow from '@/components/motion/CursorGlow';
 import PageLoader from '@/components/motion/PageLoader';
@@ -130,27 +131,32 @@ export default function RootLayout({
           Skip to main content
         </a>
 
-        {/* Global motion layer */}
-        <PageLoader />
-        <SmoothScroll />
-        <ScrollProgress />
-        <CursorGlow />
+        {/* Public-site chrome — hidden on /admin (admin has its own layout) */}
+        <SiteChrome>
+          {/* Global motion layer */}
+          <PageLoader />
+          <SmoothScroll />
+          <ScrollProgress />
+          <CursorGlow />
 
-        {/* Sticky Header */}
-        <Header />
+          {/* Sticky Header */}
+          <Header />
+        </SiteChrome>
 
         {/* Main content area */}
         <main id="main-content" className="min-h-screen">
           {children}
         </main>
 
-        {/* Footer */}
-        <Footer />
+        <SiteChrome>
+          {/* Footer */}
+          <Footer />
 
-        {/* Floating buttons */}
-        <WhatsAppButton />
-        <CallButton />
-        <ChatBot />
+          {/* Floating buttons */}
+          <WhatsAppButton />
+          <CallButton />
+          <ChatBot />
+        </SiteChrome>
       </body>
     </html>
   );

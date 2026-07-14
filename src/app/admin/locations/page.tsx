@@ -246,8 +246,8 @@ export default function AdminLocationsPage() {
 
       {/* Editor Modal Drawer */}
       {isOpen && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-white/5 w-full max-w-md rounded-3xl p-6 shadow-2xl relative space-y-6">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-start sm:items-center justify-center p-3 sm:p-4 overflow-y-auto">
+          <div className="bg-slate-900 border border-white/5 w-full max-w-md rounded-3xl p-4 sm:p-6 shadow-2xl relative space-y-5 sm:space-y-6 my-4 sm:my-8">
             <div className="flex items-center justify-between">
               <h3 className="font-heading font-bold text-lg text-white">
                 {editingLoc ? 'Edit Target Location' : 'Configure New Location'}
