@@ -10,6 +10,8 @@ export interface Service {
   features: string[];
   technologies: string[];
   color: string;
+  /** Starting price shown on the site, e.g. '₹9,999' or '₹7,999/month' */
+  price?: string;
   href: string;
   featured?: boolean;
 }
@@ -31,6 +33,7 @@ export const services: Service[] = [
     ],
     technologies: ['Next.js', 'React', 'Node.js', 'TypeScript', 'Tailwind'],
     color: 'from-blue-500 to-blue-600',
+    price: '₹9,999',
     href: '/services#web-development',
   },
   {
@@ -49,6 +52,7 @@ export const services: Service[] = [
     ],
     technologies: ['WhatsApp API', 'Twilio', 'Node.js', 'OpenAI', 'Dialogflow'],
     color: 'from-green-500 to-green-700',
+    price: '₹4,999',
     href: '/services#whatsapp-business',
     featured: true,
   },
@@ -68,6 +72,7 @@ export const services: Service[] = [
     ],
     technologies: ['Shopify', 'WooCommerce', 'Magento', 'Stripe', 'PayPal'],
     color: 'from-emerald-500 to-emerald-600',
+    price: '₹24,999',
     href: '/services#ecommerce',
   },
   {
@@ -86,6 +91,7 @@ export const services: Service[] = [
     ],
     technologies: ['Google Analytics', 'Search Console', 'SEMrush', 'Ahrefs'],
     color: 'from-purple-500 to-purple-600',
+    price: '₹7,999/month',
     href: '/services#seo',
   },
   {
@@ -104,6 +110,7 @@ export const services: Service[] = [
     ],
     technologies: ['React Native', 'Flutter', 'Swift', 'Kotlin', 'Firebase'],
     color: 'from-orange-500 to-orange-600',
+    price: '₹49,999',
     href: '/services#app-development',
   },
   {
@@ -122,6 +129,7 @@ export const services: Service[] = [
     ],
     technologies: ['Figma', 'Adobe XD', 'Sketch', 'Framer'],
     color: 'from-pink-500 to-pink-600',
+    price: '₹14,999',
     href: '/services#uiux',
   },
   {
@@ -140,6 +148,7 @@ export const services: Service[] = [
     ],
     technologies: ['AWS', 'Cloudflare', 'Docker', 'New Relic'],
     color: 'from-gray-500 to-gray-700',
+    price: '₹2,999/month',
     href: '/services#maintenance',
   },
 ];

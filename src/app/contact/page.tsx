@@ -8,6 +8,10 @@ import TextReveal from '@/components/motion/TextReveal';
 import ParticleField from '@/components/motion/ParticleField';
 import { StaggerContainer, StaggerItem } from '@/components/motion/Stagger';
 
+// ISR: DB-driven content (admin panel edits) refreshes within 5 minutes
+export const revalidate = 300;
+
+
 export const metadata: Metadata = {
   title: 'Contact Us - Get a Free Consultation | SK WebTech',
   description:

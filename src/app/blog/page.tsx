@@ -8,6 +8,10 @@ import BlogContent from '@/components/sections/BlogContent';
 import CTASection from '@/components/common/CTASection';
 import { getAllPosts, getFeaturedPosts, getAllCategories } from '@/lib/db';
 
+// ISR: DB-driven content (admin panel edits) refreshes within 5 minutes
+export const revalidate = 300;
+
+
 // SEO Metadata
 export const metadata: Metadata = {
   title: 'Blog - Insights & Resources',

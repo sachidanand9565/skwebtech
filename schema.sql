@@ -48,6 +48,7 @@ CREATE TABLE IF NOT EXISTS `services` (
   `features` TEXT NULL, -- JSON array of features (strings)
   `technologies` TEXT NULL, -- JSON array of tools/languages (strings)
   `color` VARCHAR(100) NULL, -- CSS background gradient classes
+  `price` VARCHAR(50) NULL, -- Starting price shown on the site, e.g. '₹9,999'
   `href` VARCHAR(255) NULL, -- Redirect link (if any)
   `featured` TINYINT(1) DEFAULT 0,
   PRIMARY KEY (`id`)

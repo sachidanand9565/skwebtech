@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -20,7 +21,11 @@ const navLinks = [
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  // Portal only after mount (SSR-safe)
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
+
+  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
@@ -38,8 +43,10 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out-expo ${
-        isScrolled
+      className={`fixed top-0 left-0 right-0 transition-all duration-500 ease-out-expo ${
+        isMenuOpen ? 'z-[100]' : 'z-50'
+      } ${
+        isScrolled && !isMenuOpen
           ? 'bg-void/75 backdrop-blur-safari border-b border-white/[0.06] shadow-soft'
           : 'bg-transparent border-b border-transparent'
       }`}
@@ -126,15 +133,16 @@ export default function Header() {
           </button>
         </div>
 
-        {/* Mobile Navigation */}
-        <AnimatePresence>
+        {/* Mobile Navigation — portalled to <body> so it always paints above page content */}
+        {mounted && createPortal(
+          <AnimatePresence>
           {isMenuOpen && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-void z-40 lg:hidden"
+              className="fixed inset-0 bg-void z-[90] lg:hidden"
             >
               {/* Ambient orbs */}
               <div className="glow-orb top-1/4 right-1/4 w-64 h-64 bg-primary-500/10" />
@@ -212,7 +220,9 @@ export default function Header() {
               </div>
             </motion.div>
           )}
-        </AnimatePresence>
+          </AnimatePresence>,
+          document.body
+        )}
       </nav>
     </header>
   );

@@ -7,11 +7,16 @@ import {
 import SectionHeader from '@/components/common/SectionHeader';
 import WhatsAppIcon from '@/components/common/WhatsAppIcon';
 import CTASection from '@/components/common/CTASection';
+import { getServices } from '@/lib/db';
 import Reveal from '@/components/motion/Reveal';
 import TextReveal from '@/components/motion/TextReveal';
 import TiltCard from '@/components/motion/TiltCard';
 import ParticleField from '@/components/motion/ParticleField';
 import { StaggerContainer, StaggerItem } from '@/components/motion/Stagger';
+
+// ISR: DB-driven content (admin panel edits) refreshes within 5 minutes
+export const revalidate = 300;
+
 
 export const metadata: Metadata = {
   title: 'Our Services - Web Development, SEO, WhatsApp Business & More',
@@ -204,7 +209,16 @@ const citySlugMap: Record<string, string> = {
   Chennai: 'chennai', Pune: 'pune', Ahmedabad: 'ahmedabad', Jaipur: 'jaipur',
 };
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+  // Prices come from the database (admin panel me editable);
+  // DB me na mile to yahan ka static price fallback hai
+  const dbServices = await getServices();
+  const dbPriceById = new Map(dbServices.map((s) => [s.id, s.price]));
+  const displayServices = services.map((s) => ({
+    ...s,
+    price: dbPriceById.get(s.id) || s.price,
+  }));
+
   return (
     <>
       {/* Hero */}
@@ -264,7 +278,7 @@ export default function ServicesPage() {
         <div className="absolute inset-0 bg-dots opacity-[0.15] pointer-events-none" />
         <div className="container-custom relative z-10">
           <div className="space-y-24 md:space-y-32">
-            {services.map((service, index) => (
+            {displayServices.map((service, index) => (
               <div
                 key={service.id}
                 id={service.id}

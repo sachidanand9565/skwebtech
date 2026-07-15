@@ -12,6 +12,10 @@ import TestimonialsSection from '@/components/sections/TestimonialsSection';
 import CTASection from '@/components/common/CTASection';
 import PortfolioContent from '@/components/sections/PortfolioContent';
 
+// ISR: DB-driven content (admin panel edits) refreshes within 5 minutes
+export const revalidate = 300;
+
+
 // Page-specific metadata
 export const metadata: Metadata = {
   title: 'SK WebTech - Professional Web & IT Solutions',

@@ -71,7 +71,15 @@ export default async function ServicesSection() {
                 </h3>
                 <p className="text-slate-400 text-sm leading-relaxed flex-1">{service.description}</p>
 
-                <div className="inline-flex items-center gap-1.5 mt-6 text-sm font-semibold text-primary-400 group-hover:gap-3 transition-all duration-300">
+                {/* Starting price (admin panel se editable) */}
+                {service.price ? (
+                  <div className="mt-4 flex items-baseline gap-2">
+                    <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-slate-500">Starting at</span>
+                    <span className="font-heading text-lg font-bold gradient-text">{service.price}</span>
+                  </div>
+                ) : null}
+
+                <div className="inline-flex items-center gap-1.5 mt-5 text-sm font-semibold text-primary-400 group-hover:gap-3 transition-all duration-300">
                   {isExternal ? 'Launch Platform' : 'Learn More'}
                   <ArrowRight size={15} />
                 </div>

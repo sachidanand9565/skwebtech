@@ -9,6 +9,10 @@ import CopyLinkButton from '@/components/common/CopyLinkButton';
 import Reveal from '@/components/motion/Reveal';
 import { getPostBySlug, getRelatedPosts, getAllPosts } from '@/lib/db';
 
+// ISR: DB-driven content (admin panel edits) refreshes within 5 minutes
+export const revalidate = 300;
+
+
 export async function generateStaticParams() {
   const posts = await getAllPosts();
   return posts.map((post) => ({ slug: post.slug }));

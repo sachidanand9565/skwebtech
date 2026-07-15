@@ -7,6 +7,10 @@ import TextReveal from '@/components/motion/TextReveal';
 import ParticleField from '@/components/motion/ParticleField';
 import { getProjects } from '@/lib/db';
 
+// ISR: DB-driven content (admin panel edits) refreshes within 5 minutes
+export const revalidate = 300;
+
+
 export const metadata: Metadata = {
   title: 'Our Portfolio - Web Development & IT Projects | SK WebTech',
   description:

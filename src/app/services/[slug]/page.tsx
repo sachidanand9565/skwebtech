@@ -19,6 +19,10 @@ import { getServiceTemplate, getLocationBySlug, getServicePageTemplates, getLoca
 import { parseServiceLocationSlug } from '@/data/servicePages';
 import { interpolate } from '@/data/locations';
 
+// ISR: DB-driven content (admin panel edits) refreshes within 5 minutes
+export const revalidate = 300;
+
+
 interface Props {
   params: { slug: string };
 }

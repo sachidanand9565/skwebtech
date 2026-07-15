@@ -20,6 +20,7 @@ interface Service {
   features: string[];
   technologies: string[];
   color: string;
+  price?: string;
   href: string;
   featured?: boolean;
 }
@@ -41,6 +42,7 @@ export default function AdminServicesPage() {
   const [technologies, setTechnologies] = useState<string[]>([]);
   const [techInput, setTechInput] = useState('');
   const [color, setColor] = useState('from-indigo-500 to-indigo-600');
+  const [price, setPrice] = useState('');
   const [href, setHref] = useState('');
   const [featured, setFeatured] = useState(false);
   const [formError, setFormError] = useState('');
@@ -77,6 +79,7 @@ export default function AdminServicesPage() {
     setTechnologies([]);
     setTechInput('');
     setColor('from-indigo-500 to-indigo-600');
+    setPrice('');
     setHref('');
     setFeatured(false);
     setFormError('');
@@ -93,6 +96,7 @@ export default function AdminServicesPage() {
     setTechnologies(serv.technologies || []);
     setTechInput('');
     setColor(serv.color || 'from-indigo-500 to-indigo-600');
+    setPrice(serv.price || '');
     setHref(serv.href || '');
     setFeatured(!!serv.featured);
     setFormError('');
@@ -142,6 +146,7 @@ export default function AdminServicesPage() {
         features,
         technologies,
         color,
+        price,
         href,
         featured
       };
@@ -281,6 +286,7 @@ export default function AdminServicesPage() {
                     </td>
                     <td className="p-4 text-slate-300 max-w-[200px] truncate">{serv.shortDesc}</td>
                     <td className="p-4 text-xs text-slate-400 space-y-1">
+                      <div>Price: <span className="font-semibold text-emerald-400">{serv.price || '—'}</span></div>
                       <div>Features: <span className="font-semibold text-slate-350">{serv.features?.length || 0} items</span></div>
                       <div>Stack: <span className="font-semibold text-slate-350">{serv.technologies?.length || 0} items</span></div>
                     </td>
@@ -401,6 +407,19 @@ export default function AdminServicesPage() {
                     className="w-full px-4 py-2.5 rounded-xl border border-white/5 bg-slate-950 text-white placeholder-slate-650 focus:outline-none focus:border-indigo-500 text-sm"
                   />
                 </div>
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-slate-400 text-xs font-semibold uppercase tracking-wider block">
+                  Starting Price <span className="text-slate-600 normal-case">(website pe &quot;Starting at&quot; ke saath dikhega — khali chhodo to price nahi dikhega)</span>
+                </label>
+                <input
+                  type="text"
+                  value={price}
+                  onChange={e => setPrice(e.target.value)}
+                  placeholder="e.g. ₹9,999 ya ₹7,999/month"
+                  className="w-full px-4 py-2.5 rounded-xl border border-white/5 bg-slate-950 text-white placeholder-slate-650 focus:outline-none focus:border-indigo-500 text-sm"
+                />
               </div>
 
               {/* Dynamic Features List */}

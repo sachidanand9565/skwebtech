@@ -112,10 +112,30 @@ export async function initDb() {
       features TEXT,
       technologies TEXT,
       color VARCHAR(100),
+      price VARCHAR(50),
       href VARCHAR(255),
       featured TINYINT(1) DEFAULT 0
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
   `);
+
+  // Migration: older installs may miss the price column — add it and backfill
+  const [priceColRows] = await db.query(
+    `SELECT COUNT(*) as count FROM information_schema.COLUMNS
+     WHERE TABLE_SCHEMA = ? AND TABLE_NAME = 'services' AND COLUMN_NAME = 'price'`,
+    [DB_NAME]
+  );
+  if ((priceColRows as any)[0].count === 0) {
+    console.log('Adding price column to services table...');
+    await db.query(`ALTER TABLE services ADD COLUMN price VARCHAR(50) DEFAULT NULL AFTER color`);
+    for (const serv of initialServices) {
+      if (serv.price) {
+        await db.query(
+          `UPDATE services SET price = ? WHERE id = ? AND (price IS NULL OR price = '')`,
+          [serv.price, serv.id]
+        );
+      }
+    }
+  }
 
   // 4. Create Service Pages (SEO) table
   await db.query(`
@@ -229,8 +249,8 @@ export async function initDb() {
     console.log('Seeding initial services into MySQL...');
     for (const serv of initialServices) {
       await db.query(
-        `INSERT INTO services (id, title, description, shortDesc, features, technologies, color, href, featured)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        `INSERT INTO services (id, title, description, shortDesc, features, technologies, color, price, href, featured)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         [
           serv.id,
           serv.title,
@@ -239,6 +259,7 @@ export async function initDb() {
           JSON.stringify(serv.features),
           JSON.stringify(serv.technologies),
           serv.color,
+          serv.price || '',
           serv.href,
           serv.featured ? 1 : 0
         ]
@@ -430,6 +451,7 @@ export async function getServices(): Promise<Omit<Service, 'icon'>[]> {
     features: JSON.parse(r.features || '[]'),
     technologies: JSON.parse(r.technologies || '[]'),
     color: r.color,
+    price: r.price || '',
     href: r.href,
     featured: !!r.featured,
   }));
@@ -442,8 +464,8 @@ export async function saveServices(services: Omit<Service, 'icon'>[]): Promise<b
     await db.query('DELETE FROM services');
     for (const serv of services) {
       await db.query(
-        `INSERT INTO services (id, title, description, shortDesc, features, technologies, color, href, featured)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        `INSERT INTO services (id, title, description, shortDesc, features, technologies, color, price, href, featured)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         [
           serv.id,
           serv.title,
@@ -452,6 +474,7 @@ export async function saveServices(services: Omit<Service, 'icon'>[]): Promise<b
           JSON.stringify(serv.features),
           JSON.stringify(serv.technologies),
           serv.color,
+          serv.price || '',
           serv.href,
           serv.featured ? 1 : 0
         ]
