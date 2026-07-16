@@ -1,0 +1,435 @@
+{
+  "__type": "whatsapp-flow-export",
+  "version": 1,
+  "exported_at": "2026-07-16T00:00:00.000Z",
+  "name": "skwebtech-leads",
+  "description": "SK WebTech lead generation flow - services list & prices live from website database",
+  "trigger_keywords": [
+    "hi",
+    "hello",
+    "services",
+    "quote",
+    "start"
+  ],
+  "trigger_type": "keyword",
+  "nodes": {
+    "start": {
+      "id": "start",
+      "type": "start",
+      "position": {
+        "x": -1280,
+        "y": -140
+      },
+      "data": {
+        "label": "Flow Start",
+        "keywords": []
+      },
+      "width": 188,
+      "height": 89
+    },
+    "n-msg-welcome-1001": {
+      "id": "n-msg-welcome-1001",
+      "type": "message",
+      "data": {
+        "label": "Message",
+        "text": "🚀 *Welcome to SK WebTech!*\n\nHi there! We build websites, e-commerce stores, mobile apps & more.\n\nHow can we help you today? Please choose an option below 👇",
+        "buttons": [
+          {
+            "id": "1",
+            "text": "📋 Get a Quote"
+          },
+          {
+            "id": "2",
+            "text": "🌐 Our Services"
+          },
+          {
+            "id": "3",
+            "text": "☎ Talk to Expert"
+          }
+        ],
+        "save_id_as": "intent"
+      },
+      "position": {
+        "x": -1010,
+        "y": -180
+      },
+      "width": 232,
+      "height": 223
+    },
+    "n-ask-name-1002": {
+      "id": "n-ask-name-1002",
+      "type": "ask_question",
+      "data": {
+        "label": "Ask Question",
+        "question": "Great! 😊 First, what's your name?",
+        "save_as": "user_name",
+        "validation": "any"
+      },
+      "position": {
+        "x": -700,
+        "y": -230
+      },
+      "width": 224,
+      "height": 110
+    },
+    "n-list-services-1003": {
+      "id": "n-list-services-1003",
+      "type": "dynamic_list",
+      "data": {
+        "label": "Dynamic List",
+        "url": "https://www.skwebtech.in/api/chatbot/services",
+        "method": "POST",
+        "headers": "",
+        "req_body": "",
+        "items_path": "",
+        "id_field": "id",
+        "title_field": "name",
+        "desc_field": "price",
+        "body": "Thanks {{var.user_name}}! 🙌\nPlease select the service you're interested in 👇",
+        "button_text": "Select Service",
+        "save_response_as": "",
+        "save_id_as": "service_id",
+        "save_title_as": "service_name"
+      },
+      "position": {
+        "x": -420,
+        "y": -190
+      },
+      "width": 232,
+      "height": 168
+    },
+    "n-ask-requirement-1004": {
+      "id": "n-ask-requirement-1004",
+      "type": "ask_question",
+      "data": {
+        "label": "Ask Question",
+        "question": "📝 Please describe your project or requirement in a few lines.\n\n(e.g. \"I need an e-commerce website for my clothing brand with payment gateway\")",
+        "save_as": "requirement",
+        "validation": "any"
+      },
+      "position": {
+        "x": -130,
+        "y": -190
+      },
+      "width": 224,
+      "height": 128
+    },
+    "n-ask-email-1005": {
+      "id": "n-ask-email-1005",
+      "type": "ask_question",
+      "data": {
+        "label": "Ask Question",
+        "question": "📧 Your email address? (We'll send the quote here)\n\nType *skip* if you prefer WhatsApp only.",
+        "save_as": "email",
+        "validation": "any"
+      },
+      "position": {
+        "x": 150,
+        "y": -190
+      },
+      "width": 224,
+      "height": 128
+    },
+    "n-msg-confirm-1006": {
+      "id": "n-msg-confirm-1006",
+      "type": "message",
+      "data": {
+        "label": "Message",
+        "text": "Please confirm your request 👇\n\n👤 *Name:* {{var.user_name}}\n📱 *Mobile:* {{contact.phone}}\n🛠 *Service:* {{var.service_name}}\n📝 *Requirement:* {{var.requirement}}\n📧 *Email:* {{var.email}}",
+        "buttons": [
+          {
+            "id": "btn_confirm",
+            "text": "✅ Confirm Request"
+          },
+          {
+            "id": "btn_change",
+            "text": "🔄 Change Service"
+          }
+        ],
+        "save_id_as": "confirm_choice"
+      },
+      "position": {
+        "x": 430,
+        "y": -240
+      },
+      "width": 232,
+      "height": 223
+    },
+    "n-api-lead-1007": {
+      "id": "n-api-lead-1007",
+      "type": "api",
+      "data": {
+        "label": "API Request",
+        "method": "POST",
+        "url": "https://www.skwebtech.in/api/chatbot/lead",
+        "body": "{\n  \"name\": \"{{var.user_name}}\",\n  \"mobile\": \"{{contact.phone}}\",\n  \"service\": \"{{var.service_id}}\",\n  \"service_name\": \"{{var.service_name}}\",\n  \"requirement\": \"{{var.requirement}}\",\n  \"email\": \"{{var.email}}\",\n  \"source\": \"WhatsApp Bot\"\n}",
+        "save_as": "",
+        "extract_fields": [
+          {
+            "path": "lead_id",
+            "variable": "lead_id"
+          }
+        ]
+      },
+      "position": {
+        "x": 750,
+        "y": -190
+      },
+      "width": 224,
+      "height": 90
+    },
+    "n-msg-success-1008": {
+      "id": "n-msg-success-1008",
+      "type": "message",
+      "data": {
+        "label": "Message",
+        "text": "✅ *Request Received!*\n\nDear {{var.user_name}},\n\nThank you for choosing *SK WebTech*! 🚀\n\n📋 *Your Request:*\n• Service: {{var.service_name}}\n• Mobile: {{contact.phone}}\n• Reference ID: {{var.lead_id}}\n\nOur team will contact you within *24 hours* with a free consultation & detailed quote.\n\n📞 Urgent? Call: +91 9654603750\n🌐 www.skwebtech.in",
+        "buttons": []
+      },
+      "position": {
+        "x": 1040,
+        "y": -210
+      },
+      "width": 232,
+      "height": 125
+    },
+    "n-msg-support-1009": {
+      "id": "n-msg-support-1009",
+      "type": "message",
+      "data": {
+        "label": "Message",
+        "text": "☎ *Talk to our team directly:*\n\n📞 Call: +91 9654603750\n📧 Email: info@skwebtech.in\n🌐 Website: www.skwebtech.in\n\n🕐 Mon–Fri: 9 AM – 6 PM\n🕐 Sat: 10 AM – 4 PM\n\nWe usually reply within minutes! 😊",
+        "buttons": []
+      },
+      "position": {
+        "x": -700,
+        "y": 120
+      },
+      "width": 232,
+      "height": 125
+    },
+    "n-end-1010": {
+      "id": "n-end-1010",
+      "type": "end",
+      "data": {
+        "label": "End Flow"
+      },
+      "position": {
+        "x": 1360,
+        "y": -180
+      },
+      "width": 180,
+      "height": 89
+    }
+  },
+  "edges": [
+    {
+      "id": "e-start-welcome",
+      "source": "start",
+      "target": "n-msg-welcome-1001",
+      "sourceHandle": null,
+      "type": "button",
+      "animated": true,
+      "markerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "style": {
+        "stroke": "#38bdf8",
+        "strokeWidth": 2
+      }
+    },
+    {
+      "id": "e-welcome-quote-name",
+      "source": "n-msg-welcome-1001",
+      "target": "n-ask-name-1002",
+      "sourceHandle": "btn-0",
+      "type": "button",
+      "animated": true,
+      "markerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "style": {
+        "stroke": "#38bdf8",
+        "strokeWidth": 2
+      }
+    },
+    {
+      "id": "e-welcome-services-name",
+      "source": "n-msg-welcome-1001",
+      "target": "n-ask-name-1002",
+      "sourceHandle": "btn-1",
+      "type": "button",
+      "animated": true,
+      "markerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "style": {
+        "stroke": "#38bdf8",
+        "strokeWidth": 2
+      }
+    },
+    {
+      "id": "e-welcome-support",
+      "source": "n-msg-welcome-1001",
+      "target": "n-msg-support-1009",
+      "sourceHandle": "btn-2",
+      "type": "button",
+      "animated": true,
+      "markerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "style": {
+        "stroke": "#38bdf8",
+        "strokeWidth": 2
+      }
+    },
+    {
+      "id": "e-name-services",
+      "source": "n-ask-name-1002",
+      "target": "n-list-services-1003",
+      "sourceHandle": null,
+      "type": "button",
+      "animated": true,
+      "markerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "style": {
+        "stroke": "#38bdf8",
+        "strokeWidth": 2
+      }
+    },
+    {
+      "id": "e-services-requirement",
+      "source": "n-list-services-1003",
+      "target": "n-ask-requirement-1004",
+      "sourceHandle": null,
+      "type": "button",
+      "animated": true,
+      "markerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "style": {
+        "stroke": "#38bdf8",
+        "strokeWidth": 2
+      }
+    },
+    {
+      "id": "e-requirement-email",
+      "source": "n-ask-requirement-1004",
+      "target": "n-ask-email-1005",
+      "sourceHandle": null,
+      "type": "button",
+      "animated": true,
+      "markerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "style": {
+        "stroke": "#38bdf8",
+        "strokeWidth": 2
+      }
+    },
+    {
+      "id": "e-email-confirm",
+      "source": "n-ask-email-1005",
+      "target": "n-msg-confirm-1006",
+      "sourceHandle": null,
+      "type": "button",
+      "animated": true,
+      "markerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "style": {
+        "stroke": "#38bdf8",
+        "strokeWidth": 2
+      }
+    },
+    {
+      "id": "e-confirm-api",
+      "source": "n-msg-confirm-1006",
+      "target": "n-api-lead-1007",
+      "sourceHandle": "btn-0",
+      "type": "button",
+      "animated": true,
+      "markerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "style": {
+        "stroke": "#38bdf8",
+        "strokeWidth": 2
+      }
+    },
+    {
+      "id": "e-confirm-changeservice",
+      "source": "n-msg-confirm-1006",
+      "target": "n-list-services-1003",
+      "sourceHandle": "btn-1",
+      "type": "button",
+      "animated": true,
+      "markerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "style": {
+        "stroke": "#38bdf8",
+        "strokeWidth": 2
+      }
+    },
+    {
+      "id": "e-api-success",
+      "source": "n-api-lead-1007",
+      "target": "n-msg-success-1008",
+      "sourceHandle": null,
+      "type": "button",
+      "animated": true,
+      "markerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "style": {
+        "stroke": "#38bdf8",
+        "strokeWidth": 2
+      }
+    },
+    {
+      "id": "e-success-end",
+      "source": "n-msg-success-1008",
+      "target": "n-end-1010",
+      "sourceHandle": null,
+      "type": "button",
+      "animated": true,
+      "markerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "style": {
+        "stroke": "#38bdf8",
+        "strokeWidth": 2
+      }
+    },
+    {
+      "id": "e-support-end",
+      "source": "n-msg-support-1009",
+      "target": "n-end-1010",
+      "sourceHandle": null,
+      "type": "button",
+      "animated": true,
+      "markerEnd": {
+        "type": "arrowclosed",
+        "color": "#38bdf8"
+      },
+      "style": {
+        "stroke": "#38bdf8",
+        "strokeWidth": 2
+      }
+    }
+  ]
+}

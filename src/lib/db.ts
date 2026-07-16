@@ -47,6 +47,8 @@ function getPool() {
       waitForConnections: true,
       connectionLimit: 10,
       queueLimit: 0,
+      // utf8mb4 so ₹, emoji and Hindi text survive read/write cycles
+      charset: 'utf8mb4',
     });
   }
   return pool;
@@ -62,6 +64,7 @@ export async function initDb() {
     user: DB_USER,
     password: DB_PASSWORD,
     port: DB_PORT,
+    charset: 'utf8mb4',
   });
 
   await setupConn.query(`CREATE DATABASE IF NOT EXISTS \`${DB_NAME}\`;`);
