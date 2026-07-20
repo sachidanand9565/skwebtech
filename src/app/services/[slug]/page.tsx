@@ -96,6 +96,9 @@ export default async function ServiceLocationPage({ params }: Props) {
   }));
 
   const locs = await getLocations();
+  // Interlinking: same city ke doosre services (210 pages ka cross-link lattice)
+  const allTemplates = await getServicePageTemplates();
+  const otherServices = allTemplates.filter((t) => t.slug !== service.slug);
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -378,6 +381,29 @@ export default async function ServiceLocationPage({ params }: Props) {
           </Reveal>
         </div>
       </section>
+
+      {/* Other services in this city — internal linking across service pages */}
+      {otherServices.length > 0 && (
+        <section className="relative py-14 bg-void">
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+          <div className="container-custom">
+            <h2 className="text-xl font-heading font-semibold text-white mb-6 text-center">
+              Other Services We Offer in {city}
+            </h2>
+            <div className="flex flex-wrap justify-center gap-3">
+              {otherServices.map((t) => (
+                <Link
+                  key={t.slug}
+                  href={`/services/${t.slug}-in-${location.slug}`}
+                  className="px-4 py-2 bg-white/[0.03] border border-white/10 text-slate-400 text-sm rounded-full hover:border-primary-500/40 hover:text-primary-300 transition-all"
+                >
+                  {t.title} in {city}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Other cities */}
       <section className="relative py-14 bg-void-50">

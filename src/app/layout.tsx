@@ -108,6 +108,41 @@ export const metadata: Metadata = {
   },
 };
 
+// Sitewide Organization + WebSite schema — brand identity for Google,
+// knowledge panel support, and consistent NAP for citations
+const orgJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': 'https://www.skwebtech.in/#organization',
+      name: 'SK WebTech',
+      url: 'https://www.skwebtech.in',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://www.skwebtech.in/images/logo.png',
+      },
+      email: 'info@skwebtech.in',
+      telephone: '+91-9654603750',
+      founder: { '@type': 'Person', name: 'Sachidanand Kushwaha' },
+      address: { '@type': 'PostalAddress', addressCountry: 'IN' },
+      sameAs: [
+        'https://www.facebook.com/profile.php?id=61591755982616',
+        'https://www.linkedin.com/in/sk-webtech-40a86441b',
+        'https://www.instagram.com/skwebtech',
+        'https://x.com/Sachida38689078',
+      ],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://www.skwebtech.in/#website',
+      url: 'https://www.skwebtech.in',
+      name: 'SK WebTech',
+      publisher: { '@id': 'https://www.skwebtech.in/#organization' },
+    },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -120,6 +155,10 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#050816" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+        />
       </head>
       <body className="font-sans">
         {/* Skip to main content for accessibility */}

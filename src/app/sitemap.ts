@@ -1,6 +1,9 @@
 import { MetadataRoute } from 'next';
 import { getAllPosts, getServicePageTemplates, getLocations } from '@/lib/db';
 
+// ISR: nayi cities/blogs admin se add hone par sitemap 5 min me khud update ho jata hai
+export const revalidate = 300;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.skwebtech.in';
 

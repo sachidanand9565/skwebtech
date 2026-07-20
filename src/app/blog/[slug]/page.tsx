@@ -2,12 +2,12 @@ import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { Calendar, Clock, ArrowLeft, Share2, Facebook, Twitter, Linkedin, Tag } from 'lucide-react';
+import { Calendar, Clock, ArrowLeft, Share2, Facebook, Twitter, Linkedin, Tag, ArrowRight } from 'lucide-react';
 import BlogCard from '@/components/common/BlogCard';
 import CTASection from '@/components/common/CTASection';
 import CopyLinkButton from '@/components/common/CopyLinkButton';
 import Reveal from '@/components/motion/Reveal';
-import { getPostBySlug, getRelatedPosts, getAllPosts } from '@/lib/db';
+import { getPostBySlug, getRelatedPosts, getAllPosts, getServices } from '@/lib/db';
 
 // ISR: DB-driven content (admin panel edits) refreshes within 5 minutes
 export const revalidate = 300;
@@ -50,8 +50,49 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
   const encodedUrl = encodeURIComponent(shareUrl);
   const encodedTitle = encodeURIComponent(post.title);
 
+  // Interlinking: article ke topic se milte-julte services (title-word match)
+  const allServices = await getServices();
+  const postText = `${post.title} ${post.category} ${post.tags.join(' ')}`.toLowerCase();
+  const relatedServices = allServices
+    .map((s) => ({
+      service: s,
+      score: s.title.toLowerCase().split(/[^a-z]+/).filter((w) => w.length > 3 && postText.includes(w)).length,
+    }))
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 3)
+    .map(({ service }) => service);
+
+  // Article + Breadcrumb schema — blog posts ke liye rich results support
+  const articleJsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'BlogPosting',
+        headline: post.title,
+        description: post.excerpt,
+        image: post.coverImage.startsWith('http') ? post.coverImage : `https://www.skwebtech.in${post.coverImage}`,
+        datePublished: post.publishedAt,
+        author: { '@type': 'Person', name: post.author.name },
+        publisher: { '@id': 'https://www.skwebtech.in/#organization' },
+        mainEntityOfPage: shareUrl,
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.skwebtech.in' },
+          { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://www.skwebtech.in/blog' },
+          { '@type': 'ListItem', position: 3, name: post.title, item: shareUrl },
+        ],
+      },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       <article>
         {/* Hero header */}
         <header className="relative pt-28 md:pt-36 pb-14 bg-void overflow-hidden">
@@ -171,6 +212,34 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
                     </div>
                   </div>
                 </div>
+
+                {/* Related Services — article topic se jude services ke internal links */}
+                {relatedServices.length > 0 && (
+                  <div className="mt-8 pt-8 border-t border-white/10">
+                    <h2 className="font-heading font-semibold text-white mb-4 text-sm uppercase tracking-[0.18em]">
+                      Need Help With This? Explore Our Services
+                    </h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      {relatedServices.map((s) => (
+                        <Link
+                          key={s.id}
+                          href={s.href && !s.href.startsWith('http') ? s.href : `/services#${s.id}`}
+                          className="group rounded-xl border border-white/[0.08] bg-white/[0.03] p-4 transition-all duration-300 hover:border-primary-500/40 hover:bg-white/[0.05]"
+                        >
+                          <div className="font-heading font-semibold text-white text-sm mb-1 group-hover:text-primary-300 transition-colors">
+                            {s.title}
+                          </div>
+                          {s.price ? (
+                            <div className="text-xs text-slate-500 mb-2">Starting at <span className="text-primary-400 font-semibold">{s.price}</span></div>
+                          ) : null}
+                          <span className="inline-flex items-center gap-1 text-xs font-medium text-primary-400">
+                            Learn More <ArrowRight size={12} className="transition-transform duration-300 group-hover:translate-x-0.5" />
+                          </span>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Sidebar */}
