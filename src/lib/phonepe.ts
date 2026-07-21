@@ -45,6 +45,7 @@ async function getAccessToken(): Promise<string> {
     method:  'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body:    body.toString(),
+    cache:   'no-store',
   });
   const data = await res.json();
   if (!res.ok || !data?.access_token) {
@@ -84,7 +85,8 @@ export async function initiatePhonePePayment(opts: PhonePeInitiateOptions): Prom
       Authorization:  `O-Bearer ${token}`,
       accept:         'application/json',
     },
-    body: JSON.stringify(payload),
+    body:  JSON.stringify(payload),
+    cache: 'no-store',
   });
   const data = await res.json();
 
@@ -108,6 +110,7 @@ export async function checkPhonePeStatus(merchantOrderId: string): Promise<Phone
   const res = await fetch(`${PG_BASE[env()]}/checkout/v2/order/${merchantOrderId}/status`, {
     method:  'GET',
     headers: { Authorization: `O-Bearer ${token}`, accept: 'application/json' },
+    cache:   'no-store',
   });
   const data = await res.json();
   const payment = Array.isArray(data?.paymentDetails) ? data.paymentDetails[0] : null;

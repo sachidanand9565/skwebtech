@@ -12,6 +12,10 @@ import { initiatePhonePePayment } from '@/lib/phonepe';
 // Only ever bounce back to a domain we control — never an open redirector.
 const ALLOWED_RETURN_HOSTS = ['wa.skwebtech.in'];
 
+// Never let Next.js cache this route or the PhonePe calls it makes — a cached
+// auth token here silently goes stale and every payment starts failing.
+export const dynamic = 'force-dynamic';
+
 export async function GET(req: NextRequest) {
   const { searchParams } = req.nextUrl;
   const txn = searchParams.get('txn') || '';
