@@ -93,3 +93,28 @@ export async function initiatePhonePePayment(opts: PhonePeInitiateOptions): Prom
   }
   return { redirectUrl: data.redirectUrl };
 }
+
+export interface PhonePeStatusResult {
+  state: string; // COMPLETED | PENDING | FAILED | ...
+  amountRupees: number;
+  transactionId: string | null;
+  raw: unknown;
+}
+
+// Used only by the standalone /gateway-test harness on this app — the real
+// wa.skwebtech.in integration verifies status itself (lib/phonepeConfirm.ts).
+export async function checkPhonePeStatus(merchantOrderId: string): Promise<PhonePeStatusResult> {
+  const token = await getAccessToken();
+  const res = await fetch(`${PG_BASE[env()]}/checkout/v2/order/${merchantOrderId}/status`, {
+    method:  'GET',
+    headers: { Authorization: `O-Bearer ${token}`, accept: 'application/json' },
+  });
+  const data = await res.json();
+  const payment = Array.isArray(data?.paymentDetails) ? data.paymentDetails[0] : null;
+  return {
+    state:         data?.state || 'UNKNOWN',
+    amountRupees:  Number(data?.amount || 0) / 100,
+    transactionId: payment?.transactionId || data?.orderId || null,
+    raw:           data,
+  };
+}
