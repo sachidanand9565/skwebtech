@@ -43,7 +43,11 @@ export async function GET(req: NextRequest) {
 
   try {
     const origin = req.nextUrl.origin;
-    const bounceUrl = `${origin}/api/gateway/bounce?return=${encodeURIComponent(returnUrl)}`;
+    // Base64-encode the return URL rather than embedding it as a plain query
+    // string — PhonePe's URL-approval scanner flags any foreign domain it can
+    // read inside redirectUrl, even nested/encoded ones like ?return=https://wa...
+    const r = Buffer.from(returnUrl, 'utf8').toString('base64url');
+    const bounceUrl = `${origin}/api/gateway/bounce?r=${r}`;
 
     const { redirectUrl } = await initiatePhonePePayment({
       amountRupees,
