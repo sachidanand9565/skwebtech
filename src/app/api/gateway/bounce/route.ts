@@ -21,14 +21,8 @@ export async function GET(req: NextRequest) {
   let parsed: URL;
   try {
     parsed = new URL(Buffer.from(r, 'base64url').toString('utf8'));
-  } catch (e) {
-    // TEMP diagnostic — remove once resolved.
-    return NextResponse.json({
-      error: 'Invalid return URL',
-      raw_r: r,
-      decoded: (() => { try { return Buffer.from(r, 'base64url').toString('utf8'); } catch { return null; } })(),
-      exceptionMessage: e instanceof Error ? e.message : String(e),
-    }, { status: 400 });
+  } catch {
+    return NextResponse.json({ error: 'Invalid return URL' }, { status: 400 });
   }
   if (!ALLOWED_RETURN_HOSTS.includes(parsed.hostname)) {
     return NextResponse.json({ error: 'Return URL not allowed' }, { status: 400 });

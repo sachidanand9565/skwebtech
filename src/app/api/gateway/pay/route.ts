@@ -59,13 +59,9 @@ export async function GET(req: NextRequest) {
     return NextResponse.redirect(redirectUrl);
   } catch (e) {
     console.error('[gateway/pay]', e);
-    const message = e instanceof Error ? e.message : String(e);
     // Nothing to show the user here but a plain error — send them back with a failure flag.
-    // TEMP: the actual error message rides along in the URL so we can diagnose
-    // without needing to dig through Vercel's function logs — remove once resolved.
     const fallback = new URL(returnUrl);
     fallback.searchParams.set('gateway_error', '1');
-    fallback.searchParams.set('gateway_error_detail', message.slice(0, 200));
     return NextResponse.redirect(fallback.toString());
   }
 }
