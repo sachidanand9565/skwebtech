@@ -56,7 +56,11 @@ export async function GET(req: NextRequest) {
       redirectUrl:     bounceUrl,
     });
 
-    return NextResponse.redirect(redirectUrl);
+    // Belt-and-suspenders: even if wa.skwebtech.in's own Referrer-Policy ever
+    // regresses, don't let this hop carry a referrer into PhonePe's request.
+    const res = NextResponse.redirect(redirectUrl);
+    res.headers.set('Referrer-Policy', 'no-referrer');
+    return res;
   } catch (e) {
     console.error('[gateway/pay]', e);
     // Nothing to show the user here but a plain error — send them back with a failure flag.
