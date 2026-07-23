@@ -1,9 +1,11 @@
 /**
- * GET /api/gateway/pay?txn=...&amount=...&return=...&sig=...
- * Entry point for the wa.skwebtech.in checkout handoff. Verifies the
- * signed request, then actually calls PhonePe from THIS domain (the one
- * approved on the merchant account), and sends the browser to PhonePe's
- * hosted checkout page.
+ * POST /api/gateway/pay
+ * Body: { txn, amount, return, sig }
+ * Called by the "Pay Now" button on /gateway/checkout (the preview page the
+ * wa.skwebtech.in checkout handoff lands on first). Verifies the signed
+ * request, then actually calls PhonePe from THIS domain (the one approved
+ * on the merchant account), and returns the PhonePe-hosted checkout URL for
+ * the page to redirect to.
  */
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyRelaySignature } from '@/lib/gatewayRelay';
@@ -16,12 +18,12 @@ const ALLOWED_RETURN_HOSTS = ['wa.skwebtech.in'];
 // auth token here silently goes stale and every payment starts failing.
 export const dynamic = 'force-dynamic';
 
-export async function GET(req: NextRequest) {
-  const { searchParams } = req.nextUrl;
-  const txn = searchParams.get('txn') || '';
-  const amountRupees = Number(searchParams.get('amount'));
-  const returnUrl = searchParams.get('return') || '';
-  const sig = searchParams.get('sig') || '';
+export async function POST(req: NextRequest) {
+  const body = await req.json().catch(() => ({}));
+  const txn = String(body?.txn || '');
+  const amountRupees = Number(body?.amount);
+  const returnUrl = String(body?.return || '');
+  const sig = String(body?.sig || '');
 
   if (!txn || !amountRupees || amountRupees <= 0 || !returnUrl) {
     return NextResponse.json({ error: 'Invalid payment request' }, { status: 400 });
@@ -56,16 +58,9 @@ export async function GET(req: NextRequest) {
       redirectUrl:     bounceUrl,
     });
 
-    // Belt-and-suspenders: even if wa.skwebtech.in's own Referrer-Policy ever
-    // regresses, don't let this hop carry a referrer into PhonePe's request.
-    const res = NextResponse.redirect(redirectUrl);
-    res.headers.set('Referrer-Policy', 'no-referrer');
-    return res;
+    return NextResponse.json({ redirectUrl });
   } catch (e) {
     console.error('[gateway/pay]', e);
-    // Nothing to show the user here but a plain error — send them back with a failure flag.
-    const fallback = new URL(returnUrl);
-    fallback.searchParams.set('gateway_error', '1');
-    return NextResponse.redirect(fallback.toString());
+    return NextResponse.json({ error: 'Failed to start PhonePe payment' }, { status: 500 });
   }
 }
