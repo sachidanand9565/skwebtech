@@ -154,12 +154,34 @@ export async function initDb() {
       h1Template VARCHAR(255),
       introTemplate TEXT,
       subIntroTemplate TEXT,
+      contentTemplate MEDIUMTEXT,
       features TEXT,
       technologies TEXT,
       benefits TEXT,
       faqsTemplate TEXT
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
   `);
+
+  // Migration: older installs may miss the contentTemplate column (long-form
+  // unique SEO article per service) — add it and backfill from seed data
+  const [contentColRows] = await db.query(
+    `SELECT COUNT(*) as count FROM information_schema.COLUMNS
+     WHERE TABLE_SCHEMA = ? AND TABLE_NAME = 'service_pages' AND COLUMN_NAME = 'contentTemplate'`,
+    [DB_NAME]
+  );
+  if ((contentColRows as any)[0].count === 0) {
+    console.log('Adding contentTemplate column to service_pages table...');
+    await db.query(`ALTER TABLE service_pages ADD COLUMN contentTemplate MEDIUMTEXT NULL AFTER subIntroTemplate`);
+  }
+  // Backfill rows that don't have content yet (idempotent — only fills empty)
+  for (const template of initialServicePages) {
+    if (template.contentTemplate) {
+      await db.query(
+        `UPDATE service_pages SET contentTemplate = ? WHERE slug = ? AND (contentTemplate IS NULL OR contentTemplate = '')`,
+        [template.contentTemplate, template.slug]
+      );
+    }
+  }
 
   // 5. Create Locations table
   await db.query(`
@@ -276,8 +298,8 @@ export async function initDb() {
     console.log('Seeding initial service pages into MySQL...');
     for (const template of initialServicePages) {
       await db.query(
-        `INSERT INTO service_pages (id, slug, title, color, textColor, metaTitleTemplate, metaDescriptionTemplate, keywordsTemplate, h1Template, introTemplate, subIntroTemplate, features, technologies, benefits, faqsTemplate)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        `INSERT INTO service_pages (id, slug, title, color, textColor, metaTitleTemplate, metaDescriptionTemplate, keywordsTemplate, h1Template, introTemplate, subIntroTemplate, contentTemplate, features, technologies, benefits, faqsTemplate)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         [
           template.id,
           template.slug,
@@ -290,6 +312,7 @@ export async function initDb() {
           template.h1Template,
           template.introTemplate,
           template.subIntroTemplate,
+          template.contentTemplate || '',
           JSON.stringify(template.features),
           JSON.stringify(template.technologies),
           JSON.stringify(template.benefits),
@@ -507,6 +530,7 @@ export async function getServicePageTemplates(): Promise<ServicePageTemplate[]> 
     h1Template: r.h1Template,
     introTemplate: r.introTemplate,
     subIntroTemplate: r.subIntroTemplate,
+    contentTemplate: r.contentTemplate || '',
     features: JSON.parse(r.features || '[]'),
     technologies: JSON.parse(r.technologies || '[]'),
     benefits: JSON.parse(r.benefits || '[]'),
@@ -521,8 +545,8 @@ export async function saveServicePageTemplates(templates: ServicePageTemplate[])
     await db.query('DELETE FROM service_pages');
     for (const template of templates) {
       await db.query(
-        `INSERT INTO service_pages (id, slug, title, color, textColor, metaTitleTemplate, metaDescriptionTemplate, keywordsTemplate, h1Template, introTemplate, subIntroTemplate, features, technologies, benefits, faqsTemplate)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        `INSERT INTO service_pages (id, slug, title, color, textColor, metaTitleTemplate, metaDescriptionTemplate, keywordsTemplate, h1Template, introTemplate, subIntroTemplate, contentTemplate, features, technologies, benefits, faqsTemplate)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         [
           template.id,
           template.slug,
@@ -535,6 +559,7 @@ export async function saveServicePageTemplates(templates: ServicePageTemplate[])
           template.h1Template,
           template.introTemplate,
           template.subIntroTemplate,
+          template.contentTemplate || '',
           JSON.stringify(template.features),
           JSON.stringify(template.technologies),
           JSON.stringify(template.benefits),

@@ -22,6 +22,60 @@ import { interpolate } from '@/data/locations';
 // ISR: DB-driven content (admin panel edits) refreshes within 5 minutes
 export const revalidate = 300;
 
+// Markdown (##, ###, **bold**, links, - lists) → HTML for the long-form content section
+function renderMarkdown(md: string): string {
+  const inline = (s: string) =>
+    s
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+
+  const html: string[] = [];
+  let para: string[] = [];
+  let inList = false;
+
+  const flushPara = () => {
+    if (para.length) {
+      html.push(`<p>${para.join(' ')}</p>`);
+      para = [];
+    }
+  };
+  const closeList = () => {
+    if (inList) {
+      html.push('</ul>');
+      inList = false;
+    }
+  };
+
+  for (const raw of md.split('\n')) {
+    const line = raw.trim();
+    if (!line) {
+      flushPara();
+      closeList();
+    } else if (line.startsWith('### ')) {
+      flushPara();
+      closeList();
+      html.push(`<h3>${inline(line.slice(4))}</h3>`);
+    } else if (line.startsWith('## ')) {
+      flushPara();
+      closeList();
+      html.push(`<h2>${inline(line.slice(3))}</h2>`);
+    } else if (line.startsWith('- ')) {
+      flushPara();
+      if (!inList) {
+        html.push('<ul>');
+        inList = true;
+      }
+      html.push(`<li>${inline(line.slice(2))}</li>`);
+    } else {
+      closeList();
+      para.push(inline(line));
+    }
+  }
+  flushPara();
+  closeList();
+  return html.join('\n');
+}
+
 
 interface Props {
   params: { slug: string };
@@ -309,6 +363,25 @@ export default async function ServiceLocationPage({ params }: Props) {
           </Reveal>
         </div>
       </section>
+
+      {/* Long-form SEO content — unique per service, city-specific via interpolation */}
+      {service.contentTemplate && (
+        <section className="relative py-14 md:py-20 bg-void">
+          <div className="container-custom">
+            <div
+              className="max-w-3xl mx-auto prose prose-lg prose-invert
+                prose-headings:font-heading prose-headings:font-bold prose-headings:text-white
+                prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
+                prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
+                prose-p:text-slate-300 prose-p:leading-relaxed
+                prose-a:text-primary-400 prose-a:no-underline hover:prose-a:underline
+                prose-strong:text-white
+                prose-ul:text-slate-300 prose-li:marker:text-primary-400"
+              dangerouslySetInnerHTML={{ __html: renderMarkdown(interpolate(service.contentTemplate, city)) }}
+            />
+          </div>
+        </section>
+      )}
 
       {/* FAQ */}
       <section className="relative py-14 md:py-20 bg-void">

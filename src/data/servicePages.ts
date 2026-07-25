@@ -20,6 +20,8 @@ export interface ServicePageTemplate {
   h1Template: string;
   introTemplate: string;
   subIntroTemplate: string;
+  /** Long-form unique SEO article shown on the page (markdown, {city} placeholders) */
+  contentTemplate: string;
   features: ServiceFeature[];
   technologies: string[];
   benefits: { title: string; desc: string; icon: string }[];
@@ -51,6 +53,38 @@ export const servicePageTemplates: ServicePageTemplate[] = [
       'SK WebTech provides top-rated web development services in {city}. We build fast, scalable, and conversion-optimized websites and web applications for startups, SMEs, and enterprises.',
     subIntroTemplate:
       'From a simple landing page to a complex enterprise portal, our team in {city} delivers pixel-perfect, SEO-friendly websites that grow your business. Every project is built with modern technology and best practices.',
+    contentTemplate: `Your website is usually the first meeting a customer has with your business. Someone in {city} hears your name, searches on Google, and decides within a few seconds whether you look worth calling. That decision happens before you ever speak to them. Our job is to make sure it goes in your favour.
+
+## A Website Development Company in {city} That Builds for Results
+
+SK WebTech has been building websites for more than ten years. In that time we have shipped everything from single-page sites for local clinics to full-scale web applications handling thousands of users a day. The lesson we keep re-learning: a website only earns its cost when it is fast, easy to find, and clear about what you want the visitor to do next.
+
+That is why we never start with a template. Every project begins with questions about your business in {city} — who your customers are, what they search for, what makes them pick you over the shop two lanes away. The design and code follow from those answers, not the other way around.
+
+## What We Build
+
+- **Business websites** for clinics, CA firms, coaching institutes, salons, real estate agents and manufacturers who need a professional presence that brings enquiries
+- **Custom web applications** — booking systems, dashboards, portals and internal tools built on Next.js and Node.js
+- **Landing pages** for Google and Meta ad campaigns, designed around one goal: conversions
+- **Website redesigns** for businesses whose current site looks fine but produces nothing
+
+## Why Speed and SEO Are Built In, Not Added Later
+
+Google's own data shows that more than half of mobile visitors leave a page that takes over three seconds to load. Most template websites in India fail that test badly. Ours don't. We build on Next.js with server-side rendering, compress every image, and test Core Web Vitals before launch — so your {city} customers get a site that opens instantly even on a patchy 4G connection.
+
+The same thinking applies to SEO. Clean heading structure, proper meta tags, schema markup and a sitemap are part of the build itself. When your site goes live, Google can read it properly from day one.
+
+## What Does a Website Cost in {city}?
+
+Honest answer: it depends on what you need, but here is the range we work in. A clean five-page business website starts around ₹15,000. Professional sites with custom design, blog and enquiry management typically land between ₹30,000 and ₹80,000. Custom web applications start at ₹1,00,000 and go up with complexity. You get a fixed written quote before we start — no surprise additions halfway through.
+
+## How the Project Runs
+
+Week one is discovery and design: we share layouts and you react to something concrete instead of imagining it. Then development, with a staging link you can open anytime to watch progress. Before launch we test on real phones, run speed checks and walk you through the admin panel so your team can update content without calling a developer for every small change.
+
+After launch you are not left alone either. Every project includes support, and most of our {city} clients stay with us on maintenance plans because it is cheaper than firefighting problems later.
+
+If you have been putting off your website — or tolerating one that embarrasses you — talk to us. The consultation is free, and you will leave it with a clear plan and an honest price, whether or not you hire us.`,
     features: [
       { title: 'Custom Website Design', desc: 'Pixel-perfect, brand-aligned designs built from scratch - no templates' },
       { title: 'Next.js & React Development', desc: 'Blazing-fast web apps with server-side rendering and modern frameworks' },
@@ -114,6 +148,36 @@ export const servicePageTemplates: ServicePageTemplate[] = [
       'SK WebTech builds high-converting e-commerce stores for businesses in {city}. From Shopify and WooCommerce to fully custom solutions, we create online stores that sell.',
     subIntroTemplate:
       'Our {city} e-commerce team delivers feature-rich platforms with secure payment gateways, smart inventory management, and shopping experiences that turn visitors into repeat customers.',
+    contentTemplate: `Retail in {city} has changed. Customers who once walked into your shop now check whether you deliver, compare your price on Amazon, and expect to pay by UPI at eleven at night. An online store stopped being optional a while ago — the only real question is whether yours works well enough to compete.
+
+## An E-Commerce Website That Actually Sells
+
+Anyone can put products on a webpage. Getting a visitor to add an item to the cart, trust you with payment, and come back next month is a different job entirely. That is the job we do.
+
+SK WebTech builds online stores for {city} businesses on Shopify, WooCommerce and fully custom stacks. Which one you need depends on your catalogue, margins and plans — and we will tell you honestly if the cheaper option is the right one. A ten-product boutique does not need a ₹3,00,000 custom build, and a marketplace with two hundred sellers should not be forced into a Shopify theme.
+
+## Built for How India Actually Buys
+
+Most e-commerce advice online is written for American stores. Indian e-commerce has its own rules, and we build for them:
+
+- **UPI, cards, wallets and net banking** through Razorpay, PayU or Cashfree — plus cash on delivery, because COD still drives a big share of orders outside metro cities
+- **Shipping integrations** with Shiprocket and Delhivery so orders flow to couriers automatically, with tracking updates sent to the customer on WhatsApp
+- **GST-ready invoicing** and reports your accountant will not complain about
+- **WhatsApp order alerts and abandoned-cart nudges**, which recover far more sales in India than email ever does
+
+## Product Pages That Rank on Google
+
+Every store we ship has SEO-optimised product pages: clean URLs, structured data for Google Shopping, fast image loading, and category pages written to match what people in {city} actually search for. Paid ads bring your first customers; search brings the profitable ones after that.
+
+## What an Online Store Costs
+
+A ready-platform store on Shopify or WooCommerce, set up properly with payments, shipping and a trained team, starts around ₹25,000. Custom-designed stores with specific business logic usually run ₹75,000 to ₹2,50,000. Multi-vendor marketplaces start higher. Every quote is fixed and itemised — you will know exactly what you are paying for.
+
+## After the Launch
+
+The launch is the easy part. The months after — festival sale traffic, a payment gateway acting up at midnight, a courier API changing without notice — are where most store owners get stuck. Our support plans cover monitoring, updates and quick fixes, so you spend your time on products and marketing instead of technical firefighting.
+
+If you are planning your first store in {city}, or your current one leaks sales at checkout, get in touch. We will review your situation on a free call and give you a straight recommendation, even if that recommendation is "you don't need us yet."`,
     features: [
       { title: 'Custom E-Commerce Design', desc: 'Brand-aligned store designs built for maximum conversions' },
       { title: 'Payment Gateway Integration', desc: 'Razorpay, Stripe, PayPal, UPI, and all major payment options' },
@@ -174,6 +238,35 @@ export const servicePageTemplates: ServicePageTemplate[] = [
       'SK WebTech delivers result-driven SEO services in {city} that improve your Google rankings, drive organic traffic, and generate quality leads for your business.',
     subIntroTemplate:
       'Our {city} SEO specialists use proven white-hat strategies to help you dominate search results for your target keywords and outrank your competitors consistently.',
+    contentTemplate: `When someone in {city} needs what you sell, they do not open a directory or ask around the market. They type it into Google. The businesses on the first page get the call; everyone else gets nothing. SEO is simply the work of making sure you are in the first group — and doing it takes more than adding keywords to a page.
+
+## What Our SEO Service in {city} Actually Involves
+
+Plenty of agencies sell SEO as a mysterious monthly retainer. You pay, receive a confusing report, and rankings never quite move. We work differently: every task we do is listed, explained and reported, and you can question any line of it.
+
+A typical engagement includes:
+
+- **A technical audit first** — crawl errors, slow pages, broken links, indexing problems. There is no point building links to a site Google struggles to read.
+- **Keyword research based on buyer intent.** Ranking for "what is web design" brings students; ranking for "web design company in {city}" brings customers. We chase the second kind.
+- **On-page work** — titles, headings, internal links and content rewritten so every important page targets one clear search intent
+- **Local SEO** — your Google Business Profile optimised, a reviews strategy, citations in Indian directories, and map-pack rankings for "near me" searches
+- **Content and links** — genuinely useful articles that earn rankings, and outreach for backlinks from real websites, never bought link farms
+
+## The Honest Part: How Long It Takes
+
+Anyone promising you page one in thirty days is either lying or about to use techniques that will get your site penalised. Real SEO compounds: most of our {city} clients see movement in three to four months and meaningful business results — calls, enquiries, walk-ins — inside six to twelve. What you get from us in the meantime is a monthly report showing exactly what was done, what moved, and what is planned next. No jargon, no hiding.
+
+## Why Local Businesses Choose Us
+
+We are a web development company first, which matters more than it sounds. Half of SEO problems are technical — speed, rendering, crawlability — and agencies that cannot touch code end up sending you a list of problems to forward to your developer. We just fix them.
+
+It also means your SEO and your website never fight each other. When a landing page needs restructuring or a new city page needs building, it happens in days, not in a queue between two vendors blaming each other.
+
+## SEO Pricing in {city}
+
+Local SEO packages start at ₹8,000 per month — right for a clinic, showroom, restaurant or firm targeting customers within {city}. Competitive national campaigns run ₹25,000 to ₹50,000+ monthly depending on the industry. Before any of that, we do a free audit of your site and current rankings, so the plan we quote is based on your actual situation rather than a standard menu.
+
+Search traffic is the cheapest customer acquisition channel you will ever have — but only after the groundwork is done. The sooner it starts, the sooner it compounds. Send us your website and we will show you, specifically, what is holding it back.`,
     features: [
       { title: 'Technical SEO Audit', desc: 'Deep-dive audit of site speed, crawlability, indexing, and technical issues' },
       { title: 'Keyword Research & Strategy', desc: 'Data-driven keyword targeting based on search volume, intent, and competition' },
@@ -233,6 +326,35 @@ export const servicePageTemplates: ServicePageTemplate[] = [
       'SK WebTech is a leading mobile app development company in {city}, building powerful iOS and Android applications for startups, enterprises, and everything in between.',
     subIntroTemplate:
       'Our {city} app development team transforms your idea into a feature-rich, user-friendly mobile application - from concept and design to app store launch and beyond.',
+    contentTemplate: `Every serious app you use — the one you order food from, pay through, book tickets with — started as somebody's rough idea. The distance between an idea and an app people actually keep on their phone is design, engineering and a hundred small decisions. That distance is what we cover.
+
+## Mobile App Developers in {city} for iOS and Android
+
+SK WebTech builds mobile apps for startups and established businesses in {city} — customer-facing apps, delivery and booking platforms, internal tools for field teams, and apps that extend an existing website into something customers keep in their pocket.
+
+We work across native (Swift for iOS, Kotlin for Android) and cross-platform (React Native and Flutter). And here is advice that surprises many founders: most apps do not need native development. A cross-platform build shares one codebase across both stores, costs roughly 40% less, and ships faster — with performance that ordinary users cannot tell apart from native. We recommend native only when a project truly demands it: heavy animation, intensive background processing, deep hardware work. You get that recommendation before you spend anything.
+
+## From Idea to the Play Store
+
+**Scoping and wireframes.** We map every screen and flow before code begins. Changing your mind on paper costs nothing; changing it in month three costs plenty.
+
+**Design.** Real UI designs in Figma you can tap through on your own phone — so what you approve is what gets built.
+
+**Development in sprints.** A working build lands on your phone every two weeks. You watch the app grow instead of waiting months for a big reveal.
+
+**Backend and APIs.** Most apps are half server: accounts, payments, notifications, admin panels. We build that too, on Node.js with Firebase or AWS, sized to grow from a hundred users to a hundred thousand without a rewrite.
+
+**Launch.** App Store and Play Store submission, store listings, screenshots and compliance handled. Rejections are annoying; we know the review rules well enough to avoid most of them.
+
+## What an App Costs in {city}
+
+A focused single-purpose app starts around ₹50,000. Most business apps — login, payments, notifications, admin dashboard — land between ₹1,50,000 and ₹8,00,000 depending on scope. It is a real investment, which is exactly why we scope in writing first: you will know the number before committing, and phased launches (a lean version one now, features later) often make the budget work far better.
+
+## After Launch
+
+Apps are not websites; they live in an ecosystem that keeps shifting under them. OS updates land every year, libraries deprecate, and users update their phones whether your app is ready or not. Our maintenance plans keep apps updated, monitored and crash-free — and most of our {city} clients treat that as part of the cost of running an app, because it is.
+
+If you have an app idea and no technical background, that is fine — most of our clients started exactly there. Bring the idea; we will bring the questions. The first consultation is free and you will leave with a realistic sense of scope, cost and timeline.`,
     features: [
       { title: 'Native iOS Development', desc: 'Swift-powered iOS apps with exceptional performance and Apple design guidelines' },
       { title: 'Native Android Development', desc: 'Kotlin-based Android apps with Material Design and Google Play compliance' },
@@ -293,6 +415,33 @@ export const servicePageTemplates: ServicePageTemplate[] = [
       'SK WebTech delivers user-centered UI/UX design services in {city} that create memorable digital experiences, improve usability, and drive conversions for web and mobile products.',
     subIntroTemplate:
       'Our {city} design team combines research, strategy, and visual craft to create interfaces that your users love - and that achieve your business goals.',
+    contentTemplate: `Two businesses can offer the same service at the same price, and one will convert twice as many visitors — purely because of design. Not prettier design; clearer design. Where the eye lands first, how obvious the next step is, whether a form feels like thirty seconds or ten minutes. That is what UI/UX work actually decides.
+
+## A UI/UX Design Team in {city} That Designs for Outcomes
+
+SK WebTech designs interfaces for websites, web applications and mobile apps. Some clients come to us before development, wanting the product designed properly from the start. Others come after — with an app people download and abandon, or a website that gets traffic and no enquiries — and need a diagnosis before a redesign.
+
+Either way, the process starts with users, not colours. Who is using this? On what device, in what mood, with how much patience? A cab booking screen for daily commuters and an insurance form for first-time buyers need entirely different design decisions. Skipping that thinking is why so many good-looking products fail quietly.
+
+## What the Work Includes
+
+- **User research and personas** — understanding your actual users in {city} and beyond, not an imaginary average customer
+- **Information architecture** — organising content so people find things where they instinctively look
+- **Wireframes and clickable prototypes** in Figma, tested before a line of code exists
+- **Visual design** — typography, colour and component systems that fit your brand and stay consistent across every screen
+- **Design systems** — a reusable component library so your product looks coherent even after two years of new features
+- **Usability testing** — watching real users attempt real tasks, which is humbling and worth every minute
+- **Accessibility** — WCAG-compliant contrast, sizing and structure, because a design that excludes users is a broken design
+
+## Why Fixing Design Early Is So Much Cheaper
+
+A flaw caught in a Figma prototype takes an hour to fix. The same flaw caught after development takes days of rework, and caught after launch it costs lost customers plus the rework. This is the entire economic case for design: it is the cheapest stage of the project to make mistakes in. Teams in {city} that treat design as decoration end up paying for it in engineering.
+
+## Design Pricing
+
+A landing page or small app design starts around ₹20,000. Full product design — research, flows, high-fidelity screens and a design system — typically runs ₹60,000 to ₹2,00,000+ depending on the number of screens and depth of research. Deliverables are developer-ready: organised Figma files, specs and assets that any competent team, ours or yours, can build from directly.
+
+If your product looks fine but underperforms, the problem is usually invisible to whoever built it. A fresh audit finds it fast. Send us the link — the first review call is free, and it is usually an eye-opener.`,
     features: [
       { title: 'User Research & Personas', desc: 'In-depth research to understand your users\' needs, pain points, and behavior' },
       { title: 'Information Architecture', desc: 'Logical content structure and navigation that users intuitively understand' },
@@ -352,6 +501,31 @@ export const servicePageTemplates: ServicePageTemplate[] = [
       'SK WebTech provides complete WhatsApp Business API solutions in {city} that help you automate customer support, run marketing campaigns, and scale communication to thousands of customers instantly.',
     subIntroTemplate:
       'Join hundreds of businesses in {city} that use our WhatsApp platform to reduce support costs, improve response times, and run targeted campaigns with 98% open rates.',
+    contentTemplate: `Check the notifications on any customer's phone. Emails sit unread for days; WhatsApp messages get opened within minutes. For businesses in {city}, that gap is the whole story — the channel your customers actually read is also the one most businesses still manage manually, one chat at a time, from one phone. The WhatsApp Business API fixes that.
+
+## What the WhatsApp Business API Lets You Do
+
+The free WhatsApp Business app works while you are small. The API is what it grows into: your entire team answering from one shared inbox, chatbots handling routine questions at 2 a.m., broadcast campaigns going to thousands of opted-in customers with personalisation — all from your official, verified business number.
+
+SK WebTech handles the whole setup for businesses in {city}: Meta business verification, API onboarding, green-tick application, and the platform where everything runs. We operate our own WhatsApp business platform, so you are not renting a patchwork of third-party tools — the dashboard, chatbot builder, campaign manager and analytics come from the same team that set you up.
+
+## Where It Pays for Itself
+
+- **Order updates and reminders** — confirmations, delivery tracking, payment reminders and appointment nudges, sent automatically. No-shows drop noticeably when reminders arrive on WhatsApp instead of SMS.
+- **Chatbots for repetitive questions** — price, timing, location, availability. The bot answers what it can, around the clock, and hands the rest to your team with full context.
+- **Campaigns that get read** — WhatsApp broadcasts see open rates near 98%, which no email campaign gets close to. Festival offers, restock alerts and follow-ups actually land.
+- **Abandoned cart recovery** for online stores — a well-timed WhatsApp nudge recovers carts that email never will
+- **CRM integration** — conversations synced with HubSpot, Zoho or your own system, so sales and support see one customer history
+
+## Staying Compliant With Meta's Rules
+
+Meta has firm rules on templates, opt-ins and messaging categories, and breaking them gets numbers restricted or banned — usually at the worst possible moment. We set up your flows compliant from the first day: proper opt-in capture, approved templates, correct message categories. Growth is pointless if the number carrying your business gets blocked.
+
+## Getting Started in {city}
+
+Setup — from verification through go-live — typically takes three to seven working days. Costs have two parts: a one-time setup and platform configuration, plus Meta's per-conversation charges, which vary by message type. On a free demo call we will map your actual use case — support, marketing, or both — and give you a clear number for what it will cost and what it replaces.
+
+If your team is drowning in WhatsApp chats, or your offers keep dying in ignored email inboxes, this is the infrastructure that fixes both. Book the demo; bring your toughest support question and we will show you a bot answering it.`,
     features: [
       { title: 'WhatsApp Business API Setup', desc: 'Official Meta-approved API setup with verified green tick for your brand' },
       { title: 'AI-Powered Chatbots', desc: 'Intelligent chatbots that handle FAQs, orders, and lead qualification 24/7' },
@@ -411,6 +585,30 @@ export const servicePageTemplates: ServicePageTemplate[] = [
       'SK WebTech provides comprehensive website maintenance and support services in {city}, keeping your digital assets secure, fast, and always online.',
     subIntroTemplate:
       'Focus on your business while our {city} team handles all technical aspects - from security patches and speed optimization to content updates and emergency fixes.',
+    contentTemplate: `Websites do not fail loudly. They slip — a plugin update missed, a certificate expired, a contact form silently failing for three weeks before someone mentions it. By the time an owner notices, the damage has usually been running quietly for a while: lost enquiries, a Google ranking sliding, sometimes a hacked page serving spam to customers. Maintenance is the unglamorous work that prevents all of it.
+
+## What Website Maintenance Covers
+
+Our maintenance service in {city} is a standing arrangement: we watch your website so you do not have to think about it.
+
+- **Uptime monitoring, 24/7** — if your site goes down at 3 a.m., we usually know before you do, and often before your visitors do
+- **Security patches** — WordPress core, plugins, themes and server software updated on schedule; outdated plugins remain the single most common way Indian business sites get hacked
+- **Daily encrypted backups** with 30-day retention — the difference between a bad morning and a catastrophe is a working backup
+- **Speed and Core Web Vitals checks** — sites slow down gradually as content piles up; we keep yours in Google's good books
+- **Content updates** — new offers, price changes, staff photos, festival banners, done within a day instead of waiting weeks for a freelancer to reply
+- **SSL management, bug fixes and a monthly report** listing everything done, in plain language
+
+## Who Actually Needs This
+
+Honestly? Any business whose website brings enquiries. If your site is a brochure you have not touched in three years and it brings nothing, maintenance will not change that — a redesign might, and that is a different conversation. But if customers find you through Google, if the contact form matters, if downtime during a busy season would hurt — then someone has to own the technical upkeep, and it should probably not be you at midnight before a launch.
+
+We also take over websites we did not build. That happens more often than you would think — a developer who vanished, an agency that stopped replying. We audit what exists, document it properly, secure the access, and take it from there. No judgement about the state of the code; we have seen everything.
+
+## What It Costs in {city}
+
+Basic plans — monitoring, updates, backups, SSL — start at ₹3,000 per month. Plans that include content updates and priority same-day support start at ₹8,000. Compare that with the cost of one emergency: a hacked site cleaned professionally runs ₹10,000–₹25,000, plus days of downtime, plus the ranking penalty Google applies to compromised sites. Prevention is simply the cheaper product.
+
+Tell us what your website runs on and we will do a free health check — speed, security basics, backup status — and tell you honestly whether it needs attention or is doing fine.`,
     features: [
       { title: '24/7 Uptime Monitoring', desc: 'Real-time monitoring with instant alerts and rapid response to downtime' },
       { title: 'Security Updates & Patching', desc: 'Regular CMS, plugin, and server security updates to prevent vulnerabilities' },

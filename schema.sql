@@ -68,6 +68,7 @@ CREATE TABLE IF NOT EXISTS `service_pages` (
   `h1Template` VARCHAR(255) NULL,
   `introTemplate` TEXT NULL,
   `subIntroTemplate` TEXT NULL,
+  `contentTemplate` MEDIUMTEXT NULL, -- Long-form unique SEO article (markdown, {city} placeholders)
   `features` TEXT NULL, -- JSON array of custom objects: [{title, desc}]
   `technologies` TEXT NULL, -- JSON array of technologies
   `benefits` TEXT NULL, -- JSON array of objects: [{title, desc, icon}]
