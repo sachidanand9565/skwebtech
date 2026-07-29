@@ -7,6 +7,11 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'images.unsplash.com',
       },
+      {
+        // Vercel Blob storage (admin panel image uploads)
+        protocol: 'https',
+        hostname: '*.public.blob.vercel-storage.com',
+      },
     ],
   },
   // SEO-friendly trailing slashes
