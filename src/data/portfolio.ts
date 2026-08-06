@@ -22,7 +22,6 @@ export const projects: Project[] = [
     image: '/images/portfolio/rocare.png',
     category: 'ecommerce',
     technologies: ['Next.js', 'Tailwind CSS', 'AWS', 'Mysqli'],
-    liveUrl: 'https://www.rocareindia.com/',
     featured: true,
   },
   {
@@ -42,7 +41,6 @@ export const projects: Project[] = [
     image: '/images/portfolio/limbuai.png',
     category: 'edtech',
     technologies: ['Next.js', 'MongoDB', 'Tailwind CSS', 'AWS'],
-    liveUrl: 'https://www.limbu.ai/',
     featured: true,
   },
   
