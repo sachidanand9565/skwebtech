@@ -1,0 +1,557 @@
+{
+  "__type": "whatsapp-flow-export",
+  "version": 1,
+  "exported_at": "2026-08-06T00:00:00.000Z",
+  "name": "skwebtech",
+  "description": "SK WebTech agency bot: main menu, dynamic service details, pricing guide, about, contact + quote/lead capture.",
+  "trigger_keywords": [
+    "hi",
+    "hello",
+    "hey",
+    "services",
+    "quote",
+    "start",
+    "menu",
+    "info"
+  ],
+  "trigger_type": "keyword",
+  "nodes": {
+    "start": {
+      "id": "start",
+      "type": "start",
+      "position": { "x": -1600, "y": -140 },
+      "data": { "label": "Flow Start", "keywords": [] }
+    },
+    "menu": {
+      "id": "menu",
+      "type": "list_message",
+      "position": { "x": -1330, "y": -200 },
+      "data": {
+        "label": "Main Menu",
+        "body": "👋 *Welcome to SK WebTech!*\n\nWe build websites, e-commerce stores, mobile apps and run SEO & WhatsApp automation for businesses across India.\n\n⭐ 10+ years experience · 80+ projects · 100+ happy clients\n\nTap *View Options* and pick what you'd like to do 👇",
+        "button_text": "View Options",
+        "sections": [
+          {
+            "title": "How can we help?",
+            "rows": [
+              { "title": "Get a Free Quote", "description": "Tell us your project — quote in 24 hrs" },
+              { "title": "Our Services", "description": "Details, features & starting prices" },
+              { "title": "Pricing Guide", "description": "Typical project costs at a glance" },
+              { "title": "About SK WebTech", "description": "Who we are & our work" },
+              { "title": "Contact & Support", "description": "Call, email or talk to our team" }
+            ]
+          }
+        ]
+      }
+    },
+    "n-ask-name-1002": {
+      "id": "n-ask-name-1002",
+      "type": "ask_question",
+      "data": {
+        "label": "Ask Question",
+        "question": "Great! 😊 First, what's your name?",
+        "save_as": "user_name",
+        "validation": "any"
+      },
+      "position": { "x": -1010, "y": -230 },
+      "width": 224,
+      "height": 110
+    },
+    "n-list-services-1003": {
+      "id": "n-list-services-1003",
+      "type": "dynamic_list",
+      "data": {
+        "label": "Dynamic List",
+        "url": "https://www.skwebtech.in/api/chatbot/services",
+        "method": "POST",
+        "headers": "",
+        "req_body": "",
+        "items_path": "",
+        "id_field": "id",
+        "title_field": "name",
+        "desc_field": "price",
+        "body": "Thanks {{var.user_name}}! 🙌\nPlease select the service you're interested in 👇",
+        "button_text": "Select Service",
+        "save_response_as": "",
+        "save_id_as": "service_id",
+        "save_title_as": "service_name"
+      },
+      "position": { "x": -700, "y": -195 },
+      "width": 232,
+      "height": 151
+    },
+    "n-ask-requirement-1004": {
+      "id": "n-ask-requirement-1004",
+      "type": "ask_question",
+      "data": {
+        "label": "Ask Question",
+        "question": "📝 Please describe your project or requirement in a few lines.\n\n(e.g. \"I need an e-commerce website for my clothing brand with payment gateway\")",
+        "save_as": "requirement",
+        "validation": "any"
+      },
+      "position": { "x": -400, "y": -190 },
+      "width": 224,
+      "height": 128
+    },
+    "n-ask-email-1005": {
+      "id": "n-ask-email-1005",
+      "type": "ask_question",
+      "data": {
+        "label": "Ask Question",
+        "question": "📧 Your email address? (We'll send the quote here)\n\nType *skip* if you prefer WhatsApp only.",
+        "save_as": "email",
+        "validation": "any"
+      },
+      "position": { "x": -120, "y": -190 },
+      "width": 224,
+      "height": 128
+    },
+    "n-msg-confirm-1006": {
+      "id": "n-msg-confirm-1006",
+      "type": "message",
+      "data": {
+        "label": "Message",
+        "text": "Please confirm your request 👇\n\n👤 *Name:* {{var.user_name}}\n📱 *Mobile:* {{contact.phone}}\n🛠 *Service:* {{var.service_name}}\n📝 *Requirement:* {{var.requirement}}\n📧 *Email:* {{var.email}}",
+        "buttons": [
+          { "id": "btn_confirm", "text": "✅ Confirm Request" },
+          { "id": "btn_change", "text": "🔄 Change Service" }
+        ],
+        "save_id_as": "confirm_choice"
+      },
+      "position": { "x": 170, "y": -240 },
+      "width": 232,
+      "height": 191
+    },
+    "n-api-lead-1007": {
+      "id": "n-api-lead-1007",
+      "type": "api",
+      "data": {
+        "label": "API Request",
+        "method": "POST",
+        "url": "https://www.skwebtech.in/api/chatbot/lead",
+        "body": "{\n  \"name\": \"{{var.user_name}}\",\n  \"mobile\": \"{{contact.phone}}\",\n  \"service\": \"{{var.service_id}}\",\n  \"service_name\": \"{{var.service_name}}\",\n  \"requirement\": \"{{var.requirement}}\",\n  \"email\": \"{{var.email}}\",\n  \"source\": \"WhatsApp Bot\"\n}",
+        "save_as": "",
+        "extract_fields": [
+          { "path": "lead_id", "variable": "lead_id" }
+        ]
+      },
+      "position": { "x": 470, "y": -190 },
+      "width": 224,
+      "height": 90
+    },
+    "n-msg-success-1008": {
+      "id": "n-msg-success-1008",
+      "type": "message",
+      "data": {
+        "label": "Message",
+        "text": "✅ *Request Received!*\n\nDear {{var.user_name}},\n\nThank you for choosing *SK WebTech*! 🙏\n\n📋 *Your Request:*\n• Service: {{var.service_name}}\n• Mobile: {{contact.phone}}\n• Reference ID: {{var.lead_id}}\n\nOur team will contact you within *24 hours* with a free consultation & detailed quote.\n\n📞 Urgent? Call: +91 9654603750\n🌐 www.skwebtech.in",
+        "buttons": []
+      },
+      "position": { "x": 760, "y": -210 },
+      "width": 232,
+      "height": 125
+    },
+    "svc-list-info": {
+      "id": "svc-list-info",
+      "type": "dynamic_list",
+      "data": {
+        "label": "Services Info List",
+        "url": "https://www.skwebtech.in/api/chatbot/services",
+        "method": "POST",
+        "headers": "",
+        "req_body": "",
+        "items_path": "",
+        "id_field": "id",
+        "title_field": "name",
+        "desc_field": "price",
+        "body": "🛠 *Our Services*\n\nSelect any service to see full details — what's included, technologies and starting price 👇",
+        "button_text": "View Services",
+        "save_response_as": "",
+        "save_id_as": "service_id",
+        "save_title_as": "service_name"
+      },
+      "position": { "x": -1010, "y": 140 },
+      "width": 232,
+      "height": 151
+    },
+    "svc-detail-api": {
+      "id": "svc-detail-api",
+      "type": "api",
+      "data": {
+        "label": "Fetch Service Detail",
+        "method": "POST",
+        "url": "https://www.skwebtech.in/api/chatbot/services",
+        "body": "{ \"id\": \"{{var.service_id}}\" }",
+        "save_as": "",
+        "extract_fields": [
+          { "path": "description", "variable": "svc_desc" },
+          { "path": "price", "variable": "svc_price" },
+          { "path": "features", "variable": "svc_features" },
+          { "path": "technologies", "variable": "svc_tech" }
+        ]
+      },
+      "position": { "x": -720, "y": 140 },
+      "width": 224,
+      "height": 90
+    },
+    "svc-detail-msg": {
+      "id": "svc-detail-msg",
+      "type": "message",
+      "data": {
+        "label": "Service Detail",
+        "text": "🛠 *{{var.service_name}}*\n\n{{var.svc_desc}}\n\n✨ *What's included:*\n{{var.svc_features}}\n\n🔧 *Technologies:* {{var.svc_tech}}\n\n💰 *{{var.svc_price}}*\n\nWant a free, no-obligation quote for this?",
+        "buttons": [
+          { "id": "btn_quote_this", "text": "📝 Get Quote" },
+          { "id": "btn_more_svc", "text": "🛠 More Services" },
+          { "id": "btn_menu", "text": "🏠 Main Menu" }
+        ],
+        "save_id_as": "detail_choice"
+      },
+      "position": { "x": -430, "y": 120 },
+      "width": 232,
+      "height": 210
+    },
+    "ask-name-direct": {
+      "id": "ask-name-direct",
+      "type": "ask_question",
+      "data": {
+        "label": "Ask Name (from info)",
+        "question": "Great choice! 👍 What's your name?",
+        "save_as": "user_name",
+        "validation": "any"
+      },
+      "position": { "x": -430, "y": 380 },
+      "width": 224,
+      "height": 110
+    },
+    "about": {
+      "id": "about",
+      "type": "message",
+      "data": {
+        "label": "About Us",
+        "text": "🏢 *About SK WebTech*\n\nWe're a full-service IT company helping Indian businesses grow online since 2014.\n\n⭐ *10+ years* of experience\n🚀 *80+ projects* delivered\n🤝 *100+ happy clients* across India\n\n*What we do:*\n• Website & Web App Development\n• E-Commerce Stores\n• Mobile Apps (iOS & Android)\n• SEO & Digital Marketing\n• UI/UX Design\n• WhatsApp Business Automation\n• Website Maintenance & Support\n\n🌐 www.skwebtech.in\n💼 Portfolio: www.skwebtech.in/portfolio",
+        "buttons": [
+          { "id": "btn_about_quote", "text": "📝 Get a Quote" },
+          { "id": "btn_about_svc", "text": "🛠 Our Services" },
+          { "id": "btn_about_menu", "text": "🏠 Main Menu" }
+        ],
+        "save_id_as": "about_choice"
+      },
+      "position": { "x": -1010, "y": 420 },
+      "width": 232,
+      "height": 210
+    },
+    "pricing": {
+      "id": "pricing",
+      "type": "message",
+      "data": {
+        "label": "Pricing Guide",
+        "text": "💰 *Pricing Guide* (typical starting prices)\n\n🌐 Business Website — *₹15,000+*\n💼 Professional Website — *₹30,000–₹80,000*\n🛒 E-Commerce Store — *₹25,000+*\n📱 Mobile App — *₹50,000+*\n🎨 UI/UX Design — *₹20,000+*\n📈 SEO — *₹8,000/month+*\n💬 WhatsApp API Setup — *custom*\n🛡 Website Maintenance — *₹3,000/month+*\n\nEvery project gets a *fixed written quote* before we start — no surprise costs.\n\nWant an exact price for your project?",
+        "buttons": [
+          { "id": "btn_price_quote", "text": "📝 Get a Quote" },
+          { "id": "btn_price_menu", "text": "🏠 Main Menu" }
+        ],
+        "save_id_as": "pricing_choice"
+      },
+      "position": { "x": -1010, "y": 700 },
+      "width": 232,
+      "height": 210
+    },
+    "n-msg-support-1009": {
+      "id": "n-msg-support-1009",
+      "type": "message",
+      "data": {
+        "label": "Contact & Support",
+        "text": "☎ *Talk to our team directly:*\n\n📞 Call: +91 9654603750\n📧 Email: info@skwebtech.in\n🌐 Website: www.skwebtech.in\n\n🕒 Mon–Fri: 9 AM – 6 PM\n🕒 Sat: 10 AM – 4 PM\n\nWe usually reply within minutes! 😊",
+        "buttons": [
+          { "id": "btn_sup_quote", "text": "📝 Get a Quote" },
+          { "id": "btn_sup_menu", "text": "🏠 Main Menu" }
+        ],
+        "save_id_as": "support_choice"
+      },
+      "position": { "x": -1010, "y": 980 },
+      "width": 232,
+      "height": 210
+    },
+    "n-end-1010": {
+      "id": "n-end-1010",
+      "type": "end",
+      "data": { "label": "End Flow" },
+      "position": { "x": 1060, "y": -180 },
+      "width": 180,
+      "height": 89
+    }
+  },
+  "edges": [
+    {
+      "id": "e-start-menu",
+      "source": "start",
+      "target": "menu",
+      "sourceHandle": null,
+      "type": "button",
+      "animated": true,
+      "markerEnd": { "type": "arrowclosed", "color": "#38bdf8" },
+      "style": { "stroke": "#38bdf8", "strokeWidth": 2 }
+    },
+    {
+      "id": "e-menu-quote",
+      "source": "menu",
+      "target": "n-ask-name-1002",
+      "sourceHandle": "list-0-0",
+      "type": "button",
+      "animated": true,
+      "markerEnd": { "type": "arrowclosed", "color": "#38bdf8" },
+      "style": { "stroke": "#38bdf8", "strokeWidth": 2 }
+    },
+    {
+      "id": "e-menu-services",
+      "source": "menu",
+      "target": "svc-list-info",
+      "sourceHandle": "list-0-1",
+      "type": "button",
+      "animated": true,
+      "markerEnd": { "type": "arrowclosed", "color": "#38bdf8" },
+      "style": { "stroke": "#38bdf8", "strokeWidth": 2 }
+    },
+    {
+      "id": "e-menu-pricing",
+      "source": "menu",
+      "target": "pricing",
+      "sourceHandle": "list-0-2",
+      "type": "button",
+      "animated": true,
+      "markerEnd": { "type": "arrowclosed", "color": "#38bdf8" },
+      "style": { "stroke": "#38bdf8", "strokeWidth": 2 }
+    },
+    {
+      "id": "e-menu-about",
+      "source": "menu",
+      "target": "about",
+      "sourceHandle": "list-0-3",
+      "type": "button",
+      "animated": true,
+      "markerEnd": { "type": "arrowclosed", "color": "#38bdf8" },
+      "style": { "stroke": "#38bdf8", "strokeWidth": 2 }
+    },
+    {
+      "id": "e-menu-support",
+      "source": "menu",
+      "target": "n-msg-support-1009",
+      "sourceHandle": "list-0-4",
+      "type": "button",
+      "animated": true,
+      "markerEnd": { "type": "arrowclosed", "color": "#38bdf8" },
+      "style": { "stroke": "#38bdf8", "strokeWidth": 2 }
+    },
+    {
+      "id": "e-name-services",
+      "source": "n-ask-name-1002",
+      "target": "n-list-services-1003",
+      "sourceHandle": null,
+      "type": "button",
+      "animated": true,
+      "markerEnd": { "type": "arrowclosed", "color": "#38bdf8" },
+      "style": { "stroke": "#38bdf8", "strokeWidth": 2 }
+    },
+    {
+      "id": "e-services-requirement",
+      "source": "n-list-services-1003",
+      "target": "n-ask-requirement-1004",
+      "sourceHandle": null,
+      "type": "button",
+      "animated": true,
+      "markerEnd": { "type": "arrowclosed", "color": "#38bdf8" },
+      "style": { "stroke": "#38bdf8", "strokeWidth": 2 }
+    },
+    {
+      "id": "e-requirement-email",
+      "source": "n-ask-requirement-1004",
+      "target": "n-ask-email-1005",
+      "sourceHandle": null,
+      "type": "button",
+      "animated": true,
+      "markerEnd": { "type": "arrowclosed", "color": "#38bdf8" },
+      "style": { "stroke": "#38bdf8", "strokeWidth": 2 }
+    },
+    {
+      "id": "e-email-confirm",
+      "source": "n-ask-email-1005",
+      "target": "n-msg-confirm-1006",
+      "sourceHandle": null,
+      "type": "button",
+      "animated": true,
+      "markerEnd": { "type": "arrowclosed", "color": "#38bdf8" },
+      "style": { "stroke": "#38bdf8", "strokeWidth": 2 }
+    },
+    {
+      "id": "e-confirm-api",
+      "source": "n-msg-confirm-1006",
+      "target": "n-api-lead-1007",
+      "sourceHandle": "btn-0",
+      "type": "button",
+      "animated": true,
+      "markerEnd": { "type": "arrowclosed", "color": "#38bdf8" },
+      "style": { "stroke": "#38bdf8", "strokeWidth": 2 }
+    },
+    {
+      "id": "e-confirm-changeservice",
+      "source": "n-msg-confirm-1006",
+      "target": "n-list-services-1003",
+      "sourceHandle": "btn-1",
+      "type": "button",
+      "animated": true,
+      "markerEnd": { "type": "arrowclosed", "color": "#38bdf8" },
+      "style": { "stroke": "#38bdf8", "strokeWidth": 2 }
+    },
+    {
+      "id": "e-api-success",
+      "source": "n-api-lead-1007",
+      "target": "n-msg-success-1008",
+      "sourceHandle": null,
+      "type": "button",
+      "animated": true,
+      "markerEnd": { "type": "arrowclosed", "color": "#38bdf8" },
+      "style": { "stroke": "#38bdf8", "strokeWidth": 2 }
+    },
+    {
+      "id": "e-success-end",
+      "source": "n-msg-success-1008",
+      "target": "n-end-1010",
+      "sourceHandle": null,
+      "type": "button",
+      "animated": true,
+      "markerEnd": { "type": "arrowclosed", "color": "#38bdf8" },
+      "style": { "stroke": "#38bdf8", "strokeWidth": 2 }
+    },
+    {
+      "id": "e-svclist-detailapi",
+      "source": "svc-list-info",
+      "target": "svc-detail-api",
+      "sourceHandle": null,
+      "type": "button",
+      "animated": true,
+      "markerEnd": { "type": "arrowclosed", "color": "#38bdf8" },
+      "style": { "stroke": "#38bdf8", "strokeWidth": 2 }
+    },
+    {
+      "id": "e-detailapi-detailmsg",
+      "source": "svc-detail-api",
+      "target": "svc-detail-msg",
+      "sourceHandle": null,
+      "type": "button",
+      "animated": true,
+      "markerEnd": { "type": "arrowclosed", "color": "#38bdf8" },
+      "style": { "stroke": "#38bdf8", "strokeWidth": 2 }
+    },
+    {
+      "id": "e-detail-quotethis",
+      "source": "svc-detail-msg",
+      "target": "ask-name-direct",
+      "sourceHandle": "btn-0",
+      "type": "button",
+      "animated": true,
+      "markerEnd": { "type": "arrowclosed", "color": "#38bdf8" },
+      "style": { "stroke": "#38bdf8", "strokeWidth": 2 }
+    },
+    {
+      "id": "e-detail-moresvc",
+      "source": "svc-detail-msg",
+      "target": "svc-list-info",
+      "sourceHandle": "btn-1",
+      "type": "button",
+      "animated": true,
+      "markerEnd": { "type": "arrowclosed", "color": "#38bdf8" },
+      "style": { "stroke": "#38bdf8", "strokeWidth": 2 }
+    },
+    {
+      "id": "e-detail-menu",
+      "source": "svc-detail-msg",
+      "target": "menu",
+      "sourceHandle": "btn-2",
+      "type": "button",
+      "animated": true,
+      "markerEnd": { "type": "arrowclosed", "color": "#38bdf8" },
+      "style": { "stroke": "#38bdf8", "strokeWidth": 2 }
+    },
+    {
+      "id": "e-asknamedirect-requirement",
+      "source": "ask-name-direct",
+      "target": "n-ask-requirement-1004",
+      "sourceHandle": null,
+      "type": "button",
+      "animated": true,
+      "markerEnd": { "type": "arrowclosed", "color": "#38bdf8" },
+      "style": { "stroke": "#38bdf8", "strokeWidth": 2 }
+    },
+    {
+      "id": "e-about-quote",
+      "source": "about",
+      "target": "n-ask-name-1002",
+      "sourceHandle": "btn-0",
+      "type": "button",
+      "animated": true,
+      "markerEnd": { "type": "arrowclosed", "color": "#38bdf8" },
+      "style": { "stroke": "#38bdf8", "strokeWidth": 2 }
+    },
+    {
+      "id": "e-about-services",
+      "source": "about",
+      "target": "svc-list-info",
+      "sourceHandle": "btn-1",
+      "type": "button",
+      "animated": true,
+      "markerEnd": { "type": "arrowclosed", "color": "#38bdf8" },
+      "style": { "stroke": "#38bdf8", "strokeWidth": 2 }
+    },
+    {
+      "id": "e-about-menu",
+      "source": "about",
+      "target": "menu",
+      "sourceHandle": "btn-2",
+      "type": "button",
+      "animated": true,
+      "markerEnd": { "type": "arrowclosed", "color": "#38bdf8" },
+      "style": { "stroke": "#38bdf8", "strokeWidth": 2 }
+    },
+    {
+      "id": "e-pricing-quote",
+      "source": "pricing",
+      "target": "n-ask-name-1002",
+      "sourceHandle": "btn-0",
+      "type": "button",
+      "animated": true,
+      "markerEnd": { "type": "arrowclosed", "color": "#38bdf8" },
+      "style": { "stroke": "#38bdf8", "strokeWidth": 2 }
+    },
+    {
+      "id": "e-pricing-menu",
+      "source": "pricing",
+      "target": "menu",
+      "sourceHandle": "btn-1",
+      "type": "button",
+      "animated": true,
+      "markerEnd": { "type": "arrowclosed", "color": "#38bdf8" },
+      "style": { "stroke": "#38bdf8", "strokeWidth": 2 }
+    },
+    {
+      "id": "e-support-quote",
+      "source": "n-msg-support-1009",
+      "target": "n-ask-name-1002",
+      "sourceHandle": "btn-0",
+      "type": "button",
+      "animated": true,
+      "markerEnd": { "type": "arrowclosed", "color": "#38bdf8" },
+      "style": { "stroke": "#38bdf8", "strokeWidth": 2 }
+    },
+    {
+      "id": "e-support-menu",
+      "source": "n-msg-support-1009",
+      "target": "menu",
+      "sourceHandle": "btn-1",
+      "type": "button",
+      "animated": true,
+      "markerEnd": { "type": "arrowclosed", "color": "#38bdf8" },
+      "style": { "stroke": "#38bdf8", "strokeWidth": 2 }
+    }
+  ]
+}
