@@ -4,6 +4,7 @@
  */
 
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import { Inter, Space_Grotesk } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/layout/Header';
@@ -159,6 +160,19 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
         />
+        {/* Google Analytics (GA4) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-VFWVNGT6X8"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-VFWVNGT6X8');
+          `}
+        </Script>
       </head>
       <body className="font-sans">
         {/* Skip to main content for accessibility */}
