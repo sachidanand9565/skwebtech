@@ -13,29 +13,29 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      // SK WebTech design tokens — dark, cyan/violet futuristic system
+      // SK WebTech design tokens — premium light sapphire/azure system (matches the SK emblem)
       colors: {
-        // Deep space backgrounds
+        // Light surfaces ("void" kept as the token name so every bg-void-* usage converts in place)
         void: {
-          DEFAULT: '#050816',
-          50: '#0B1120',
-          100: '#0F172A',
-          200: '#111827',
-          300: '#151E33',
+          DEFAULT: '#FAFBFE',
+          50: '#F1F5FB',
+          100: '#FFFFFF',
+          200: '#E9EEF7',
+          300: '#DEE6F2',
         },
-        // Primary — electric cyan (#00E5FF)
+        // Primary — sapphire azure (logo blue → refined, less neon)
         primary: {
-          50: '#ECFEFF',
-          100: '#CFFAFE',
-          200: '#A5F3FC',
-          300: '#67E8F9',
-          400: '#22D3EE',
-          500: '#00E5FF',
-          600: '#00B8D9',
-          700: '#0891B2',
-          800: '#155E75',
-          900: '#164E63',
-          950: '#083344',
+          50: '#EEF6FF',
+          100: '#D9EAFF',
+          200: '#B6D8FF',
+          300: '#85BDFF',
+          400: '#4D9DFB',
+          500: '#2E7FF2',
+          600: '#1D63D8',
+          700: '#1A4FB2',
+          800: '#1B428D',
+          900: '#1B3A72',
+          950: '#132548',
         },
         // Secondary — soft violet (#7B61FF)
         secondary: {
@@ -135,20 +135,22 @@ const config: Config = {
         },
       },
       boxShadow: {
-        'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.35), 0 10px 20px -2px rgba(0, 0, 0, 0.25)',
-        'soft-lg': '0 10px 40px -10px rgba(0, 0, 0, 0.45)',
-        'card': '0 4px 24px -8px rgba(0, 0, 0, 0.45)',
-        'card-hover': '0 24px 48px -16px rgba(0, 229, 255, 0.16)',
-        'glow-sm': '0 0 16px -2px rgba(0, 229, 255, 0.35)',
-        'glow': '0 0 32px -4px rgba(0, 229, 255, 0.4)',
-        'glow-lg': '0 0 64px -8px rgba(0, 229, 255, 0.45)',
-        'glow-violet': '0 0 32px -4px rgba(123, 97, 255, 0.45)',
-        'inner-glow': 'inset 0 1px 0 0 rgba(255, 255, 255, 0.08)',
+        'soft': '0 2px 12px -3px rgba(15, 23, 42, 0.07), 0 8px 20px -4px rgba(15, 23, 42, 0.05)',
+        'soft-lg': '0 12px 40px -10px rgba(15, 23, 42, 0.12)',
+        'card': '0 1px 3px rgba(15, 23, 42, 0.05), 0 8px 24px -8px rgba(15, 23, 42, 0.1)',
+        'card-hover': '0 24px 48px -16px rgba(46, 127, 242, 0.22)',
+        'glow-sm': '0 0 16px -2px rgba(46, 127, 242, 0.3)',
+        'glow': '0 8px 32px -6px rgba(46, 127, 242, 0.4)',
+        'glow-lg': '0 12px 56px -8px rgba(46, 127, 242, 0.4)',
+        'glow-violet': '0 8px 32px -6px rgba(123, 97, 255, 0.35)',
+        'inner-glow': 'inset 0 1px 0 0 rgba(255, 255, 255, 0.6)',
+        // Layered depth shadow for 3D-look cards
+        'depth': '0 1px 2px rgba(15,23,42,0.06), 0 10px 28px -8px rgba(15,23,42,0.12), 0 28px 64px -16px rgba(46,127,242,0.16)',
       },
       backgroundImage: {
-        'brand-gradient': 'linear-gradient(120deg, #00E5FF 0%, #22D3EE 45%, #7B61FF 100%)',
-        'brand-gradient-soft': 'linear-gradient(120deg, rgba(0,229,255,0.16), rgba(123,97,255,0.16))',
-        'radial-fade': 'radial-gradient(ellipse at center, rgba(0,229,255,0.12), transparent 65%)',
+        'brand-gradient': 'linear-gradient(120deg, #4D9DFB 0%, #2E7FF2 45%, #22D3EE 100%)',
+        'brand-gradient-soft': 'linear-gradient(120deg, rgba(46,127,242,0.16), rgba(34,211,238,0.16))',
+        'radial-fade': 'radial-gradient(ellipse at center, rgba(46,127,242,0.12), transparent 65%)',
       },
       transitionTimingFunction: {
         'out-expo': 'cubic-bezier(0.16, 1, 0.3, 1)',

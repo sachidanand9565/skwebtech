@@ -23,7 +23,7 @@ export default function FeatureCard({
   return (
     <div className="text-center group">
       {/* Icon */}
-      <div className="w-16 h-16 mx-auto mb-5 bg-white/[0.05] border border-white/10 rounded-2xl
+      <div className="w-16 h-16 mx-auto mb-5 bg-white border border-slate-200 rounded-2xl
                     flex items-center justify-center
                     group-hover:bg-primary-500 group-hover:border-primary-500 group-hover:shadow-glow-sm transition-all duration-300">
         <Icon
@@ -45,12 +45,12 @@ export default function FeatureCard({
       )}
 
       {/* Title */}
-      <h3 className="font-heading font-semibold text-xl text-white mb-3">
+      <h3 className="font-heading font-semibold text-xl text-slate-900 mb-3">
         {title}
       </h3>
 
       {/* Description */}
-      <p className="text-slate-400 leading-relaxed">{description}</p>
+      <p className="text-slate-600 leading-relaxed">{description}</p>
     </div>
   );
 }

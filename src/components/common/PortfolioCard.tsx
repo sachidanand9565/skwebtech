@@ -25,7 +25,7 @@ export default function PortfolioCard({
   tags = [],
 }: PortfolioCardProps) {
   return (
-    <div className="group relative h-full flex flex-col rounded-2xl overflow-hidden border border-white/[0.08] bg-white/[0.03]
+    <div className="group relative h-full flex flex-col rounded-2xl overflow-hidden border border-slate-200 bg-white
                     backdrop-blur-sm transition-all duration-500 ease-out-expo
                     hover:-translate-y-1.5 hover:border-primary-500/40 hover:shadow-card-hover">
       {/* Image Container */}
@@ -59,7 +59,7 @@ export default function PortfolioCard({
 
         {/* Category Badge */}
         <div className="absolute top-4 left-4">
-          <span className="bg-void/70 backdrop-blur-md border border-white/15 text-white text-xs
+          <span className="bg-void/70 backdrop-blur-md border border-slate-300 text-slate-900 text-xs
                            font-medium px-3 py-1.5 rounded-full">
             {category}
           </span>
@@ -68,11 +68,11 @@ export default function PortfolioCard({
 
       {/* Content */}
       <div className="p-6 flex flex-col flex-1">
-        <h3 className="font-heading font-semibold text-xl text-white mb-2
-                       group-hover:text-primary-300 transition-colors duration-200">
+        <h3 className="font-heading font-semibold text-xl text-slate-900 mb-2
+                       group-hover:text-primary-600 transition-colors duration-200">
           {title}
         </h3>
-        <p className="text-slate-400 text-sm leading-relaxed mb-4 flex-1">
+        <p className="text-slate-600 text-sm leading-relaxed mb-4 flex-1">
           {description}
         </p>
 
@@ -82,7 +82,7 @@ export default function PortfolioCard({
             {tags.map((tag) => (
               <span
                 key={tag}
-                className="text-xs bg-primary-500/[0.08] border border-primary-500/15 text-primary-300 px-2.5 py-1 rounded-md"
+                className="text-xs bg-primary-500/[0.08] border border-primary-500/15 text-primary-600 px-2.5 py-1 rounded-md"
               >
                 {tag}
               </span>

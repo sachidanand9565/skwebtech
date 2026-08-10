@@ -13,8 +13,6 @@ import WhatsAppButton from '@/components/common/WhatsAppButton';
 import CallButton from '@/components/common/CallButton';
 import ChatBot from '@/components/common/ChatBot';
 import SiteChrome from '@/components/layout/SiteChrome';
-import SmoothScroll from '@/components/motion/SmoothScroll';
-import CursorGlow from '@/components/motion/CursorGlow';
 import PageLoader from '@/components/motion/PageLoader';
 import ScrollProgress from '@/components/motion/ScrollProgress';
 
@@ -186,11 +184,9 @@ export default function RootLayout({
 
         {/* Public-site chrome — hidden on /admin (admin has its own layout) */}
         <SiteChrome>
-          {/* Global motion layer */}
+          {/* Global motion layer — one-shot only, no continuous JS loops */}
           <PageLoader />
-          <SmoothScroll />
           <ScrollProgress />
-          <CursorGlow />
 
           {/* Sticky Header */}
           <Header />

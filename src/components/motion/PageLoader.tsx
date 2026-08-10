@@ -47,7 +47,7 @@ export default function PageLoader() {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-              className="font-heading text-4xl font-bold tracking-tight text-white"
+              className="font-heading text-4xl font-bold tracking-tight text-slate-900"
             >
               SK<span className="gradient-text">WebTech</span>
             </motion.span>

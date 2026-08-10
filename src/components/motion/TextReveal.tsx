@@ -47,13 +47,18 @@ export default function TextReveal({
       ? { animate: visible }
       : { whileInView: visible, viewport: { once, margin: '-60px' } };
 
+  // gradient-text (bg-clip) breaks inside transformed/overflow-hidden children,
+  // so apply it per-word on the innermost span instead of the wrapper
+  const hasGradient = className?.includes('gradient-text') ?? false;
+  const wrapperClass = hasGradient ? className!.replace('gradient-text', '').trim() : className;
+
   return createElement(
     as,
-    { className },
-    words.map((word, i) => (
+    { className: wrapperClass },
+    words.flatMap((word, i) => [
       <span key={`${word}-${i}`} className="inline-block overflow-hidden pb-[0.12em] -mb-[0.12em] align-baseline">
         <motion.span
-          className="inline-block will-change-transform"
+          className={hasGradient ? 'inline-block gradient-text' : 'inline-block'}
           initial={{ y: '112%', opacity: 0 }}
           {...animProps}
           transition={{
@@ -64,8 +69,9 @@ export default function TextReveal({
         >
           {word}
         </motion.span>
-        {i < words.length - 1 ? ' ' : null}
-      </span>
-    ))
+      </span>,
+      // real space between the inline-blocks so words don't fuse together
+      i < words.length - 1 ? ' ' : null,
+    ])
   );
 }

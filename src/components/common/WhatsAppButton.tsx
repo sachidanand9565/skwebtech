@@ -21,8 +21,8 @@ export default function WhatsAppButton() {
           isTooltipVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'
         }`}
       >
-        <div className="rounded-xl border border-white/10 bg-void-100/95 backdrop-blur-xl shadow-soft-lg px-4 py-3 min-w-[180px]">
-          <p className="text-white font-semibold text-sm">Chat with us!</p>
+        <div className="rounded-xl border border-slate-200 bg-void-100/95 backdrop-blur-xl shadow-soft-lg px-4 py-3 min-w-[180px]">
+          <p className="text-slate-900 font-semibold text-sm">Chat with us!</p>
           <p className="text-slate-500 text-xs mt-0.5">Typically reply in minutes</p>
           <div className="absolute bottom-0 right-5 translate-y-full">
             <div className="border-8 border-transparent border-t-void-100" />

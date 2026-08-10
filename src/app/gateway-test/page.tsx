@@ -50,7 +50,7 @@ export default function GatewayTestPage() {
         <button
           onClick={startTest}
           disabled={loading}
-          className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg transition-colors disabled:opacity-50"
+          className="w-full bg-indigo-600 hover:bg-indigo-700 text-slate-900 font-semibold py-3 rounded-lg transition-colors disabled:opacity-50"
         >
           {loading ? 'Starting…' : 'Start Test Payment'}
         </button>

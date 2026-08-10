@@ -29,8 +29,8 @@ export default function CopyLinkButton({ url, className = '' }: CopyLinkButtonPr
   return (
     <button
       onClick={handleCopy}
-      className={`w-9 h-9 bg-white/[0.05] border border-white/10 rounded-xl flex items-center justify-center
-               text-slate-400 hover:bg-primary-500 hover:text-void hover:border-transparent transition-all duration-200 ${className}`}
+      className={`w-9 h-9 bg-white border border-slate-200 rounded-xl flex items-center justify-center
+               text-slate-600 hover:bg-primary-500 hover:text-void hover:border-transparent transition-all duration-200 ${className}`}
       aria-label={copied ? 'Copied!' : 'Copy link'}
       title={copied ? 'Copied!' : 'Copy link'}
     >

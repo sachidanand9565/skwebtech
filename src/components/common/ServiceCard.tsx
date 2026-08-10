@@ -33,26 +33,26 @@ export default function ServiceCard({
                   transition-transform duration-300 group-hover:scale-110 ${
                     featured
                       ? 'bg-primary-500/20 border border-primary-500/30'
-                      : 'bg-white/[0.06] border border-white/10'
+                      : 'bg-white border border-slate-200'
                   }`}
       >
         <Icon size={28} className="text-primary-400" />
       </div>
 
       {/* Title */}
-      <h3 className="font-heading font-semibold text-xl mb-3 text-white">
+      <h3 className="font-heading font-semibold text-xl mb-3 text-slate-900">
         {title}
       </h3>
 
       {/* Description */}
-      <p className="leading-relaxed mb-5 text-slate-400">
+      <p className="leading-relaxed mb-5 text-slate-600">
         {description}
       </p>
 
       {/* Learn More Link */}
       <Link
         href={href}
-        className="inline-flex items-center font-medium text-sm group/link text-primary-400 hover:text-primary-300"
+        className="inline-flex items-center font-medium text-sm group/link text-primary-400 hover:text-primary-600"
       >
         Learn More
         <ArrowRight

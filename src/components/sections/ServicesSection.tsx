@@ -16,7 +16,7 @@ export default async function ServicesSection() {
   };
 
   return (
-    <section className="relative py-20 md:py-28 bg-void overflow-hidden" id="services">
+    <section className="relative py-10 md:py-14 bg-void overflow-hidden" id="services">
       {/* Ambient background */}
       <div className="absolute inset-0 bg-dots opacity-20 mask-radial-fade pointer-events-none" />
       <div className="glow-orb top-0 right-[10%] w-[420px] h-[420px] bg-secondary-500/[0.06]" />
@@ -29,7 +29,7 @@ export default async function ServicesSection() {
           subtitle="From websites and e-commerce stores to WhatsApp automation and mobile apps - we cover every aspect of your digital growth."
         />
 
-        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-14">
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
           {dynamicServices.map((service) => {
             // WhatsApp gets the real brand glyph; everything else maps to a lucide icon
             const IconComponent = service.id === 'whatsapp-business'
@@ -42,12 +42,12 @@ export default async function ServicesSection() {
 
             const content = (
               <div
-                className={`relative h-full flex flex-col rounded-2xl border bg-white/[0.03] p-7 backdrop-blur-sm
+                className={`relative h-full flex flex-col rounded-2xl border bg-white p-7 backdrop-blur-sm
                             transition-all duration-300 ease-out-expo group-hover:-translate-y-1.5
-                            group-hover:bg-white/[0.05] group-hover:shadow-card-hover ${
+                            group-hover:bg-slate-50 group-hover:shadow-card-hover ${
                   isFeatured
                     ? 'border-green-500/30 group-hover:border-green-400/50'
-                    : 'border-white/[0.08] group-hover:border-primary-500/40'
+                    : 'border-slate-200 group-hover:border-primary-500/40'
                 }`}
               >
                 {isFeatured && (
@@ -66,10 +66,10 @@ export default async function ServicesSection() {
                   </div>
                 </div>
 
-                <h3 className="font-heading font-bold text-white text-lg mb-2 transition-colors group-hover:text-primary-300">
+                <h3 className="font-heading font-bold text-slate-900 text-lg mb-2 transition-colors group-hover:text-primary-600">
                   {service.title}
                 </h3>
-                <p className="text-slate-400 text-sm leading-relaxed flex-1">{service.description}</p>
+                <p className="text-slate-600 text-sm leading-relaxed flex-1">{service.description}</p>
 
                 {/* Starting price (admin panel se editable) */}
                 {service.price ? (
@@ -105,7 +105,7 @@ export default async function ServicesSection() {
           })}
         </StaggerContainer>
 
-        <div className="text-center mt-14">
+        <div className="text-center mt-10">
           <Link href="/services" className="btn-primary group">
             View All Services
             <ArrowRight size={16} className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />

@@ -35,10 +35,10 @@ export default function Error({
           </div>
 
           {/* Content */}
-          <h1 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">
+          <h1 className="text-3xl md:text-4xl font-heading font-bold text-slate-900 mb-4">
             Something Went Wrong
           </h1>
-          <p className="text-lg text-slate-400 mb-8 max-w-md mx-auto">
+          <p className="text-lg text-slate-600 mb-8 max-w-md mx-auto">
             We apologize for the inconvenience. An unexpected error has occurred.
             Please try again or contact support if the problem persists.
           </p>
@@ -57,8 +57,8 @@ export default function Error({
 
           {/* Error Details (Development only) */}
           {process.env.NODE_ENV === 'development' && (
-            <div className="mt-8 p-4 bg-white/[0.04] border border-white/10 rounded-xl text-left">
-              <p className="text-sm font-mono text-slate-300 break-all">
+            <div className="mt-8 p-4 bg-white border border-slate-200 rounded-xl text-left">
+              <p className="text-sm font-mono text-slate-700 break-all">
                 {error.message}
               </p>
             </div>

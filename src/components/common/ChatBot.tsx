@@ -75,10 +75,10 @@ export default function ChatBot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 24, scale: 0.96 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="w-[340px] sm:w-[380px] rounded-2xl border border-white/10 bg-void-100/95 shadow-2xl backdrop-blur-xl flex flex-col overflow-hidden max-h-[520px]"
+            className="w-[340px] sm:w-[380px] rounded-2xl border border-slate-200 bg-void-100/95 shadow-2xl backdrop-blur-xl flex flex-col overflow-hidden max-h-[520px]"
           >
             {/* Header */}
-            <div className="relative px-4 py-3 flex items-center justify-between border-b border-white/[0.08] bg-white/[0.03]">
+            <div className="relative px-4 py-3 flex items-center justify-between border-b border-slate-200 bg-white">
               <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary-500/60 to-transparent" />
               <div className="flex items-center gap-2.5">
                 <div className="relative">
@@ -88,8 +88,8 @@ export default function ChatBot() {
                   <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-green-400 border-2 border-void-100" />
                 </div>
                 <div>
-                  <p className="text-white font-heading font-semibold text-sm">SK WebTech Assistant</p>
-                  <p className="text-primary-300/80 text-xs flex items-center gap-1">
+                  <p className="text-slate-900 font-heading font-semibold text-sm">SK WebTech Assistant</p>
+                  <p className="text-primary-600/80 text-xs flex items-center gap-1">
                     <Sparkles size={10} /> Powered by Gemini AI
                   </p>
                 </div>
@@ -97,14 +97,14 @@ export default function ChatBot() {
               <div className="flex items-center gap-1">
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-white/10 transition-colors"
+                  className="text-slate-600 hover:text-slate-900 p-1.5 rounded-lg hover:bg-white/10 transition-colors"
                   aria-label="Minimize chat"
                 >
                   <Minimize2 size={15} />
                 </button>
                 <button
                   onClick={() => { setIsOpen(false); setMessages([WELCOME_MESSAGE]); }}
-                  className="text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-white/10 transition-colors"
+                  className="text-slate-600 hover:text-slate-900 p-1.5 rounded-lg hover:bg-white/10 transition-colors"
                   aria-label="Close chat"
                 >
                   <X size={15} />
@@ -120,7 +120,7 @@ export default function ChatBot() {
                     className={`max-w-[80%] px-3.5 py-2.5 rounded-2xl text-sm leading-relaxed ${
                       msg.role === 'user'
                         ? 'bg-primary-500 text-void font-medium rounded-br-sm'
-                        : 'bg-white/[0.06] text-slate-200 border border-white/[0.08] rounded-bl-sm'
+                        : 'bg-white text-slate-200 border border-slate-200 rounded-bl-sm'
                     }`}
                   >
                     {msg.text}
@@ -129,7 +129,7 @@ export default function ChatBot() {
               ))}
               {isLoading && (
                 <div className="flex justify-start">
-                  <div className="bg-white/[0.06] border border-white/[0.08] px-4 py-2.5 rounded-2xl rounded-bl-sm text-sm">
+                  <div className="bg-white border border-slate-200 px-4 py-2.5 rounded-2xl rounded-bl-sm text-sm">
                     <span className="inline-flex gap-1">
                       <span className="w-1.5 h-1.5 bg-primary-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
                       <span className="w-1.5 h-1.5 bg-primary-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
@@ -142,8 +142,8 @@ export default function ChatBot() {
             </div>
 
             {/* Input */}
-            <div className="p-3 border-t border-white/[0.08] bg-white/[0.02]">
-              <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-3 py-1.5 focus-within:border-primary-500/50 transition-colors">
+            <div className="p-3 border-t border-slate-200 bg-white">
+              <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-1.5 focus-within:border-primary-500/50 transition-colors">
                 <input
                   ref={inputRef}
                   type="text"
@@ -151,13 +151,13 @@ export default function ChatBot() {
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder="Type your message..."
-                  className="flex-1 bg-transparent text-sm text-white placeholder-slate-500 outline-none"
+                  className="flex-1 bg-transparent text-sm text-slate-900 placeholder-slate-500 outline-none"
                   disabled={isLoading}
                 />
                 <button
                   onClick={sendMessage}
                   disabled={!input.trim() || isLoading}
-                  className="w-8 h-8 bg-primary-500 hover:bg-primary-400 disabled:bg-white/[0.06] rounded-lg flex items-center justify-center transition-colors flex-shrink-0"
+                  className="w-8 h-8 bg-primary-500 hover:bg-primary-400 disabled:bg-white rounded-lg flex items-center justify-center transition-colors flex-shrink-0"
                   aria-label="Send message"
                 >
                   <Send size={14} className={input.trim() && !isLoading ? 'text-void' : 'text-slate-500'} />

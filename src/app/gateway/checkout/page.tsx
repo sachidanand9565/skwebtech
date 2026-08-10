@@ -59,7 +59,7 @@ export default function GatewayCheckoutPage() {
       <div className="relative w-full max-w-sm">
         <div className="flex items-center justify-center gap-2 mb-6">
           <Image src="/images/logo.png" alt="SK WebTech" width={28} height={28} className="rounded" />
-          <span className="text-white font-semibold tracking-tight">
+          <span className="text-slate-900 font-semibold tracking-tight">
             SK<span className="text-cyan-400">WebTech</span>
           </span>
         </div>
@@ -79,18 +79,18 @@ export default function GatewayCheckoutPage() {
               </div>
             ) : !params ? (
               <div className="text-center py-6">
-                <p className="text-sm text-slate-400">Loading payment details…</p>
+                <p className="text-sm text-slate-600">Loading payment details…</p>
               </div>
             ) : (
               <div className="space-y-5">
                 <div className="text-center py-4">
-                  <p className="text-xs text-slate-400 uppercase tracking-wide mb-1">Amount to pay</p>
+                  <p className="text-xs text-slate-600 uppercase tracking-wide mb-1">Amount to pay</p>
                   <p className="text-4xl font-bold text-slate-900 tracking-tight">
                     ₹{Number(params.amount).toLocaleString()}
                   </p>
                 </div>
 
-                <div className="flex items-center justify-between text-xs text-slate-400 border-t border-dashed border-slate-200 pt-3">
+                <div className="flex items-center justify-between text-xs text-slate-600 border-t border-dashed border-slate-200 pt-3">
                   <span>Order ID</span>
                   <span className="font-mono text-slate-500">{params.txn}</span>
                 </div>
@@ -98,12 +98,12 @@ export default function GatewayCheckoutPage() {
                 <button
                   onClick={payNow}
                   disabled={paying}
-                  className="w-full bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-semibold py-3.5 rounded-xl transition-colors disabled:opacity-50 shadow-lg shadow-indigo-600/25"
+                  className="w-full bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-slate-900 font-semibold py-3.5 rounded-xl transition-colors disabled:opacity-50 shadow-lg shadow-indigo-600/25"
                 >
                   {paying ? 'Redirecting…' : 'Pay Now'}
                 </button>
 
-                <div className="flex items-center justify-center gap-1.5 text-[11px] text-slate-400">
+                <div className="flex items-center justify-center gap-1.5 text-[11px] text-slate-600">
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                   </svg>

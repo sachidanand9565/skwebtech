@@ -22,7 +22,7 @@ export default async function PortfolioPreviewSection({
     : featuredProjects.slice(0, limit);
 
   return (
-    <section className="relative py-20 md:py-24 bg-void-50 overflow-hidden" id="portfolio">
+    <section className="relative py-10 md:py-14 bg-void-50 overflow-hidden" id="portfolio">
       {/* Ambient background */}
       <div className="glow-orb top-[10%] left-[15%] w-[420px] h-[380px] bg-primary-500/[0.05]" />
       <div className="glow-orb bottom-0 right-[10%] w-[380px] h-[340px] bg-secondary-500/[0.06]" />
@@ -37,7 +37,7 @@ export default async function PortfolioPreviewSection({
         />
 
         {/* Portfolio Grid */}
-        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-14">
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
           {displayedProjects.map((project) => (
             <StaggerItem key={project.id} className="h-full">
               <PortfolioCard
@@ -54,7 +54,7 @@ export default async function PortfolioPreviewSection({
 
         {/* View All Button */}
         {!showAll && (
-          <div className="text-center mt-14">
+          <div className="text-center mt-10">
             <Link href="/portfolio" className="btn-primary inline-flex group">
               View All Projects
               <ArrowRight size={20} className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />

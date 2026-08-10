@@ -36,7 +36,7 @@ export default function GatewayTestResultPage() {
     <div className="max-w-md mx-auto px-4 py-32 min-h-screen">
       <div className="bg-white border border-slate-200 rounded-2xl shadow-sm p-8 text-center">
         <h1 className="text-xl font-bold text-slate-900 mb-1">Test Payment Result</h1>
-        <p className="text-xs text-slate-400 font-mono mb-6">{txn}</p>
+        <p className="text-xs text-slate-600 font-mono mb-6">{txn}</p>
 
         {loading ? (
           <p className="text-sm text-slate-500">Checking status with PhonePe…</p>
@@ -49,7 +49,7 @@ export default function GatewayTestResultPage() {
             </span>
             <p className="text-sm text-slate-600">Amount: ₹{status.amountRupees.toLocaleString()}</p>
             {status.transactionId && (
-              <p className="text-xs text-slate-400 font-mono break-all">PhonePe txn: {status.transactionId}</p>
+              <p className="text-xs text-slate-600 font-mono break-all">PhonePe txn: {status.transactionId}</p>
             )}
             {status.state === 'COMPLETED' && (
               <p className="text-sm text-green-700 font-medium pt-2">

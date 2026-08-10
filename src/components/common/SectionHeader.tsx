@@ -36,7 +36,7 @@ export default function SectionHeader({
 
       {/* Title */}
       <Reveal delay={0.08}>
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-white text-balance mb-3 md:mb-4">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-slate-900 text-balance mb-3 md:mb-4">
           {title}
         </h2>
       </Reveal>
@@ -44,7 +44,7 @@ export default function SectionHeader({
       {/* Subtitle */}
       {subtitle && (
         <Reveal delay={0.16}>
-          <p className={`text-base md:text-lg text-slate-400 leading-relaxed ${align === 'center' ? 'mx-auto' : ''}`}>
+          <p className={`text-base md:text-lg text-slate-600 leading-relaxed ${align === 'center' ? 'mx-auto' : ''}`}>
             {subtitle}
           </p>
         </Reveal>

@@ -180,35 +180,35 @@ export default function TermsAndConditionsPage() {
       {/* Hero */}
       <section className="relative pt-28 md:pt-36 pb-20 bg-void overflow-hidden">
         <div className="absolute inset-0 bg-grid opacity-50 mask-radial-fade pointer-events-none" />
-        <div className="glow-orb top-1/3 left-1/4 w-96 h-96 bg-primary-500/[0.08] animate-aurora" />
+        <div className="glow-orb top-1/3 left-1/4 w-96 h-96 bg-primary-500/[0.08]" />
         <div className="glow-orb bottom-0 right-1/4 w-72 h-72 bg-secondary-500/[0.09]" />
 
         <div className="container-custom relative z-10 text-center">
           <span className="badge-chip mb-6">Legal</span>
-          <h1 className="text-4xl sm:text-5xl font-heading font-bold text-white leading-tight mb-6">
+          <h1 className="text-4xl sm:text-5xl font-heading font-bold text-slate-900 leading-tight mb-6">
             Terms & <span className="gradient-text">Conditions</span>
           </h1>
-          <p className="text-lg text-slate-400 leading-relaxed max-w-2xl mx-auto mb-8">
+          <p className="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto mb-8">
             These terms define how we work together — from proposals and payments to delivery and support. Please read them carefully before engaging our services.
           </p>
           <p className="text-sm text-slate-500 mb-2">
-            <span className="text-slate-300 font-medium">SK WebTech</span> · by Sachhidanand Kushwaha
+            <span className="text-slate-700 font-medium">SK WebTech</span> · by Sachhidanand Kushwaha
           </p>
           <p className="text-sm text-slate-500">
-            Last updated: <span className="text-slate-400 font-medium">July 7, 2026</span>
+            Last updated: <span className="text-slate-600 font-medium">July 7, 2026</span>
           </p>
         </div>
       </section>
 
       {/* Quick Nav */}
-      <section className="py-6 bg-void/80 backdrop-blur-xl border-y border-white/[0.06] sticky top-16 z-20">
+      <section className="py-6 bg-void/80 backdrop-blur-xl border-y border-slate-200/70 sticky top-16 z-20">
         <div className="container-custom">
           <div className="flex flex-wrap gap-2 justify-center">
             {sections.map((s) => (
               <a
                 key={s.id}
                 href={`#${s.id}`}
-                className="inline-flex items-center gap-1.5 px-4 py-2 bg-white/[0.04] hover:bg-primary-500/10 border border-white/10 hover:border-primary-500/30 text-slate-400 hover:text-primary-300 text-sm font-medium rounded-full transition-all"
+                className="inline-flex items-center gap-1.5 px-4 py-2 bg-white hover:bg-primary-500/10 border border-slate-200 hover:border-primary-500/30 text-slate-600 hover:text-primary-600 text-sm font-medium rounded-full transition-all"
               >
                 <s.icon size={14} />
                 {s.title}
@@ -219,27 +219,27 @@ export default function TermsAndConditionsPage() {
       </section>
 
       {/* Sections */}
-      <section className="py-14 bg-void">
+      <section className="py-10 bg-void">
         <div className="container-custom max-w-4xl">
           <div className="space-y-10">
             {sections.map((section) => (
               <div
                 key={section.id}
                 id={section.id}
-                className="scroll-mt-44 rounded-3xl border border-white/[0.08] bg-white/[0.02] overflow-hidden backdrop-blur-sm"
+                className="scroll-mt-44 rounded-3xl border border-slate-200 bg-white overflow-hidden backdrop-blur-sm"
               >
-                <div className="flex items-center gap-4 p-7 border-b border-white/[0.06]">
+                <div className="flex items-center gap-4 p-7 border-b border-slate-200/70">
                   <div className={`w-11 h-11 rounded-2xl bg-gradient-to-br ${section.color} flex items-center justify-center flex-shrink-0 shadow-sm`}>
                     <section.icon size={20} className="text-white" />
                   </div>
-                  <h2 className="text-xl font-heading font-bold text-white">{section.title}</h2>
+                  <h2 className="text-xl font-heading font-bold text-slate-900">{section.title}</h2>
                 </div>
 
                 <div className="divide-y divide-white/[0.05]">
                   {section.content.map((item) => (
                     <div key={item.heading} className="p-7">
                       <h3 className="font-heading font-semibold text-slate-200 mb-2 text-base">{item.heading}</h3>
-                      <p className="text-slate-400 leading-relaxed text-sm">{item.body}</p>
+                      <p className="text-slate-600 leading-relaxed text-sm">{item.body}</p>
                     </div>
                   ))}
                 </div>
@@ -249,10 +249,10 @@ export default function TermsAndConditionsPage() {
 
           {/* Related policies */}
           <div className="mt-10 flex flex-wrap gap-3 justify-center">
-            <Link href="/refund-policy" className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/[0.04] border border-white/10 text-slate-300 text-sm font-medium rounded-full hover:border-primary-500/40 hover:text-primary-300 transition-all">
+            <Link href="/refund-policy" className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-slate-200 text-slate-700 text-sm font-medium rounded-full hover:border-primary-500/40 hover:text-primary-600 transition-all">
               Refund Policy <ArrowRight size={14} />
             </Link>
-            <Link href="/privacy-policy" className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/[0.04] border border-white/10 text-slate-300 text-sm font-medium rounded-full hover:border-primary-500/40 hover:text-primary-300 transition-all">
+            <Link href="/privacy-policy" className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-slate-200 text-slate-700 text-sm font-medium rounded-full hover:border-primary-500/40 hover:text-primary-600 transition-all">
               Privacy Policy <ArrowRight size={14} />
             </Link>
           </div>
@@ -260,15 +260,15 @@ export default function TermsAndConditionsPage() {
       </section>
 
       {/* Contact CTA */}
-      <section className="relative py-16 bg-void overflow-hidden">
+      <section className="relative py-10 bg-void overflow-hidden">
         <div className="glow-orb top-0 left-1/3 w-96 h-96 bg-primary-500/[0.08] -translate-y-1/2" />
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary-500/40 to-transparent" />
         <div className="container-custom max-w-3xl text-center relative z-10">
           <div className="w-14 h-14 bg-primary-500/15 border border-primary-500/25 rounded-2xl flex items-center justify-center mx-auto mb-6">
             <Mail size={26} className="text-primary-400" />
           </div>
-          <h2 className="text-3xl font-heading font-bold text-white mb-4">Questions About These Terms?</h2>
-          <p className="text-slate-400 leading-relaxed mb-8 max-w-xl mx-auto">
+          <h2 className="text-3xl font-heading font-bold text-slate-900 mb-4">Questions About These Terms?</h2>
+          <p className="text-slate-600 leading-relaxed mb-8 max-w-xl mx-auto">
             If anything is unclear or you need a custom agreement for your project, reach out — we&apos;re happy to walk you through it.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

@@ -1,7 +1,7 @@
 /*
  * SK WebTech — Global Styles
- * Premium dark design system: deep-space surfaces, cyan/violet energy,
- * glassmorphism, soft glows and fluid motion.
+ * Premium light design system: airy surfaces, sapphire/azure energy,
+ * soft depth shadows and restrained one-shot motion.
  */
 
 @tailwind base;
@@ -11,17 +11,18 @@
 /* ---------------------------------- Base ---------------------------------- */
 @layer base {
   html {
-    /* Lenis drives smooth scrolling; keep anchor offset for the fixed header */
+    /* Native CSS smooth scrolling (Lenis removed for performance) */
+    scroll-behavior: smooth;
     scroll-padding-top: 6rem;
   }
 
   body {
-    @apply bg-void text-slate-300 antialiased;
+    @apply bg-void text-slate-600 antialiased;
     text-rendering: optimizeLegibility;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-heading font-semibold tracking-tight text-white;
+    @apply font-heading font-semibold tracking-tight text-slate-900;
   }
 
   a {
@@ -29,30 +30,30 @@
   }
 
   ::selection {
-    background: rgba(0, 229, 255, 0.28);
-    color: #ffffff;
+    background: rgba(46, 127, 242, 0.22);
+    color: #0f172a;
   }
 
-  /* Slim, dark scrollbar */
+  /* Slim, light scrollbar */
   ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: #050816;
+    background: #f1f5fb;
   }
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, rgba(0, 229, 255, 0.35), rgba(123, 97, 255, 0.35));
+    background: linear-gradient(180deg, rgba(46, 127, 242, 0.45), rgba(34, 211, 238, 0.45));
     border-radius: 8px;
-    border: 2px solid #050816;
+    border: 2px solid #f1f5fb;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, rgba(0, 229, 255, 0.55), rgba(123, 97, 255, 0.55));
+    background: linear-gradient(180deg, rgba(46, 127, 242, 0.65), rgba(34, 211, 238, 0.65));
   }
 
   /* Visible focus for keyboard users */
   :focus-visible {
-    outline: 2px solid rgba(0, 229, 255, 0.7);
+    outline: 2px solid rgba(46, 127, 242, 0.75);
     outline-offset: 3px;
     border-radius: 4px;
   }
@@ -64,54 +65,55 @@
     @apply max-w-7xl mx-auto px-4 sm:px-5 md:px-8 lg:px-10;
   }
 
-  /* Primary button — electric cyan, dark label, glow on hover */
+  /* Primary button — sapphire, white label, glow on hover */
   .btn-primary {
     @apply relative inline-flex items-center justify-center px-6 py-3
-           bg-primary-500 text-void font-heading font-semibold rounded-full
+           bg-primary-500 text-white font-heading font-semibold rounded-full
            transition-all duration-300 ease-out-expo
-           hover:bg-primary-400 hover:shadow-glow hover:-translate-y-0.5
+           hover:bg-primary-600 hover:shadow-glow hover:-translate-y-0.5
            focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-400
            active:scale-[0.98];
   }
 
-  /* Secondary button — glass outline */
+  /* Secondary button — clean outline on light */
   .btn-secondary {
     @apply inline-flex items-center justify-center px-6 py-3
-           bg-white/[0.04] text-white font-heading font-medium rounded-full
-           border border-white/15 backdrop-blur-sm
+           bg-white text-slate-800 font-heading font-medium rounded-full
+           border border-slate-200 shadow-soft
            transition-all duration-300 ease-out-expo
-           hover:bg-white/[0.09] hover:border-primary-500/40 hover:-translate-y-0.5
+           hover:border-primary-400 hover:text-primary-600 hover:-translate-y-0.5 hover:shadow-soft-lg
            focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-400
            active:scale-[0.98];
   }
 
-  /* Accent / hero CTA — animated cyan→violet gradient */
+  /* Accent / hero CTA — static premium sapphire→cyan gradient (no animation loop) */
   .btn-accent {
     @apply relative inline-flex items-center justify-center px-6 py-3 overflow-hidden
-           text-void font-heading font-semibold rounded-full
+           font-heading font-semibold rounded-full text-white
            transition-all duration-300 ease-out-expo
-           hover:shadow-glow hover:-translate-y-0.5
+           hover:shadow-glow hover:-translate-y-0.5 hover:brightness-105
            focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-400
            active:scale-[0.98];
-    background: linear-gradient(120deg, #00e5ff, #22d3ee 45%, #7b61ff);
-    background-size: 200% 200%;
-    animation: gradientX 6s ease infinite;
-    color: #050816;
+    background: linear-gradient(120deg, #1d63d8, #2e7ff2 55%, #17b8d8);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 8px 24px -8px rgba(46, 127, 242, 0.55);
   }
 
-  /* Glass card */
+  /* Card — white surface, subtle 3D lift on hover (perspective tilt, no JS) */
   .card {
-    @apply relative bg-white/[0.03] border border-white/10 rounded-2xl p-6
-           backdrop-blur-sm shadow-card transition-all duration-300 ease-out-expo
-           hover:border-primary-500/30 hover:shadow-card-hover hover:-translate-y-1;
+    @apply relative bg-white border border-slate-200/80 rounded-2xl p-6
+           shadow-card hover:border-primary-300 hover:shadow-depth;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s, box-shadow 0.4s;
+  }
+  .card:hover {
+    transform: perspective(900px) translateY(-6px) rotateX(1.5deg);
   }
 
   .section-title {
-    @apply text-3xl md:text-4xl font-heading font-bold text-white;
+    @apply text-3xl md:text-4xl font-heading font-bold text-slate-900;
   }
 
   .section-subtitle {
-    @apply text-lg text-slate-400 mt-4 max-w-2xl;
+    @apply text-lg text-slate-600 mt-4 max-w-2xl;
   }
 
   .gradient-text {
@@ -121,34 +123,34 @@
   /* Section eyebrow chip */
   .badge-chip {
     @apply inline-flex items-center gap-2 px-4 py-1.5 rounded-full
-           bg-white/[0.04] border border-white/10 backdrop-blur-md
-           text-[11px] font-semibold uppercase tracking-[0.18em] text-primary-300;
+           bg-primary-50 border border-primary-200/70
+           text-[11px] font-semibold uppercase tracking-[0.18em] text-primary-600;
   }
 
-  /* Dark glass form controls */
+  /* Light form controls */
   .form-input {
-    @apply w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10
-           text-sm text-white placeholder-slate-500
-           focus:bg-white/[0.06] focus:border-primary-500/50 focus:ring-2 focus:ring-primary-500/20
+    @apply w-full px-4 py-3 rounded-xl bg-white border border-slate-200
+           text-sm text-slate-900 placeholder-slate-400
+           focus:border-primary-400 focus:ring-2 focus:ring-primary-500/20
            transition-all duration-200 outline-none;
   }
 
   .form-textarea {
-    @apply w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10
-           text-sm text-white placeholder-slate-500 resize-none
-           focus:bg-white/[0.06] focus:border-primary-500/50 focus:ring-2 focus:ring-primary-500/20
+    @apply w-full px-4 py-3 rounded-xl bg-white border border-slate-200
+           text-sm text-slate-900 placeholder-slate-400 resize-none
+           focus:border-primary-400 focus:ring-2 focus:ring-primary-500/20
            transition-all duration-200 outline-none;
   }
 
   .glass-panel {
-    @apply bg-white/[0.05] backdrop-blur-xl border border-white/10 shadow-soft;
+    @apply bg-white/80 backdrop-blur-xl border border-slate-200/80 shadow-soft;
   }
 
   .glass-panel-dark {
-    @apply bg-void-50/60 backdrop-blur-xl border border-white/5 shadow-2xl;
+    @apply bg-white/70 backdrop-blur-xl border border-slate-200/60 shadow-soft-lg;
   }
 
-  /* Gradient hairline border (cyan → violet) */
+  /* Gradient hairline border (sapphire → cyan) */
   .border-glow {
     position: relative;
   }
@@ -159,7 +161,7 @@
     inset: 0;
     border-radius: inherit;
     padding: 1px;
-    background: linear-gradient(135deg, rgba(0, 229, 255, 0.45), rgba(123, 97, 255, 0.08) 45%, rgba(123, 97, 255, 0.4));
+    background: linear-gradient(135deg, rgba(46, 127, 242, 0.45), rgba(34, 211, 238, 0.12) 45%, rgba(123, 97, 255, 0.35));
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -169,6 +171,22 @@
   /* Ambient glow orb — position with utilities, color via bg-* */
   .glow-orb {
     @apply absolute rounded-full blur-[110px] pointer-events-none;
+  }
+
+  /* --- Static 3D system (no JS loops) --- */
+  /* Perspective stage for 3D children */
+  .hero-perspective {
+    perspective: 1400px;
+  }
+
+  /* Resting 3D stance for the hero panel; straightens when hovered */
+  .hero-tilt {
+    transform: rotateY(-9deg) rotateX(4deg);
+    transform-style: preserve-3d;
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .hero-perspective:hover .hero-tilt {
+    transform: rotateY(0deg) rotateX(0deg);
   }
 }
 
@@ -193,15 +211,15 @@
 
   /* Subtle dot matrix backdrop */
   .bg-dots {
-    background-image: radial-gradient(rgba(255, 255, 255, 0.09) 1px, transparent 1px);
+    background-image: radial-gradient(rgba(15, 23, 42, 0.08) 1px, transparent 1px);
     background-size: 28px 28px;
   }
 
   /* Blueprint grid backdrop */
   .bg-grid {
     background-image:
-      linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+      linear-gradient(rgba(15, 23, 42, 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(15, 23, 42, 0.045) 1px, transparent 1px);
     background-size: 64px 64px;
   }
 
@@ -217,12 +235,12 @@
   }
 
   .text-glow {
-    text-shadow: 0 0 28px rgba(0, 229, 255, 0.45);
+    text-shadow: 0 2px 24px rgba(46, 127, 242, 0.35);
   }
 
   /* Shimmer sweep for skeletons / hover accents */
   .bg-shimmer {
-    background: linear-gradient(100deg, transparent 32%, rgba(255, 255, 255, 0.07) 50%, transparent 68%);
+    background: linear-gradient(100deg, transparent 32%, rgba(15, 23, 42, 0.04) 50%, transparent 68%);
     background-size: 200% 100%;
   }
 

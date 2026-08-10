@@ -66,29 +66,22 @@ export default function HeroVisual() {
         stagger: 0.15,
         clearProps: 'opacity,transform',
       });
-      gsap.to('[data-hero-float]', {
-        y: -10,
-        duration: 2.6,
-        ease: 'sine.inOut',
-        yoyo: true,
-        repeat: -1,
-        delay: 2,
-        stagger: { each: 0.4, from: 'random' },
-      });
     }, scope);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <div ref={scope} className="relative">
-      {/* Ambient glow backing */}
-      <div className="absolute -inset-2 rounded-[2rem] bg-brand-gradient opacity-20 blur-2xl animate-pulse-slow" aria-hidden />
+    <div ref={scope} className="relative hero-perspective">
+      {/* Ambient glow backing — static */}
+      <div className="absolute -inset-2 rounded-[2rem] bg-brand-gradient opacity-20 blur-2xl" aria-hidden />
 
+      {/* Static 3D stance: panel rests tilted in space, straightens on hover; TiltCard adds cursor tilt */}
+      <div className="hero-tilt">
       <TiltCard max={5} className="group">
         <div
           data-hero-panel
-          className="relative rounded-3xl border border-white/10 bg-void-100/70 p-7 shadow-2xl backdrop-blur-xl overflow-hidden"
+          className="relative rounded-3xl border border-slate-200 bg-void-100/70 p-7 shadow-2xl backdrop-blur-xl overflow-hidden"
         >
           {/* Inner sheen */}
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/[0.06] via-transparent to-transparent" aria-hidden />
@@ -100,9 +93,9 @@ export default function HeroVisual() {
               <span className="h-2.5 w-2.5 rounded-full bg-amber-400/70" />
               <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/70" />
             </div>
-            <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1">
+            <div className="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1">
               <Activity size={11} className="text-primary-400" />
-              <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-400">Live Dashboard</span>
+              <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-600">Live Dashboard</span>
             </div>
           </div>
 
@@ -112,9 +105,9 @@ export default function HeroVisual() {
               <div
                 key={stat.label}
                 data-hero-item
-                className="rounded-2xl border border-white/[0.06] bg-white/[0.03] p-5 transition-all duration-300 hover:border-primary-500/30 hover:bg-white/[0.05]"
+                className="rounded-2xl border border-slate-200/70 bg-white p-5 transition-all duration-300 hover:border-primary-500/30 hover:bg-slate-50"
               >
-                <div className="mb-1 font-heading text-3xl font-bold tracking-tight text-white">
+                <div className="mb-1 font-heading text-3xl font-bold tracking-tight text-slate-900">
                   <Counter value={stat.value} />
                 </div>
                 <div className="text-xs font-medium uppercase tracking-wider text-slate-500">{stat.label}</div>
@@ -127,12 +120,12 @@ export default function HeroVisual() {
             {floatingServices.map(({ icon: Icon, label, color }) => (
               <div
                 key={label}
-                className="flex items-center gap-2.5 rounded-full border border-white/[0.06] bg-white/[0.03] px-4 py-2 transition-all hover:border-primary-500/30"
+                className="flex items-center gap-2.5 rounded-full border border-slate-200/70 bg-white px-4 py-2 transition-all hover:border-primary-500/30"
               >
                 <div className={`flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br ${color} shadow-sm`}>
                   <Icon size={12} className="text-white" />
                 </div>
-                <span className="text-xs font-semibold tracking-wide text-white/80">{label}</span>
+                <span className="text-xs font-semibold tracking-wide text-slate-700">{label}</span>
               </div>
             ))}
           </div>
@@ -144,7 +137,7 @@ export default function HeroVisual() {
                   <WhatsAppIcon size={22} className="text-white" />
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-white">WhatsApp Business Solutions</p>
+                  <p className="text-sm font-bold text-slate-900">WhatsApp Business Solutions</p>
                   <p className="mt-0.5 text-xs font-medium text-green-400">Official API Setup & Automation</p>
                 </div>
               </div>
@@ -160,11 +153,12 @@ export default function HeroVisual() {
           </div>
         </div>
       </TiltCard>
+      </div>
 
       {/* Floating rating card */}
       <div
         data-hero-float
-        className="absolute -top-4 -right-4 flex items-center gap-3 rounded-2xl border border-white/10 bg-void-100/90 px-4 py-3 shadow-glow-sm backdrop-blur-xl"
+        className="absolute -top-4 -right-4 flex items-center gap-3 rounded-2xl border border-slate-200 bg-void-100/90 px-4 py-3 shadow-glow-sm backdrop-blur-xl"
       >
         <div className="flex">
           {[...Array(5)].map((_, i) => (
@@ -174,7 +168,7 @@ export default function HeroVisual() {
           ))}
         </div>
         <div className="leading-none">
-          <div className="text-xs font-bold text-white">5.0 Star Agency</div>
+          <div className="text-xs font-bold text-slate-900">5.0 Star Agency</div>
           <div className="mt-0.5 text-[9px] font-medium text-slate-500">Verified Reviews</div>
         </div>
       </div>
@@ -182,13 +176,13 @@ export default function HeroVisual() {
       {/* Floating uptime chip */}
       <div
         data-hero-float
-        className="absolute -bottom-5 -left-5 flex items-center gap-2.5 rounded-2xl border border-white/10 bg-void-100/90 px-4 py-3 shadow-glow-violet backdrop-blur-xl"
+        className="absolute -bottom-5 -left-5 flex items-center gap-2.5 rounded-2xl border border-slate-200 bg-void-100/90 px-4 py-3 shadow-glow-violet backdrop-blur-xl"
       >
         <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-secondary-500/20">
           <Zap size={15} className="text-secondary-400" />
         </div>
         <div className="leading-none">
-          <div className="text-xs font-bold text-white">99.9% Uptime</div>
+          <div className="text-xs font-bold text-slate-900">99.9% Uptime</div>
           <div className="mt-0.5 text-[9px] font-medium text-slate-500">Managed Hosting & Care</div>
         </div>
       </div>

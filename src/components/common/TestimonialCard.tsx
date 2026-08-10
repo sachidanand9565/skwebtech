@@ -46,7 +46,7 @@ export default function TestimonialCard({
       </div>
 
       {/* Testimonial Content */}
-      <p className="text-slate-300 leading-relaxed mb-6 relative z-10">
+      <p className="text-slate-700 leading-relaxed mb-6 relative z-10">
         &ldquo;{content}&rdquo;
       </p>
 
@@ -63,7 +63,7 @@ export default function TestimonialCard({
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center
-                          text-primary-300 font-semibold text-lg">
+                          text-primary-600 font-semibold text-lg">
               {name.charAt(0)}
             </div>
           )}
@@ -71,7 +71,7 @@ export default function TestimonialCard({
 
         {/* Name & Role */}
         <div>
-          <h4 className="font-heading font-semibold text-white">{name}</h4>
+          <h4 className="font-heading font-semibold text-slate-900">{name}</h4>
           <p className="text-sm text-slate-500">
             {role}, {company}
           </p>

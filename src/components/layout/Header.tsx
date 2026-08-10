@@ -47,7 +47,7 @@ export default function Header() {
         isMenuOpen ? 'z-[100]' : 'z-50'
       } ${
         isScrolled && !isMenuOpen
-          ? 'bg-void/75 backdrop-blur-safari border-b border-white/[0.06] shadow-soft'
+          ? 'bg-void/75 backdrop-blur-safari border-b border-slate-200/70 shadow-soft'
           : 'bg-transparent border-b border-transparent'
       }`}
     >
@@ -56,7 +56,7 @@ export default function Header() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 z-50 flex-shrink-0 group" aria-label="SK WebTech - Home">
-            <div className="relative w-10 h-10 rounded-xl overflow-hidden flex-shrink-0 bg-void-50 border border-white/10 transition-all duration-300 group-hover:border-primary-500/40 group-hover:shadow-glow-sm">
+            <div className="relative w-10 h-10 rounded-xl overflow-hidden flex-shrink-0 bg-void-50 border border-slate-200 transition-all duration-300 group-hover:border-primary-500/40 group-hover:shadow-glow-sm">
               <Image
                 src="/images/logo.png"
                 alt="SK WebTech logo"
@@ -67,7 +67,7 @@ export default function Header() {
               />
             </div>
             <div className="flex flex-col leading-none">
-              <span className="font-heading font-bold text-lg tracking-tight text-white">
+              <span className="font-heading font-bold text-lg tracking-tight text-slate-900">
                 SK<span className="gradient-text">WebTech</span>
               </span>
               <span className="text-[10px] -mt-0.5 hidden sm:block font-medium tracking-[0.25em] uppercase text-slate-500">
@@ -77,7 +77,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-1 rounded-full border border-white/[0.06] bg-white/[0.03] px-1.5 py-1.5 backdrop-blur-md">
+          <div className="hidden lg:flex items-center gap-1 rounded-full border border-slate-200/70 bg-white px-1.5 py-1.5 backdrop-blur-md">
             {navLinks.map((link) => {
               const active = isActive(link.href);
               return (
@@ -85,7 +85,7 @@ export default function Header() {
                   key={link.name}
                   href={link.href}
                   className={`relative px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 ${
-                    active ? 'text-void' : 'text-slate-300 hover:text-white hover:bg-white/[0.06]'
+                    active ? 'text-void' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
                   }`}
                 >
                   {active && (
@@ -124,7 +124,7 @@ export default function Header() {
           {/* Mobile Menu Toggle */}
           <button
             type="button"
-            className="lg:hidden p-2 rounded-xl z-50 text-white bg-white/[0.04] border border-white/10 hover:bg-white/10 transition-colors"
+            className="lg:hidden p-2 rounded-xl z-50 text-slate-900 bg-white border border-slate-200 hover:bg-white/10 transition-colors"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={isMenuOpen}
@@ -164,7 +164,7 @@ export default function Header() {
                         className={`flex items-center justify-between px-4 py-3.5 text-lg font-heading font-medium rounded-xl transition-all ${
                           isActive(link.href)
                             ? 'text-primary-400 bg-primary-500/[0.06] border border-primary-500/20'
-                            : 'text-white/80 hover:text-white hover:bg-white/5'
+                            : 'text-slate-700 hover:text-white hover:bg-white/5'
                         }`}
                       >
                         {link.name}
@@ -185,7 +185,7 @@ export default function Header() {
                       <WhatsAppIcon size={18} className="text-white" />
                     </div>
                     <div>
-                      <p className="text-white font-semibold text-sm">WhatsApp Platform</p>
+                      <p className="text-slate-900 font-semibold text-sm">WhatsApp Platform</p>
                       <p className="text-green-400 text-xs">Manage campaigns & automation</p>
                     </div>
                   </div>
@@ -204,7 +204,7 @@ export default function Header() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5, duration: 0.45 }}
-                  className="mt-auto pt-6 border-t border-white/10"
+                  className="mt-auto pt-6 border-t border-slate-200"
                 >
                   <Link
                     href="/contact"
@@ -213,8 +213,8 @@ export default function Header() {
                   >
                     Get Free Quote
                   </Link>
-                  <p className="text-center text-white/40 text-sm">
-                    Call: <a href="tel:9654603750" className="text-primary-400 hover:text-primary-300">+91 9654603750</a>
+                  <p className="text-center text-slate-900/40 text-sm">
+                    Call: <a href="tel:9654603750" className="text-primary-400 hover:text-primary-600">+91 9654603750</a>
                   </p>
                 </motion.div>
               </div>

@@ -96,7 +96,7 @@ export default function ContactForm({ services }: { services?: ServiceOption[] }
         <div className="w-16 h-16 bg-green-500/15 border border-green-500/25 rounded-full flex items-center justify-center mx-auto mb-4">
           <CheckCircle size={32} className="text-green-400" />
         </div>
-        <h3 className="font-heading font-semibold text-xl text-white mb-2">
+        <h3 className="font-heading font-semibold text-xl text-slate-900 mb-2">
           Message Sent Successfully!
         </h3>
         <p className="text-green-400/90">
@@ -113,7 +113,7 @@ export default function ContactForm({ services }: { services?: ServiceOption[] }
         <div>
           <label
             htmlFor="name"
-            className="block text-sm font-medium text-slate-300 mb-2"
+            className="block text-sm font-medium text-slate-700 mb-2"
           >
             Full Name *
           </label>
@@ -131,7 +131,7 @@ export default function ContactForm({ services }: { services?: ServiceOption[] }
         <div>
           <label
             htmlFor="email"
-            className="block text-sm font-medium text-slate-300 mb-2"
+            className="block text-sm font-medium text-slate-700 mb-2"
           >
             Email Address *
           </label>
@@ -153,7 +153,7 @@ export default function ContactForm({ services }: { services?: ServiceOption[] }
         <div>
           <label
             htmlFor="phone"
-            className="block text-sm font-medium text-slate-300 mb-2"
+            className="block text-sm font-medium text-slate-700 mb-2"
           >
             Phone Number
           </label>
@@ -170,7 +170,7 @@ export default function ContactForm({ services }: { services?: ServiceOption[] }
         <div>
           <label
             htmlFor="service"
-            className="block text-sm font-medium text-slate-300 mb-2"
+            className="block text-sm font-medium text-slate-700 mb-2"
           >
             Service Interested In
           </label>
@@ -179,7 +179,7 @@ export default function ContactForm({ services }: { services?: ServiceOption[] }
             name="service"
             value={formData.service}
             onChange={handleChange}
-            className="form-input [&>option]:bg-void-100 [&>option]:text-white"
+            className="form-input [&>option]:bg-void-100 [&>option]:text-slate-900"
           >
             <option value="">Select a service</option>
             {serviceOptions.map((s) => (
@@ -196,7 +196,7 @@ export default function ContactForm({ services }: { services?: ServiceOption[] }
       <div>
         <label
           htmlFor="message"
-          className="block text-sm font-medium text-slate-300 mb-2"
+          className="block text-sm font-medium text-slate-700 mb-2"
         >
           Your Message *
         </label>

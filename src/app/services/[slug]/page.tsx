@@ -203,36 +203,36 @@ export default async function ServiceLocationPage({ params }: Props) {
       />
 
       {/* Hero */}
-      <section className="relative pt-28 md:pt-36 pb-16 bg-void overflow-hidden">
+      <section className="relative pt-24 md:pt-28 pb-10 bg-void overflow-hidden">
         <div className="absolute inset-0 bg-grid opacity-50 mask-radial-fade pointer-events-none" />
-        <div className="glow-orb top-[20%] right-1/4 w-96 h-96 bg-primary-500/[0.08] animate-aurora" />
+        <div className="glow-orb top-[20%] right-1/4 w-96 h-96 bg-primary-500/[0.08]" />
         <div className="glow-orb bottom-0 left-1/4 w-72 h-72 bg-secondary-500/[0.09]" />
 
         <div className="container-custom relative z-10">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 text-sm text-slate-500 mb-6" aria-label="Breadcrumb">
-            <Link href="/" className="hover:text-white transition-colors">Home</Link>
+            <Link href="/" className="hover:text-slate-900 transition-colors">Home</Link>
             <span>/</span>
-            <Link href="/services" className="hover:text-white transition-colors">Services</Link>
+            <Link href="/services" className="hover:text-slate-900 transition-colors">Services</Link>
             <span>/</span>
-            <span className="text-slate-300">{h1}</span>
+            <span className="text-slate-700">{h1}</span>
           </nav>
 
           <div className="max-w-3xl">
             <Reveal y={16}>
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/[0.05] backdrop-blur-sm border border-white/10 rounded-full mb-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white backdrop-blur-sm border border-slate-200 rounded-full mb-6">
                 <MapPin size={14} className="text-primary-400" />
-                <span className="text-white/80 text-xs font-medium">{service.title} · {location.name}, {location.state}</span>
+                <span className="text-slate-700 text-xs font-medium">{service.title} · {location.name}, {location.state}</span>
               </div>
             </Reveal>
 
             <Reveal delay={0.1}>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-white leading-tight mb-5">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-slate-900 leading-tight mb-5">
                 {h1}
               </h1>
             </Reveal>
             <Reveal delay={0.2}>
-              <p className="text-lg text-slate-400 leading-relaxed mb-8 max-w-2xl">{intro}</p>
+              <p className="text-lg text-slate-600 leading-relaxed mb-8 max-w-2xl">{intro}</p>
             </Reveal>
 
             <Reveal delay={0.3}>
@@ -253,7 +253,7 @@ export default async function ServiceLocationPage({ params }: Props) {
             <Reveal delay={0.4}>
               <div className="flex flex-wrap gap-5 mt-8">
                 {['80+ Projects', '10+ Years Experience', 'Trusted by 100+ Clients'].map((badge) => (
-                  <div key={badge} className="flex items-center gap-2 text-slate-300 text-sm">
+                  <div key={badge} className="flex items-center gap-2 text-slate-700 text-sm">
                     <CheckCircle size={16} className="text-primary-400 flex-shrink-0" />
                     {badge}
                   </div>
@@ -265,28 +265,28 @@ export default async function ServiceLocationPage({ params }: Props) {
       </section>
 
       {/* Intro */}
-      <section className="relative py-14 md:py-20 bg-void">
+      <section className="relative py-10 md:py-10 bg-void">
         <div className="container-custom">
           <Reveal>
             <div className="max-w-3xl border-l-2 border-primary-500/40 pl-6">
-              <p className="text-lg text-slate-400 leading-relaxed">{subIntro}</p>
+              <p className="text-lg text-slate-600 leading-relaxed">{subIntro}</p>
             </div>
           </Reveal>
         </div>
       </section>
 
       {/* Features */}
-      <section className="relative py-14 md:py-20 bg-void-50 overflow-hidden">
+      <section className="relative py-10 md:py-10 bg-void-50 overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
         <div className="glow-orb top-[20%] right-[8%] w-80 h-80 bg-primary-500/[0.05]" />
 
         <div className="container-custom relative z-10">
-          <div className="mb-12 text-center">
+          <div className="mb-8 text-center">
             <Reveal y={14}>
               <span className="badge-chip mb-4">What We Offer</span>
             </Reveal>
             <Reveal delay={0.08}>
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-white">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-slate-900">
                 {service.title} Services in {city}
               </h2>
             </Reveal>
@@ -297,12 +297,12 @@ export default async function ServiceLocationPage({ params }: Props) {
               const Icon = FEATURE_ICONS[i % FEATURE_ICONS.length];
               return (
                 <StaggerItem key={feature.title} className="h-full">
-                  <div className="h-full rounded-2xl border border-white/[0.08] bg-white/[0.03] p-6 backdrop-blur-sm transition-all duration-300 hover:border-primary-500/30 hover:-translate-y-1 hover:shadow-card-hover">
+                  <div className="h-full rounded-2xl border border-slate-200 bg-white p-6 backdrop-blur-sm transition-all duration-300 hover:border-primary-500/30 hover:-translate-y-1 hover:shadow-card-hover">
                     <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-4 shadow-sm`}>
                       <Icon size={20} className="text-white" />
                     </div>
-                    <h3 className="font-heading font-semibold text-white mb-2">{feature.title}</h3>
-                    <p className="text-slate-400 text-sm leading-relaxed">{feature.desc}</p>
+                    <h3 className="font-heading font-semibold text-slate-900 mb-2">{feature.title}</h3>
+                    <p className="text-slate-600 text-sm leading-relaxed">{feature.desc}</p>
                   </div>
                 </StaggerItem>
               );
@@ -312,14 +312,14 @@ export default async function ServiceLocationPage({ params }: Props) {
       </section>
 
       {/* Benefits */}
-      <section className="relative py-14 md:py-20 bg-void">
+      <section className="relative py-10 md:py-10 bg-void">
         <div className="container-custom">
-          <div className="mb-12 text-center">
+          <div className="mb-8 text-center">
             <Reveal y={14}>
               <span className="badge-chip mb-4">Why Choose Us</span>
             </Reveal>
             <Reveal delay={0.08}>
-              <h2 className="text-2xl md:text-3xl font-heading font-bold text-white">
+              <h2 className="text-2xl md:text-3xl font-heading font-bold text-slate-900">
                 Why SK WebTech for {service.title} in {city}?
               </h2>
             </Reveal>
@@ -328,10 +328,10 @@ export default async function ServiceLocationPage({ params }: Props) {
           <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {service.benefits.map((benefit) => (
               <StaggerItem key={benefit.title}>
-                <div className="text-center rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 h-full transition-colors duration-300 hover:border-primary-500/25">
+                <div className="text-center rounded-2xl border border-slate-200/70 bg-white p-6 h-full transition-colors duration-300 hover:border-primary-500/25">
                   <div className="text-4xl mb-4">{benefit.icon}</div>
-                  <h3 className="font-heading font-semibold text-white mb-2">{benefit.title}</h3>
-                  <p className="text-slate-400 text-sm leading-relaxed">{interpolate(benefit.desc, city)}</p>
+                  <h3 className="font-heading font-semibold text-slate-900 mb-2">{benefit.title}</h3>
+                  <p className="text-slate-600 text-sm leading-relaxed">{interpolate(benefit.desc, city)}</p>
                 </div>
               </StaggerItem>
             ))}
@@ -340,14 +340,14 @@ export default async function ServiceLocationPage({ params }: Props) {
       </section>
 
       {/* Technologies */}
-      <section className="relative py-14 md:py-20 bg-void-50 overflow-hidden">
+      <section className="relative py-10 md:py-10 bg-void-50 overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
         <div className="container-custom text-center relative z-10">
           <Reveal>
-            <h2 className="text-2xl md:text-3xl font-heading font-bold text-white mb-3">
+            <h2 className="text-2xl md:text-3xl font-heading font-bold text-slate-900 mb-3">
               Technologies We Use
             </h2>
-            <p className="text-slate-400 mb-10">Industry-leading tools for best-in-class results</p>
+            <p className="text-slate-600 mb-10">Industry-leading tools for best-in-class results</p>
           </Reveal>
           <Reveal delay={0.15}>
             <div className="flex flex-wrap justify-center gap-3">
@@ -366,17 +366,17 @@ export default async function ServiceLocationPage({ params }: Props) {
 
       {/* Long-form SEO content — unique per service, city-specific via interpolation */}
       {service.contentTemplate && (
-        <section className="relative py-14 md:py-20 bg-void">
+        <section className="relative py-10 md:py-10 bg-void">
           <div className="container-custom">
             <div
-              className="max-w-3xl mx-auto prose prose-lg prose-invert
-                prose-headings:font-heading prose-headings:font-bold prose-headings:text-white
+              className="max-w-3xl mx-auto prose prose-lg
+                prose-headings:font-heading prose-headings:font-bold prose-headings:text-slate-900
                 prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
                 prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
-                prose-p:text-slate-300 prose-p:leading-relaxed
+                prose-p:text-slate-700 prose-p:leading-relaxed
                 prose-a:text-primary-400 prose-a:no-underline hover:prose-a:underline
-                prose-strong:text-white
-                prose-ul:text-slate-300 prose-li:marker:text-primary-400"
+                prose-strong:text-slate-900
+                prose-ul:text-slate-700 prose-li:marker:text-primary-400"
               dangerouslySetInnerHTML={{ __html: renderMarkdown(interpolate(service.contentTemplate, city)) }}
             />
           </div>
@@ -384,15 +384,15 @@ export default async function ServiceLocationPage({ params }: Props) {
       )}
 
       {/* FAQ */}
-      <section className="relative py-14 md:py-20 bg-void">
+      <section className="relative py-10 md:py-10 bg-void">
         <div className="container-custom">
           <div className="max-w-3xl mx-auto">
-            <div className="text-center mb-12">
+            <div className="text-center mb-8">
               <Reveal y={14}>
                 <span className="badge-chip mb-4">FAQs</span>
               </Reveal>
               <Reveal delay={0.08}>
-                <h2 className="text-2xl md:text-3xl font-heading font-bold text-white">
+                <h2 className="text-2xl md:text-3xl font-heading font-bold text-slate-900">
                   Frequently Asked Questions
                 </h2>
               </Reveal>
@@ -401,14 +401,14 @@ export default async function ServiceLocationPage({ params }: Props) {
             <StaggerContainer className="space-y-5">
               {faqs.map((faq, i) => (
                 <StaggerItem key={i}>
-                  <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] p-6 backdrop-blur-sm transition-colors duration-300 hover:border-primary-500/25">
-                    <h3 className="font-heading font-semibold text-white mb-3 flex items-start gap-3">
+                  <div className="rounded-2xl border border-slate-200 bg-white p-6 backdrop-blur-sm transition-colors duration-300 hover:border-primary-500/25">
+                    <h3 className="font-heading font-semibold text-slate-900 mb-3 flex items-start gap-3">
                       <span className={`flex-shrink-0 w-6 h-6 rounded-full bg-gradient-to-r ${service.color} text-white text-xs flex items-center justify-center font-bold mt-0.5`}>
                         Q
                       </span>
                       {faq.q}
                     </h3>
-                    <p className="text-slate-400 leading-relaxed pl-9">{faq.a}</p>
+                    <p className="text-slate-600 leading-relaxed pl-9">{faq.a}</p>
                   </div>
                 </StaggerItem>
               ))}
@@ -418,9 +418,9 @@ export default async function ServiceLocationPage({ params }: Props) {
       </section>
 
       {/* CTA */}
-      <section className="relative py-16 md:py-24 bg-void overflow-hidden">
-        <div className="glow-orb top-0 left-1/4 w-96 h-96 bg-primary-500/[0.1] animate-aurora" />
-        <div className="glow-orb bottom-0 right-1/4 w-72 h-72 bg-secondary-500/[0.1] animate-aurora" style={{ animationDelay: '4s' }} />
+      <section className="relative py-10 md:py-10 bg-void overflow-hidden">
+        <div className="glow-orb top-0 left-1/4 w-96 h-96 bg-primary-500/[0.1]" />
+        <div className="glow-orb bottom-0 right-1/4 w-72 h-72 bg-secondary-500/[0.1]" style={{ animationDelay: '4s' }} />
         <div className="absolute inset-0 bg-grid opacity-40 mask-radial-fade pointer-events-none" />
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary-500/40 to-transparent" />
 
@@ -431,10 +431,10 @@ export default async function ServiceLocationPage({ params }: Props) {
                 <Star key={i} size={20} className="text-amber-400 fill-amber-400" />
               ))}
             </div>
-            <h2 className="text-2xl md:text-4xl font-heading font-bold text-white mb-4">
+            <h2 className="text-2xl md:text-4xl font-heading font-bold text-slate-900 mb-4">
               Ready to Get Started with {service.title} in {city}?
             </h2>
-            <p className="text-slate-400 mb-8 max-w-xl mx-auto">
+            <p className="text-slate-600 mb-8 max-w-xl mx-auto">
               Talk to our experts today. Free consultation, no obligation. We&apos;ll show you exactly how we can help your business grow.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -457,10 +457,10 @@ export default async function ServiceLocationPage({ params }: Props) {
 
       {/* Other services in this city — internal linking across service pages */}
       {otherServices.length > 0 && (
-        <section className="relative py-14 bg-void">
+        <section className="relative py-10 bg-void">
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
           <div className="container-custom">
-            <h2 className="text-xl font-heading font-semibold text-white mb-6 text-center">
+            <h2 className="text-xl font-heading font-semibold text-slate-900 mb-6 text-center">
               Other Services We Offer in {city}
             </h2>
             <div className="flex flex-wrap justify-center gap-3">
@@ -468,7 +468,7 @@ export default async function ServiceLocationPage({ params }: Props) {
                 <Link
                   key={t.slug}
                   href={`/services/${t.slug}-in-${location.slug}`}
-                  className="px-4 py-2 bg-white/[0.03] border border-white/10 text-slate-400 text-sm rounded-full hover:border-primary-500/40 hover:text-primary-300 transition-all"
+                  className="px-4 py-2 bg-white border border-slate-200 text-slate-600 text-sm rounded-full hover:border-primary-500/40 hover:text-primary-600 transition-all"
                 >
                   {t.title} in {city}
                 </Link>
@@ -479,10 +479,10 @@ export default async function ServiceLocationPage({ params }: Props) {
       )}
 
       {/* Other cities */}
-      <section className="relative py-14 bg-void-50">
+      <section className="relative py-10 bg-void-50">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
         <div className="container-custom">
-          <h2 className="text-xl font-heading font-semibold text-white mb-6 text-center">
+          <h2 className="text-xl font-heading font-semibold text-slate-900 mb-6 text-center">
             {service.title} in Other Cities
           </h2>
           <div className="flex flex-wrap justify-center gap-3">
@@ -493,7 +493,7 @@ export default async function ServiceLocationPage({ params }: Props) {
                 <Link
                   key={loc.slug}
                   href={`/services/${service.slug}-in-${loc.slug}`}
-                  className="px-4 py-2 bg-white/[0.03] border border-white/10 text-slate-400 text-sm rounded-full hover:border-primary-500/40 hover:text-primary-300 transition-all"
+                  className="px-4 py-2 bg-white border border-slate-200 text-slate-600 text-sm rounded-full hover:border-primary-500/40 hover:text-primary-600 transition-all"
                 >
                   {service.title} in {loc.name}
                 </Link>

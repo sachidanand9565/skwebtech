@@ -40,14 +40,14 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-void text-slate-400 overflow-hidden" role="contentinfo">
+    <footer className="relative bg-void text-slate-600 overflow-hidden" role="contentinfo">
       {/* Ambient background */}
       <div className="absolute inset-0 bg-dots opacity-25 mask-fade-bottom pointer-events-none" />
       <div className="glow-orb -top-32 left-1/4 w-[480px] h-[280px] bg-primary-500/[0.07]" />
       <div className="glow-orb -bottom-24 right-1/5 w-[420px] h-[260px] bg-secondary-500/[0.07]" />
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary-500/40 to-transparent" />
 
-      <div className="relative border-b border-white/5">
+      <div className="relative border-b border-slate-200/60">
         <div className="container-custom py-6">
           <Reveal>
             <div className="flex flex-col md:flex-row items-center justify-between gap-4 bg-gradient-to-r from-green-500/10 to-emerald-500/5 border border-green-500/20 rounded-2xl px-6 py-5 backdrop-blur-sm">
@@ -57,7 +57,7 @@ export default function Footer() {
                 </div>
                 <div>
                   <div className="flex items-center gap-2 mb-0.5">
-                    <p className="text-white font-heading font-bold text-base">WhatsApp Business Platform</p>
+                    <p className="text-slate-900 font-heading font-bold text-base">WhatsApp Business Platform</p>
                     <span className="px-2 py-0.5 bg-green-500 text-white text-[10px] font-bold rounded-full uppercase tracking-wide">New</span>
                   </div>
                   <p className="text-green-400/80 text-sm">Connect your WhatsApp Business, run campaigns & automate customer communication</p>
@@ -83,7 +83,7 @@ export default function Footer() {
           {/* Company Info */}
           <div className="lg:col-span-2">
             <Link href="/" className="inline-flex items-center gap-3 mb-5 group">
-              <div className="w-11 h-11 rounded-xl overflow-hidden flex-shrink-0 bg-void-50 border border-white/10 transition-all duration-300 group-hover:border-primary-500/40 group-hover:shadow-glow-sm">
+              <div className="w-11 h-11 rounded-xl overflow-hidden flex-shrink-0 bg-void-50 border border-slate-200 transition-all duration-300 group-hover:border-primary-500/40 group-hover:shadow-glow-sm">
                 <Image
                   src="/images/logo.png"
                   alt="SK WebTech logo"
@@ -93,10 +93,10 @@ export default function Footer() {
                 />
               </div>
               <div className="flex flex-col leading-none">
-                <span className="font-heading font-bold text-lg text-white tracking-tight">
+                <span className="font-heading font-bold text-lg text-slate-900 tracking-tight">
                   SK<span className="gradient-text">WebTech</span>
                 </span>
-                <span className="text-[10px] text-white/30 uppercase tracking-[0.25em] font-medium mt-0.5">IT Solutions</span>
+                <span className="text-[10px] text-slate-600 uppercase tracking-[0.25em] font-medium mt-0.5">IT Solutions</span>
               </div>
             </Link>
             <p className="text-slate-500 mb-6 leading-relaxed text-sm max-w-xs">
@@ -109,7 +109,7 @@ export default function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 bg-white/[0.04] border border-white/10 rounded-xl flex items-center justify-center text-slate-400
+                  className="w-9 h-9 bg-white border border-slate-200 rounded-xl flex items-center justify-center text-slate-600
                              hover:text-void hover:bg-primary-500 hover:border-primary-500 hover:shadow-glow-sm hover:-translate-y-0.5
                              transition-all duration-300"
                   aria-label={`Follow us on ${social.name}`}
@@ -129,7 +129,7 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-white font-heading font-semibold text-sm uppercase tracking-[0.18em] mb-5">
+            <h3 className="text-slate-900 font-heading font-semibold text-sm uppercase tracking-[0.18em] mb-5">
               Quick Links
             </h3>
             <ul className="space-y-2.5">
@@ -149,7 +149,7 @@ export default function Footer() {
 
           {/* Services */}
           <div>
-            <h3 className="text-white font-heading font-semibold text-sm uppercase tracking-[0.18em] mb-5">
+            <h3 className="text-slate-900 font-heading font-semibold text-sm uppercase tracking-[0.18em] mb-5">
               Our Services
             </h3>
             <ul className="space-y-2.5">
@@ -181,7 +181,7 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="text-white font-heading font-semibold text-sm uppercase tracking-[0.18em] mb-5">
+            <h3 className="text-slate-900 font-heading font-semibold text-sm uppercase tracking-[0.18em] mb-5">
               Contact Us
             </h3>
             <ul className="space-y-4">
@@ -206,9 +206,9 @@ export default function Footer() {
               </li>
             </ul>
 
-            <div className="mt-6 pt-5 border-t border-white/5">
+            <div className="mt-6 pt-5 border-t border-slate-200/60">
               <p className="text-xs text-slate-600 leading-relaxed">
-                <span className="text-slate-400 font-medium block mb-1">Business Hours</span>
+                <span className="text-slate-600 font-medium block mb-1">Business Hours</span>
                 Mon – Fri: 9:00 AM – 6:00 PM<br />
                 Sat: 10:00 AM – 4:00 PM
               </p>
@@ -218,17 +218,17 @@ export default function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="relative border-t border-white/5">
+      <div className="relative border-t border-slate-200/60">
         <div className="container-custom py-5">
           <div className="flex flex-col md:flex-row justify-between items-center gap-3">
             <p className="text-slate-600 text-xs">
               © {currentYear} SK WebTech. All rights reserved.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4">
-              <Link href="/terms-and-conditions" className="text-slate-600 hover:text-slate-400 text-xs transition-colors">Terms & Conditions</Link>
-              <Link href="/refund-policy" className="text-slate-600 hover:text-slate-400 text-xs transition-colors">Refund Policy</Link>
-              <Link href="/privacy-policy" className="text-slate-600 hover:text-slate-400 text-xs transition-colors">Privacy Policy</Link>
-              <Link href="/contact" className="text-slate-600 hover:text-slate-400 text-xs transition-colors">Contact</Link>
+              <Link href="/terms-and-conditions" className="text-slate-600 hover:text-slate-600 text-xs transition-colors">Terms & Conditions</Link>
+              <Link href="/refund-policy" className="text-slate-600 hover:text-slate-600 text-xs transition-colors">Refund Policy</Link>
+              <Link href="/privacy-policy" className="text-slate-600 hover:text-slate-600 text-xs transition-colors">Privacy Policy</Link>
+              <Link href="/contact" className="text-slate-600 hover:text-slate-600 text-xs transition-colors">Contact</Link>
             </div>
           </div>
         </div>
