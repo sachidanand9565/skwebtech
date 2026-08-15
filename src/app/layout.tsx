@@ -24,9 +24,9 @@ const inter = Inter({
 });
 
 // Load Space Grotesk font for display headings
+// (variable font — one file covers all weights, so no unpreloaded font chain)
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
   variable: '--font-space-grotesk',
   display: 'swap',
 });
@@ -158,12 +158,13 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
         />
-        {/* Google Analytics (GA4) */}
+        {/* Google Analytics (GA4) — lazyOnload: loads after the page is fully
+            interactive so its 161KB doesn't compete with LCP/FCP (PageSpeed) */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-VFWVNGT6X8"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
-        <Script id="google-analytics" strategy="afterInteractive">
+        <Script id="google-analytics" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}

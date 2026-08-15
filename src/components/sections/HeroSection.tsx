@@ -1,7 +1,5 @@
 import Link from 'next/link';
 import { ArrowRight, CheckCircle } from 'lucide-react';
-import TextReveal from '@/components/motion/TextReveal';
-import Reveal from '@/components/motion/Reveal';
 import MagneticButton from '@/components/motion/MagneticButton';
 import Marquee from '@/components/motion/Marquee';
 import HeroVisual from './HeroVisual';
@@ -33,68 +31,54 @@ export default function HeroSection() {
       <div className="container-custom relative z-10 pt-24 pb-8 md:pt-28 md:pb-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
 
-          {/* Left - Content */}
+          {/* Left - Content — rendered statically (no entrance animation) so the
+              LCP element paints immediately without waiting on JS hydration */}
           <div className="flex flex-col items-start text-left">
             {/* Eyebrow pill */}
-            <Reveal delay={0.05} y={16} mode="mount">
-              <div className="badge-chip mb-7">
-                <span className="flex h-2 w-2 relative">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-primary-500" />
-                </span>
-                Trusted IT Partner Since 2014
-              </div>
-            </Reveal>
+            <div className="badge-chip mb-7">
+              <span className="flex h-2 w-2 relative">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary-500" />
+              </span>
+              Trusted IT Partner Since 2014
+            </div>
 
-            {/* Headline — split-text reveal, real text in DOM for SEO */}
             <h1 className="text-4xl sm:text-5xl lg:text-[3.6rem] font-heading font-bold text-slate-900 leading-[1.06] mb-6 tracking-tight">
-              <TextReveal text="Grow Your Business With" delay={0.15} as="span" className="block" mode="mount" />
-              <TextReveal
-                text="Professional Web & IT Solutions"
-                delay={0.4}
-                as="span"
-                className="block gradient-text"
-                mode="mount"
-              />
+              <span className="block">Grow Your Business With</span>
+              <span className="block gradient-text pb-1">Professional Web &amp; IT Solutions</span>
             </h1>
 
-            <Reveal delay={0.55} mode="mount">
-              <p className="text-lg text-slate-600 leading-relaxed mb-8 max-w-xl">
-                We build fast, secure, and SEO-ready websites, e-commerce stores, mobile apps, and WhatsApp Business automation for businesses across India.
-              </p>
-            </Reveal>
+            <p className="text-lg text-slate-600 leading-relaxed mb-8 max-w-xl">
+              We build fast, secure, and SEO-ready websites, e-commerce stores, mobile apps, and WhatsApp Business automation for businesses across India.
+            </p>
 
             {/* CTA Controls */}
-            <Reveal delay={0.7} mode="mount">
-              <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mb-9">
-                <MagneticButton>
-                  <Link
-                    href="/contact"
-                    className="btn-accent text-base px-8 py-4 font-semibold tracking-wide flex items-center justify-center group"
-                  >
-                    Get Free Consultation
-                    <ArrowRight size={18} className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
-                  </Link>
-                </MagneticButton>
-                <MagneticButton strength={0.2}>
-                  <Link href="/portfolio" className="btn-secondary text-base px-8 py-4">
-                    View Our Work
-                  </Link>
-                </MagneticButton>
-              </div>
-            </Reveal>
+            <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mb-9">
+              <MagneticButton>
+                <Link
+                  href="/contact"
+                  className="btn-accent text-base px-8 py-4 font-semibold tracking-wide flex items-center justify-center group"
+                >
+                  Get Free Consultation
+                  <ArrowRight size={18} className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+                </Link>
+              </MagneticButton>
+              <MagneticButton strength={0.2}>
+                <Link href="/portfolio" className="btn-secondary text-base px-8 py-4">
+                  View Our Work
+                </Link>
+              </MagneticButton>
+            </div>
 
             {/* Trust badges */}
-            <Reveal delay={0.85} mode="mount">
-              <div className="flex flex-wrap gap-x-6 gap-y-3 pt-6 border-t border-slate-200 w-full">
-                {trustBadges.map((badge) => (
-                  <div key={badge} className="flex items-center gap-2.5 text-sm">
-                    <CheckCircle size={16} className="text-primary-400 flex-shrink-0" />
-                    <span className="font-medium text-slate-700">{badge}</span>
-                  </div>
-                ))}
-              </div>
-            </Reveal>
+            <div className="flex flex-wrap gap-x-6 gap-y-3 pt-6 border-t border-slate-200 w-full">
+              {trustBadges.map((badge) => (
+                <div key={badge} className="flex items-center gap-2.5 text-sm">
+                  <CheckCircle size={16} className="text-primary-400 flex-shrink-0" />
+                  <span className="font-medium text-slate-700">{badge}</span>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Right - Mission control visual */}

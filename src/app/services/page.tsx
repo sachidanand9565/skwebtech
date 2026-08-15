@@ -230,20 +230,16 @@ export default async function ServicesPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
             {/* Left — content */}
             <div className="lg:col-span-7">
-              <Reveal y={16} mode="mount">
-                <span className="badge-chip mb-6">Our Services</span>
-              </Reveal>
+              <span className="badge-chip mb-6">Our Services</span>
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-slate-900 mb-5 leading-tight">
-                <TextReveal text="Growth-Focused Digital Services for" delay={0.1} as="span" mode="mount" />{' '}
-                <TextReveal text="Modern Businesses" delay={0.4} as="span" className="gradient-text" mode="mount" />
+                Growth-Focused Digital Services for{' '}
+                <span className="gradient-text">Modern Businesses</span>
               </h1>
-              <Reveal delay={0.5} mode="mount">
-                <p className="text-base md:text-lg text-slate-600 leading-relaxed max-w-2xl mb-8">
-                  From websites and e-commerce to WhatsApp automation and mobile apps - SK WebTech delivers end-to-end digital solutions that drive real business growth.
-                </p>
-              </Reveal>
+              <p className="text-base md:text-lg text-slate-600 leading-relaxed max-w-2xl mb-8">
+                From websites and e-commerce to WhatsApp automation and mobile apps - SK WebTech delivers end-to-end digital solutions that drive real business growth.
+              </p>
 
-              <Reveal delay={0.6} mode="mount">
+              <Reveal delay={0.3} mode="mount">
                 <div className="grid grid-cols-3 gap-3 max-w-lg mb-8">
                   {[
                     { label: 'Delivery', value: 'Fast & Reliable' },

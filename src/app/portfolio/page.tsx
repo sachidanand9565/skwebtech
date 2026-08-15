@@ -3,7 +3,6 @@ import PortfolioContent from '@/components/sections/PortfolioContent';
 import CTASection from '@/components/common/CTASection';
 import Counter from '@/components/motion/Counter';
 import Reveal from '@/components/motion/Reveal';
-import TextReveal from '@/components/motion/TextReveal';
 import { getProjects } from '@/lib/db';
 
 // ISR: DB-driven content (admin panel edits) refreshes within 5 minutes
@@ -47,8 +46,8 @@ export default async function PortfolioPage() {
             <span className="badge-chip mb-6">Our Portfolio</span>
           </Reveal>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold text-slate-900 mb-5 leading-tight">
-            <TextReveal text="Projects We're" delay={0.1} as="span" mode="mount" />{' '}
-            <TextReveal text="Proud Of" delay={0.3} as="span" className="gradient-text" mode="mount" />
+            <span>Projects We&apos;re</span>{' '}
+            <span className="gradient-text">Proud Of</span>
           </h1>
           <Reveal delay={0.45}>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto mb-12">

@@ -8,7 +8,6 @@ import {
 import CTASection from '@/components/common/CTASection';
 import Counter from '@/components/motion/Counter';
 import Reveal from '@/components/motion/Reveal';
-import TextReveal from '@/components/motion/TextReveal';
 import { StaggerContainer, StaggerItem } from '@/components/motion/Stagger';
 
 export const metadata: Metadata = {
@@ -74,8 +73,8 @@ export default function AboutPage() {
                 <span className="badge-chip mb-7">About SK WebTech</span>
               </Reveal>
               <h1 className="text-4xl sm:text-5xl font-heading font-bold text-slate-900 leading-tight mb-6">
-                <TextReveal text="Empowering Businesses Through" delay={0.1} as="span" mode="mount" />{' '}
-                <TextReveal text="Technology" delay={0.42} as="span" className="gradient-text" mode="mount" />
+                <span>Empowering Businesses Through</span>{' '}
+                <span className="gradient-text">Technology</span>
               </h1>
               <Reveal delay={0.5}>
                 <p className="text-lg text-slate-600 leading-relaxed mb-8 max-w-xl">

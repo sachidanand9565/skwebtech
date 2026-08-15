@@ -5,10 +5,14 @@ const nextConfig = {
   // Allow an isolated build dir (local verification builds can run alongside `next dev`)
   distDir: process.env.BUILD_DIR || '.next',
   // Strip Next's bundled legacy polyfills (~12KB) — browserslist targets modern browsers
-  webpack: (config, { isServer }) => {
+  webpack: (config, { isServer, webpack }) => {
     if (!isServer) {
-      config.resolve.alias['next/dist/build/polyfills/polyfill-module'] =
-        path.resolve(__dirname, 'polyfill-noop.js');
+      const noop = path.resolve(__dirname, 'polyfill-noop.js');
+      // Alias both the bare specifier and the resolved file (Next imports it relatively)
+      config.resolve.alias['next/dist/build/polyfills/polyfill-module'] = noop;
+      config.plugins.push(
+        new webpack.NormalModuleReplacementPlugin(/polyfills[\\/]polyfill-module/, noop)
+      );
     }
     return config;
   },

@@ -4,7 +4,6 @@ import ContactForm from '@/components/common/ContactForm';
 import WhatsAppIcon from '@/components/common/WhatsAppIcon';
 import { getServices } from '@/lib/db';
 import Reveal from '@/components/motion/Reveal';
-import TextReveal from '@/components/motion/TextReveal';
 import { StaggerContainer, StaggerItem } from '@/components/motion/Stagger';
 
 // ISR: DB-driven content (admin panel edits) refreshes within 5 minutes
@@ -60,8 +59,8 @@ export default async function ContactPage() {
             <span className="badge-chip mb-6">Get in Touch</span>
           </Reveal>
           <h1 className="text-4xl sm:text-5xl font-heading font-bold text-slate-900 mb-5 leading-tight">
-            <TextReveal text="Let's Build Something" delay={0.1} as="span" mode="mount" />{' '}
-            <TextReveal text="Amazing Together" delay={0.35} as="span" className="gradient-text" mode="mount" />
+            <span>Let&apos;s Build Something</span>{' '}
+            <span className="gradient-text">Amazing Together</span>
           </h1>
           <Reveal delay={0.5}>
             <p className="text-lg text-slate-600 max-w-xl mx-auto mb-10">
