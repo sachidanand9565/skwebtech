@@ -1,7 +1,17 @@
+const path = require('path');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Allow an isolated build dir (local verification builds can run alongside `next dev`)
   distDir: process.env.BUILD_DIR || '.next',
+  // Strip Next's bundled legacy polyfills (~12KB) — browserslist targets modern browsers
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.alias['next/dist/build/polyfills/polyfill-module'] =
+        path.resolve(__dirname, 'polyfill-noop.js');
+    }
+    return config;
+  },
   // Enable image optimization
   images: {
     remotePatterns: [
@@ -18,11 +28,9 @@ const nextConfig = {
   },
   // SEO-friendly trailing slashes
   trailingSlash: false,
-  experimental: {
-    // Inline critical CSS at build time (critters) — removes render-blocking
-    // stylesheet requests flagged by PageSpeed Insights
-    optimizeCss: true,
-  },
+  // NOTE: experimental.optimizeCss (critters) only works with the Pages Router,
+  // not the App Router — removed since it had no effect here. Full critical-CSS
+  // inlining lands with Next 15's experimental.inlineCss.
 };
 
 module.exports = nextConfig;
