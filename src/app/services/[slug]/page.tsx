@@ -234,7 +234,7 @@ export default async function ServiceLocationPage({ params }: Props) {
           '@type': 'Organization',
           name: 'SK WebTech',
           url: 'https://www.skwebtech.in',
-          telephone: '+919654603750',
+          telephone: '+916386103750',
           email: 'info@skwebtech.in',
           address: {
             '@type': 'PostalAddress',
@@ -321,10 +321,10 @@ export default async function ServiceLocationPage({ params }: Props) {
                   <ArrowRight size={18} className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
                 <a
-                  href="tel:9654603750"
+                  href="tel:6386103750"
                   className="btn-secondary gap-2"
                 >
-                  <Phone size={18} /> Call Now: +91 9654603750
+                  <Phone size={18} /> Call Now: +91 6386103750
                 </a>
               </div>
             </Reveal>

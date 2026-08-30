@@ -195,9 +195,9 @@ export default function Footer() {
                 </span>
               </li>
               <li>
-                <a href="tel:9654603750" className="flex items-center gap-3 text-slate-500 hover:text-primary-400 transition-colors text-sm">
+                <a href="tel:6386103750" className="flex items-center gap-3 text-slate-500 hover:text-primary-400 transition-colors text-sm">
                   <Phone size={16} className="text-primary-400 flex-shrink-0" />
-                  +91 9654603750
+                  +91 6386103750
                 </a>
               </li>
               <li>

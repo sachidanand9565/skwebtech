@@ -121,7 +121,7 @@ const orgJsonLd = {
         url: 'https://www.skwebtech.in/images/logo.png',
       },
       email: 'info@skwebtech.in',
-      telephone: '+91-9654603750',
+      telephone: '+91-6386103750',
       founder: { '@type': 'Person', name: 'Sachidanand Kushwaha' },
       address: { '@type': 'PostalAddress', addressCountry: 'IN' },
       sameAs: [

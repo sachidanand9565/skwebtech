@@ -16,7 +16,7 @@ export default function CTASection({
   title = 'Ready to Transform Your Digital Presence?',
   subtitle = "Let's discuss your project and see how we can help your business grow. Get a free consultation today!",
   primaryCTA = { text: 'Get Free Consultation', href: '/contact' },
-  secondaryCTA = { text: 'Call Us Now', href: 'tel:9654603750' },
+  secondaryCTA = { text: 'Call Us Now', href: 'tel:6386103750' },
 }: CTASectionProps) {
   return (
     <section className="relative py-12 md:py-16 overflow-hidden bg-void">

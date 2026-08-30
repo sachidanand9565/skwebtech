@@ -14,8 +14,8 @@ export const siteConfig = {
   // Contact information
   contact: {
     email: 'info@skwebtech.in',
-    phone: '+91 9654603750',
-    phoneRaw: '9654603750',
+    phone: '+91 6386103750',
+    phoneRaw: '6386103750',
     whatsapp: '919654603750',
     address: {
       street: 'Remote services available worldwide',

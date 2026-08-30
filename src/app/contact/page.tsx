@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 };
 
 const contactInfo = [
-  { icon: Phone, title: 'Call Us', content: '+91 9654603750', subtext: 'Mon–Fri, 9am–6pm IST', href: 'tel:9654603750', color: 'from-cyan-500 to-blue-600' },
+  { icon: Phone, title: 'Call Us', content: '+91 6386103750', subtext: 'Mon–Fri, 9am–6pm IST', href: 'tel:6386103750', color: 'from-cyan-500 to-blue-600' },
   { icon: Mail, title: 'Email Us', content: 'info@skwebtech.in', subtext: 'Reply within 24 hours', href: 'mailto:info@skwebtech.in', color: 'from-violet-500 to-purple-600' },
   { icon: MapPin, title: 'Location', content: 'Remote - India', subtext: 'Serving clients worldwide', href: undefined, color: 'from-emerald-500 to-green-600' },
   { icon: Clock, title: 'Business Hours', content: 'Mon–Fri: 9am–6pm', subtext: 'Sat: 10am–4pm', href: undefined, color: 'from-amber-500 to-orange-500' },
@@ -221,8 +221,8 @@ export default async function ContactPage() {
           <Reveal>
             <h2 className="text-2xl md:text-3xl font-heading font-bold text-slate-900 mb-3">Ready to Start Your Project?</h2>
             <p className="text-slate-600 mb-8 max-w-xl mx-auto">Get a free consultation and detailed quote. Our team is ready to help you achieve your digital goals.</p>
-            <a href="tel:9654603750" className="btn-accent inline-flex text-lg gap-2 px-8 py-4">
-              <Phone size={20} /> Call: +91 9654603750
+            <a href="tel:6386103750" className="btn-accent inline-flex text-lg gap-2 px-8 py-4">
+              <Phone size={20} /> Call: +91 6386103750
             </a>
           </Reveal>
         </div>

@@ -163,7 +163,7 @@ export default function ContactForm({ services }: { services?: ServiceOption[] }
             name="phone"
             value={formData.phone}
             onChange={handleChange}
-            placeholder="+91 9654603750"
+            placeholder="+91 6386103750"
             className="form-input"
           />
         </div>

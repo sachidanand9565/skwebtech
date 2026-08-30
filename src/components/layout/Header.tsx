@@ -214,7 +214,7 @@ export default function Header() {
                     Get Free Quote
                   </Link>
                   <p className="text-center text-slate-900/40 text-sm">
-                    Call: <a href="tel:9654603750" className="text-primary-400 hover:text-primary-600">+91 9654603750</a>
+                    Call: <a href="tel:6386103750" className="text-primary-400 hover:text-primary-600">+91 6386103750</a>
                   </p>
                 </motion.div>
               </div>
