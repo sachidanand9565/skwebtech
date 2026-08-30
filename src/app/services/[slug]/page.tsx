@@ -15,9 +15,12 @@ const FEATURE_ICONS = [
   Globe, Smartphone, Code, Database, Search, TrendingUp,
   Layout, Cloud, Package, Headphones,
 ];
-import { getServiceTemplate, getLocationBySlug, getServicePageTemplates, getLocations } from '@/lib/db';
+import {
+  getServiceTemplate, getLocationBySlug, getServicePageTemplates,
+  getLocations, getLocationContent,
+} from '@/lib/db';
 import { parseServiceLocationSlug } from '@/data/servicePages';
-import { interpolate } from '@/data/locations';
+import { interpolate, interpolateCity, formatList, CityContext } from '@/data/locations';
 
 // ISR: DB-driven content (admin panel edits) refreshes within 5 minutes
 export const revalidate = 300;
@@ -86,6 +89,8 @@ export async function generateStaticParams() {
   const locs = await getLocations();
   const params: { slug: string }[] = [];
   for (const service of templates) {
+    // Pillar page: /services/web-development (no city)
+    params.push({ slug: service.slug });
     for (const location of locs) {
       params.push({ slug: `${service.slug}-in-${location.slug}` });
     }
@@ -93,15 +98,29 @@ export async function generateStaticParams() {
   return params;
 }
 
+/**
+ * Resolves a slug to either a city page ({service, location}) or a
+ * pillar page ({service, location: null}) — pillar pages target
+ * country-level keywords and act as the internal-linking hub for city pages.
+ */
+async function resolveSlug(slug: string) {
+  const parsed = parseServiceLocationSlug(slug);
+  if (parsed) {
+    const service = await getServiceTemplate(parsed.serviceSlug);
+    const location = await getLocationBySlug(parsed.locationSlug);
+    if (service && location) return { service, location };
+  }
+  const pillarService = await getServiceTemplate(slug);
+  if (pillarService) return { service: pillarService, location: null };
+  return null;
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const parsed = parseServiceLocationSlug(params.slug);
-  if (!parsed) return { title: 'Not Found' };
+  const resolved = await resolveSlug(params.slug);
+  if (!resolved) return { title: 'Not Found' };
 
-  const service = await getServiceTemplate(parsed.serviceSlug);
-  const location = await getLocationBySlug(parsed.locationSlug);
-  if (!service || !location) return { title: 'Not Found' };
-
-  const city = location.name;
+  const { service, location } = resolved;
+  const city = location ? location.name : 'India';
   const title = interpolate(service.metaTitleTemplate, city);
   const description = interpolate(service.metaDescriptionTemplate, city);
   const keywords = service.keywordsTemplate.map((k) => interpolate(k, city));
@@ -133,14 +152,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ServiceLocationPage({ params }: Props) {
-  const parsed = parseServiceLocationSlug(params.slug);
-  if (!parsed) notFound();
+  const resolved = await resolveSlug(params.slug);
+  if (!resolved) notFound();
 
-  const service = await getServiceTemplate(parsed.serviceSlug);
-  const location = await getLocationBySlug(parsed.locationSlug);
-  if (!service || !location) notFound();
+  const { service, location } = resolved;
+  const isPillar = !location;
+  const city = location ? location.name : 'India';
 
-  const city = location.name;
   const h1 = interpolate(service.h1Template, city);
   const intro = interpolate(service.introTemplate, city);
   const subIntro = interpolate(service.subIntroTemplate, city);
@@ -150,9 +168,60 @@ export default async function ServiceLocationPage({ params }: Props) {
   }));
 
   const locs = await getLocations();
-  // Interlinking: same city ke doosre services (210 pages ka cross-link lattice)
+  // Interlinking: same city ke doosre services (cross-link lattice)
   const allTemplates = await getServicePageTemplates();
   const otherServices = allTemplates.filter((t) => t.slug !== service.slug);
+
+  // Unique per-city layer: intro, industries, areas from location_content
+  const cityData = location ? await getLocationContent(location.slug) : undefined;
+
+  // Long-form article: base service article + unique city-specific section
+  let articleMd = service.contentTemplate ? interpolate(service.contentTemplate, city) : '';
+  if (location && cityData && service.cityContentTemplate) {
+    const ctx: CityContext = {
+      city,
+      state: location.state,
+      citySlug: location.slug,
+      cityIntro: cityData.intro,
+      industries: formatList(cityData.industries),
+      areas: formatList(cityData.areas.slice(0, 6)),
+    };
+    articleMd += '\n\n' + interpolateCity(service.cityContentTemplate, ctx);
+  }
+
+  // City-unique FAQs composed from location data (also emitted as FAQ schema)
+  if (location && cityData) {
+    faqs.push(
+      {
+        q: `Do you provide ${service.title} across all areas of ${city}?`,
+        a: `Yes. We work with clients across ${city} — including ${formatList(cityData.areas.slice(0, 5))} — and our process is fully remote-friendly. Calls, WhatsApp updates and screen-shares keep you involved at every step, so your location in ${location.state} never slows a project down.`,
+      },
+      {
+        q: `Which industries in ${city} do you work with?`,
+        a: `We build for businesses across ${city}'s key sectors, including ${formatList(cityData.industries)}. Every engagement is adapted to your industry and your customers rather than a one-size-fits-all package.`,
+      }
+    );
+  }
+
+  // Other-cities links: same-state cities first (geo-relevant interlinking)
+  const otherCities = location
+    ? [
+        ...locs.filter((l) => l.state === location.state && l.slug !== location.slug),
+        ...locs.filter((l) => l.state !== location.state),
+      ].slice(0, 16)
+    : [];
+
+  const pageUrl = `https://www.skwebtech.in/services/${params.slug}`;
+  const breadcrumbItems = [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.skwebtech.in' },
+    { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://www.skwebtech.in/services' },
+    ...(isPillar
+      ? [{ '@type': 'ListItem', position: 3, name: service.title, item: pageUrl }]
+      : [
+          { '@type': 'ListItem', position: 3, name: service.title, item: `https://www.skwebtech.in/services/${service.slug}` },
+          { '@type': 'ListItem', position: 4, name: h1, item: pageUrl },
+        ]),
+  ];
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -170,10 +239,12 @@ export default async function ServiceLocationPage({ params }: Props) {
           address: {
             '@type': 'PostalAddress',
             addressCountry: 'IN',
-            addressLocality: city,
+            ...(location ? { addressLocality: city } : {}),
           },
         },
-        areaServed: { '@type': 'City', name: city },
+        areaServed: location
+          ? { '@type': 'City', name: city }
+          : { '@type': 'Country', name: 'India' },
         serviceType: service.title,
       },
       {
@@ -186,11 +257,7 @@ export default async function ServiceLocationPage({ params }: Props) {
       },
       {
         '@type': 'BreadcrumbList',
-        itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.skwebtech.in' },
-          { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://www.skwebtech.in/services' },
-          { '@type': 'ListItem', position: 3, name: h1, item: `https://www.skwebtech.in/services/${params.slug}` },
-        ],
+        itemListElement: breadcrumbItems,
       },
     ],
   };
@@ -210,19 +277,31 @@ export default async function ServiceLocationPage({ params }: Props) {
 
         <div className="container-custom relative z-10">
           {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 text-sm text-slate-500 mb-6" aria-label="Breadcrumb">
+          <nav className="flex items-center gap-2 text-sm text-slate-500 mb-6 flex-wrap" aria-label="Breadcrumb">
             <Link href="/" className="hover:text-slate-900 transition-colors">Home</Link>
             <span>/</span>
             <Link href="/services" className="hover:text-slate-900 transition-colors">Services</Link>
             <span>/</span>
-            <span className="text-slate-700">{h1}</span>
+            {isPillar ? (
+              <span className="text-slate-700">{service.title}</span>
+            ) : (
+              <>
+                <Link href={`/services/${service.slug}`} className="hover:text-slate-900 transition-colors">
+                  {service.title}
+                </Link>
+                <span>/</span>
+                <span className="text-slate-700">{city}</span>
+              </>
+            )}
           </nav>
 
           <div className="max-w-3xl">
             <Reveal y={16}>
               <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white backdrop-blur-sm border border-slate-200 rounded-full mb-6">
                 <MapPin size={14} className="text-primary-400" />
-                <span className="text-slate-700 text-xs font-medium">{service.title} · {location.name}, {location.state}</span>
+                <span className="text-slate-700 text-xs font-medium">
+                  {service.title} · {location ? `${location.name}, ${location.state}` : 'All Over India'}
+                </span>
               </div>
             </Reveal>
 
@@ -364,8 +443,9 @@ export default async function ServiceLocationPage({ params }: Props) {
         </div>
       </section>
 
-      {/* Long-form SEO content — unique per service, city-specific via interpolation */}
-      {service.contentTemplate && (
+      {/* Long-form SEO content — unique per service, plus a unique city-specific
+          section composed from location_content (industries, areas, city intro) */}
+      {articleMd && (
         <section className="relative py-10 md:py-10 bg-void">
           <div className="container-custom">
             <div
@@ -377,7 +457,7 @@ export default async function ServiceLocationPage({ params }: Props) {
                 prose-a:text-primary-400 prose-a:no-underline hover:prose-a:underline
                 prose-strong:text-slate-900
                 prose-ul:text-slate-700 prose-li:marker:text-primary-400"
-              dangerouslySetInnerHTML={{ __html: renderMarkdown(interpolate(service.contentTemplate, city)) }}
+              dangerouslySetInnerHTML={{ __html: renderMarkdown(articleMd) }}
             />
           </div>
         </section>
@@ -455,22 +535,22 @@ export default async function ServiceLocationPage({ params }: Props) {
         </div>
       </section>
 
-      {/* Other services in this city — internal linking across service pages */}
+      {/* Other services — internal linking across the service lattice */}
       {otherServices.length > 0 && (
         <section className="relative py-10 bg-void">
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
           <div className="container-custom">
             <h2 className="text-xl font-heading font-semibold text-slate-900 mb-6 text-center">
-              Other Services We Offer in {city}
+              {location ? `Other Services We Offer in ${city}` : 'Explore Our Other Services'}
             </h2>
             <div className="flex flex-wrap justify-center gap-3">
               {otherServices.map((t) => (
                 <Link
                   key={t.slug}
-                  href={`/services/${t.slug}-in-${location.slug}`}
+                  href={location ? `/services/${t.slug}-in-${location.slug}` : `/services/${t.slug}`}
                   className="px-4 py-2 bg-white border border-slate-200 text-slate-600 text-sm rounded-full hover:border-primary-500/40 hover:text-primary-600 transition-all"
                 >
-                  {t.title} in {city}
+                  {location ? `${t.title} in ${city}` : t.title}
                 </Link>
               ))}
             </div>
@@ -478,18 +558,40 @@ export default async function ServiceLocationPage({ params }: Props) {
         </section>
       )}
 
-      {/* Other cities */}
-      <section className="relative py-10 bg-void-50">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-        <div className="container-custom">
-          <h2 className="text-xl font-heading font-semibold text-slate-900 mb-6 text-center">
-            {service.title} in Other Cities
-          </h2>
-          <div className="flex flex-wrap justify-center gap-3">
-            {locs
-              .filter((l) => l.slug !== location.slug)
-              .slice(0, 16)
-              .map((loc) => (
+      {/* Pillar page: hub linking to every city page (hub-and-spoke SEO architecture).
+          City page: same-state cities first, then metros — plus a link back to the hub. */}
+      {isPillar ? (
+        <section className="relative py-10 bg-void-50">
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+          <div className="container-custom">
+            <h2 className="text-xl font-heading font-semibold text-slate-900 mb-2 text-center">
+              {service.title} Across India — Cities We Serve
+            </h2>
+            <p className="text-sm text-slate-500 text-center mb-6">
+              Local expertise, delivered remotely — pick your city for pricing and details
+            </p>
+            <div className="flex flex-wrap justify-center gap-2.5">
+              {locs.map((loc) => (
+                <Link
+                  key={loc.slug}
+                  href={`/services/${service.slug}-in-${loc.slug}`}
+                  className="px-3.5 py-1.5 bg-white border border-slate-200 text-slate-600 text-sm rounded-full hover:border-primary-500/40 hover:text-primary-600 transition-all"
+                >
+                  {loc.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : (
+        <section className="relative py-10 bg-void-50">
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+          <div className="container-custom">
+            <h2 className="text-xl font-heading font-semibold text-slate-900 mb-6 text-center">
+              {service.title} in Other Cities
+            </h2>
+            <div className="flex flex-wrap justify-center gap-3">
+              {otherCities.map((loc) => (
                 <Link
                   key={loc.slug}
                   href={`/services/${service.slug}-in-${loc.slug}`}
@@ -498,9 +600,16 @@ export default async function ServiceLocationPage({ params }: Props) {
                   {service.title} in {loc.name}
                 </Link>
               ))}
+              <Link
+                href={`/services/${service.slug}`}
+                className="px-4 py-2 bg-primary-500/[0.06] border border-primary-500/25 text-primary-600 text-sm font-medium rounded-full hover:border-primary-500/50 transition-all"
+              >
+                View All Cities →
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </>
   );
 }

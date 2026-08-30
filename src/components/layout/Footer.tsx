@@ -20,13 +20,15 @@ const quickLinks = [
   { name: 'Refund Policy', href: '/refund-policy' },
 ];
 
+// Pillar pages — site-wide internal links strengthen the service hub pages
 const serviceLinks = [
-  { name: 'Web Development', href: '/services#web-development', icon: Globe },
-  { name: 'E-Commerce Solutions', href: '/services#ecommerce', icon: ShoppingCart },
-  { name: 'SEO Optimization', href: '/services#seo', icon: Search },
-  { name: 'App Development', href: '/services#app-development', icon: Smartphone },
-  { name: 'UI/UX Design', href: '/services#uiux', icon: Palette },
-  { name: 'Maintenance & Support', href: '/services#maintenance', icon: Settings },
+  { name: 'Web Development', href: '/services/web-development', icon: Globe },
+  { name: 'E-Commerce Solutions', href: '/services/ecommerce-development', icon: ShoppingCart },
+  { name: 'SEO Optimization', href: '/services/seo-services', icon: Search },
+  { name: 'App Development', href: '/services/mobile-app-development', icon: Smartphone },
+  { name: 'UI/UX Design', href: '/services/ui-ux-design', icon: Palette },
+  { name: 'WhatsApp Business', href: '/services/whatsapp-business', icon: WhatsAppIcon },
+  { name: 'Maintenance & Support', href: '/services/website-maintenance', icon: Settings },
 ];
 
 const socialLinks = [

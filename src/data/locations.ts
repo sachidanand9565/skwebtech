@@ -104,3 +104,32 @@ export function getLocationBySlug(slug: string): Location | undefined {
 export function interpolate(template: string, city: string): string {
   return template.replace(/\{city\}/g, city);
 }
+
+/** "a, b, c" → "a, b and c" — natural-reading list for prose */
+export function formatList(items: string[]): string {
+  if (items.length === 0) return '';
+  if (items.length === 1) return items[0];
+  return `${items.slice(0, -1).join(', ')} and ${items[items.length - 1]}`;
+}
+
+export interface CityContext {
+  city: string;
+  state: string;
+  citySlug: string;
+  cityIntro: string;
+  /** Formatted prose list, e.g. "textiles, pharma and real estate" */
+  industries: string;
+  /** Formatted prose list of localities */
+  areas: string;
+}
+
+/** Interpolates {city}, {state}, {citySlug}, {cityIntro}, {industries}, {areas} */
+export function interpolateCity(template: string, ctx: CityContext): string {
+  return template
+    .replace(/\{city\}/g, ctx.city)
+    .replace(/\{state\}/g, ctx.state)
+    .replace(/\{citySlug\}/g, ctx.citySlug)
+    .replace(/\{cityIntro\}/g, ctx.cityIntro)
+    .replace(/\{industries\}/g, ctx.industries)
+    .replace(/\{areas\}/g, ctx.areas);
+}

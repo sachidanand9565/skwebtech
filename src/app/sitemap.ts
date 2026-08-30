@@ -28,6 +28,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const serviceLocationRoutes: MetadataRoute.Sitemap = [];
 
   for (const service of templates) {
+    // Pillar page (hub) — higher priority than city spokes
+    serviceLocationRoutes.push({
+      url: `${baseUrl}/services/${service.slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.9,
+    });
     for (const location of locations) {
       serviceLocationRoutes.push({
         url: `${baseUrl}/services/${service.slug}-in-${location.slug}`,

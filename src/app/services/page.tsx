@@ -371,6 +371,12 @@ export default async function ServicesPage() {
                           <WhatsAppIcon size={16} /> Launch WA Platform <ExternalLink size={13} />
                         </a>
                       ) : null}
+                      {service.dynamicSlug && (
+                        <Link href={`/services/${service.dynamicSlug}`} className="btn-secondary text-sm group">
+                          Explore {service.title}
+                          <ArrowRight size={15} className="ml-1.5 transition-transform duration-300 group-hover:translate-x-1" />
+                        </Link>
+                      )}
                       <Link href="/contact" className="btn-primary text-sm group">
                         Get Free Consultation
                         <ArrowRight size={15} className="ml-1.5 transition-transform duration-300 group-hover:translate-x-1" />
@@ -391,6 +397,12 @@ export default async function ServicesPage() {
                               {city}
                             </Link>
                           ))}
+                          <Link
+                            href={`/services/${service.dynamicSlug}`}
+                            className="px-3 py-1 bg-primary-500/[0.06] border border-primary-500/25 text-primary-600 text-xs font-medium rounded-full hover:border-primary-500/50 transition-all"
+                          >
+                            All Cities →
+                          </Link>
                         </div>
                       </div>
                     )}

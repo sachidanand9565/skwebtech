@@ -7,6 +7,7 @@ import { projects as initialProjects, Project } from '@/data/portfolio';
 import { services as initialServices, Service } from '@/data/services';
 import { servicePageTemplates as initialServicePages, ServicePageTemplate } from '@/data/servicePages';
 import { locations as initialLocations, Location } from '@/data/locations';
+import { locationContent as initialLocationContent, LocationContent } from '@/data/locationContent';
 
 // Type definitions
 export interface ContactMessage {
@@ -129,7 +130,11 @@ export async function initDb() {
   );
   if ((priceColRows as any)[0].count === 0) {
     console.log('Adding price column to services table...');
-    await db.query(`ALTER TABLE services ADD COLUMN price VARCHAR(50) DEFAULT NULL AFTER color`);
+    try {
+      await db.query(`ALTER TABLE services ADD COLUMN price VARCHAR(50) DEFAULT NULL AFTER color`);
+    } catch (err: any) {
+      if (err?.code !== 'ER_DUP_FIELDNAME') throw err;
+    }
     for (const serv of initialServices) {
       if (serv.price) {
         await db.query(
@@ -158,7 +163,8 @@ export async function initDb() {
       features TEXT,
       technologies TEXT,
       benefits TEXT,
-      faqsTemplate TEXT
+      faqsTemplate TEXT,
+      cityContentTemplate MEDIUMTEXT
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
   `);
 
@@ -171,7 +177,11 @@ export async function initDb() {
   );
   if ((contentColRows as any)[0].count === 0) {
     console.log('Adding contentTemplate column to service_pages table...');
-    await db.query(`ALTER TABLE service_pages ADD COLUMN contentTemplate MEDIUMTEXT NULL AFTER subIntroTemplate`);
+    try {
+      await db.query(`ALTER TABLE service_pages ADD COLUMN contentTemplate MEDIUMTEXT NULL AFTER subIntroTemplate`);
+    } catch (err: any) {
+      if (err?.code !== 'ER_DUP_FIELDNAME') throw err;
+    }
   }
   // Backfill rows that don't have content yet (idempotent — only fills empty)
   for (const template of initialServicePages) {
@@ -183,12 +193,48 @@ export async function initDb() {
     }
   }
 
+  // Migration: cityContentTemplate column (city-specific unique section per
+  // service page) — add on older installs and backfill from seed data
+  const [cityColRows] = await db.query(
+    `SELECT COUNT(*) as count FROM information_schema.COLUMNS
+     WHERE TABLE_SCHEMA = ? AND TABLE_NAME = 'service_pages' AND COLUMN_NAME = 'cityContentTemplate'`,
+    [DB_NAME]
+  );
+  if ((cityColRows as any)[0].count === 0) {
+    console.log('Adding cityContentTemplate column to service_pages table...');
+    try {
+      await db.query(`ALTER TABLE service_pages ADD COLUMN cityContentTemplate MEDIUMTEXT NULL AFTER faqsTemplate`);
+    } catch (err: any) {
+      // Parallel build workers race on this migration — column already added is fine
+      if (err?.code !== 'ER_DUP_FIELDNAME') throw err;
+    }
+  }
+  for (const template of initialServicePages) {
+    if (template.cityContentTemplate) {
+      await db.query(
+        `UPDATE service_pages SET cityContentTemplate = ? WHERE slug = ? AND (cityContentTemplate IS NULL OR cityContentTemplate = '')`,
+        [template.cityContentTemplate, template.slug]
+      );
+    }
+  }
+
   // 5. Create Locations table
   await db.query(`
     CREATE TABLE IF NOT EXISTS locations (
       slug VARCHAR(100) PRIMARY KEY,
       name VARCHAR(100) NOT NULL,
       state VARCHAR(100)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `);
+
+  // 5b. Create Location Content table — unique per-city SEO content
+  // (intro, industries, areas) that makes each service×city page unique
+  await db.query(`
+    CREATE TABLE IF NOT EXISTS location_content (
+      slug VARCHAR(100) PRIMARY KEY,
+      intro TEXT,
+      industries TEXT,
+      areas TEXT
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
   `);
 
@@ -298,8 +344,8 @@ export async function initDb() {
     console.log('Seeding initial service pages into MySQL...');
     for (const template of initialServicePages) {
       await db.query(
-        `INSERT INTO service_pages (id, slug, title, color, textColor, metaTitleTemplate, metaDescriptionTemplate, keywordsTemplate, h1Template, introTemplate, subIntroTemplate, contentTemplate, features, technologies, benefits, faqsTemplate)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        `INSERT INTO service_pages (id, slug, title, color, textColor, metaTitleTemplate, metaDescriptionTemplate, keywordsTemplate, h1Template, introTemplate, subIntroTemplate, contentTemplate, features, technologies, benefits, faqsTemplate, cityContentTemplate)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         [
           template.id,
           template.slug,
@@ -316,7 +362,8 @@ export async function initDb() {
           JSON.stringify(template.features),
           JSON.stringify(template.technologies),
           JSON.stringify(template.benefits),
-          JSON.stringify(template.faqsTemplate)
+          JSON.stringify(template.faqsTemplate),
+          template.cityContentTemplate || ''
         ]
       );
     }
@@ -332,6 +379,15 @@ export async function initDb() {
         [loc.slug, loc.name, loc.state]
       );
     }
+  }
+
+  // Seed location content — INSERT IGNORE so it's idempotent and also
+  // backfills any new cities added to the seed file later
+  for (const lc of initialLocationContent) {
+    await db.query(
+      `INSERT IGNORE INTO location_content (slug, intro, industries, areas) VALUES (?, ?, ?, ?)`,
+      [lc.slug, lc.intro, JSON.stringify(lc.industries), JSON.stringify(lc.areas)]
+    );
   }
 
   // Seed default admin user — username 'admin', password from ADMIN_PASSWORD env
@@ -531,6 +587,7 @@ export async function getServicePageTemplates(): Promise<ServicePageTemplate[]> 
     introTemplate: r.introTemplate,
     subIntroTemplate: r.subIntroTemplate,
     contentTemplate: r.contentTemplate || '',
+    cityContentTemplate: r.cityContentTemplate || '',
     features: JSON.parse(r.features || '[]'),
     technologies: JSON.parse(r.technologies || '[]'),
     benefits: JSON.parse(r.benefits || '[]'),
@@ -545,8 +602,8 @@ export async function saveServicePageTemplates(templates: ServicePageTemplate[])
     await db.query('DELETE FROM service_pages');
     for (const template of templates) {
       await db.query(
-        `INSERT INTO service_pages (id, slug, title, color, textColor, metaTitleTemplate, metaDescriptionTemplate, keywordsTemplate, h1Template, introTemplate, subIntroTemplate, contentTemplate, features, technologies, benefits, faqsTemplate)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        `INSERT INTO service_pages (id, slug, title, color, textColor, metaTitleTemplate, metaDescriptionTemplate, keywordsTemplate, h1Template, introTemplate, subIntroTemplate, contentTemplate, features, technologies, benefits, faqsTemplate, cityContentTemplate)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         [
           template.id,
           template.slug,
@@ -563,7 +620,8 @@ export async function saveServicePageTemplates(templates: ServicePageTemplate[])
           JSON.stringify(template.features),
           JSON.stringify(template.technologies),
           JSON.stringify(template.benefits),
-          JSON.stringify(template.faqsTemplate)
+          JSON.stringify(template.faqsTemplate),
+          template.cityContentTemplate || ''
         ]
       );
     }
@@ -721,4 +779,19 @@ export async function getServiceTemplate(serviceSlug: string): Promise<ServicePa
 export async function getLocationBySlug(slug: string): Promise<Location | undefined> {
   const locations = await getLocations();
   return locations.find((l) => l.slug === slug);
+}
+
+// 8. Location content — unique per-city SEO content
+export async function getLocationContent(slug: string): Promise<LocationContent | undefined> {
+  await ensureInit();
+  const db = getPool();
+  const [rows] = await db.query('SELECT * FROM location_content WHERE slug = ?', [slug]);
+  const r = (rows as any[])[0];
+  if (!r) return undefined;
+  return {
+    slug: r.slug,
+    intro: r.intro || '',
+    industries: JSON.parse(r.industries || '[]'),
+    areas: JSON.parse(r.areas || '[]'),
+  };
 }

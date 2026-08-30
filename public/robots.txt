@@ -1,12 +1,15 @@
 # SK WebTech - Robots.txt
-# https://skwebtech.in
+# https://www.skwebtech.in
 
 User-agent: *
 Allow: /
 
 # Disallow admin and API routes
 Disallow: /api/
+Disallow: /admin/
 Disallow: /_next/
+Disallow: /gateway/
+Disallow: /gateway-test/
 
 # Sitemap location
-Sitemap: https://skwebtech.in/sitemap.xml
+Sitemap: https://www.skwebtech.in/sitemap.xml

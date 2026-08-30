@@ -22,6 +22,13 @@ export interface ServicePageTemplate {
   subIntroTemplate: string;
   /** Long-form unique SEO article shown on the page (markdown, {city} placeholders) */
   contentTemplate: string;
+  /**
+   * City-specific markdown section appended to the article on city pages.
+   * Supports {city}, {state}, {citySlug}, {cityIntro}, {industries}, {areas}
+   * placeholders — combined with per-city data (locationContent.ts) this makes
+   * every service×city page genuinely unique.
+   */
+  cityContentTemplate?: string;
   features: ServiceFeature[];
   technologies: string[];
   benefits: { title: string; desc: string; icon: string }[];
@@ -85,6 +92,15 @@ Week one is discovery and design: we share layouts and you react to something co
 After launch you are not left alone either. Every project includes support, and most of our {city} clients stay with us on maintenance plans because it is cheaper than firefighting problems later.
 
 If you have been putting off your website — or tolerating one that embarrasses you — talk to us. The consultation is free, and you will leave it with a clear plan and an honest price, whether or not you hire us.`,
+    cityContentTemplate: `## Web Development for {city} Businesses
+
+{cityIntro}
+
+For businesses in sectors like {industries}, the website has quietly become the first salesperson. Customers in {city} compare options online before they visit or call, and the competitor who shows up first — and looks credible — wins the enquiry. We build websites that put {city} businesses in that winning position: fast to load on any connection, easy to find on Google, and structured to turn visitors into phone calls and orders.
+
+We work with clients across {city}, including businesses around {areas}. Our process is fully remote-friendly — requirement discussions on calls and WhatsApp, designs shared as clickable links, and a live staging site you can open from anywhere in {state} to watch your project take shape.
+
+Many of our {city} clients pair a new website with [SEO services](/services/seo-services-in-{citySlug}) to rank for local searches, and [website maintenance](/services/website-maintenance-in-{citySlug}) to keep it fast and secure — all handled by the same team that built the site, so nothing falls between vendors.`,
     features: [
       { title: 'Custom Website Design', desc: 'Pixel-perfect, brand-aligned designs built from scratch - no templates' },
       { title: 'Next.js & React Development', desc: 'Blazing-fast web apps with server-side rendering and modern frameworks' },
@@ -178,6 +194,15 @@ A ready-platform store on Shopify or WooCommerce, set up properly with payments,
 The launch is the easy part. The months after — festival sale traffic, a payment gateway acting up at midnight, a courier API changing without notice — are where most store owners get stuck. Our support plans cover monitoring, updates and quick fixes, so you spend your time on products and marketing instead of technical firefighting.
 
 If you are planning your first store in {city}, or your current one leaks sales at checkout, get in touch. We will review your situation on a free call and give you a straight recommendation, even if that recommendation is "you don't need us yet."`,
+    cityContentTemplate: `## Selling Online from {city}
+
+{cityIntro}
+
+That local strength is exactly what e-commerce multiplies. Businesses dealing in {industries} no longer need to depend only on walk-in customers or wholesale buyers — a properly built online store takes {city}'s products to customers across India and beyond. We have watched sellers start with a small catalogue and grow into hundreds of orders a month, because payments, shipping and GST were handled correctly from day one.
+
+Whether your business operates around {areas} or anywhere else in {city}, the entire setup happens remotely: store build, payment gateway activation, courier integration and training for your team, with progress you can review at every step.
+
+Store owners in {city} get the best returns by combining their store with [SEO](/services/seo-services-in-{citySlug}) so product pages rank on Google, and [WhatsApp automation](/services/whatsapp-business-in-{citySlug}) for order alerts and abandoned-cart recovery — the two highest-ROI add-ons we know of in Indian e-commerce.`,
     features: [
       { title: 'Custom E-Commerce Design', desc: 'Brand-aligned store designs built for maximum conversions' },
       { title: 'Payment Gateway Integration', desc: 'Razorpay, Stripe, PayPal, UPI, and all major payment options' },
@@ -267,6 +292,15 @@ It also means your SEO and your website never fight each other. When a landing p
 Local SEO packages start at ₹8,000 per month — right for a clinic, showroom, restaurant or firm targeting customers within {city}. Competitive national campaigns run ₹25,000 to ₹50,000+ monthly depending on the industry. Before any of that, we do a free audit of your site and current rankings, so the plan we quote is based on your actual situation rather than a standard menu.
 
 Search traffic is the cheapest customer acquisition channel you will ever have — but only after the groundwork is done. The sooner it starts, the sooner it compounds. Send us your website and we will show you, specifically, what is holding it back.`,
+    cityContentTemplate: `## Ranking on Google in {city}: The Local Picture
+
+{cityIntro}
+
+Every one of those businesses is competing for the same first page of Google. When customers search for anything related to {industries} in {city}, the map pack and the top three organic results take almost all the clicks — everything below that is invisible. Our job is to get you into that visible group: a fully optimised Google Business Profile, landing pages tuned for searches from areas like {areas}, citations in the directories that matter in India, and content written around what {city} customers actually type.
+
+Because we [build websites ourselves](/services/web-development-in-{citySlug}), technical fixes never sit in another vendor's queue. Slow pages, broken links and crawl errors get fixed by the same team running your campaign — one reason our {city} clients typically see movement faster than businesses juggling separate SEO and web agencies.
+
+If your website itself is holding rankings back, we will tell you honestly whether a tune-up or a [rebuild](/services/web-development-in-{citySlug}) is the cheaper path to page one.`,
     features: [
       { title: 'Technical SEO Audit', desc: 'Deep-dive audit of site speed, crawlability, indexing, and technical issues' },
       { title: 'Keyword Research & Strategy', desc: 'Data-driven keyword targeting based on search volume, intent, and competition' },
@@ -355,6 +389,15 @@ A focused single-purpose app starts around ₹50,000. Most business apps — log
 Apps are not websites; they live in an ecosystem that keeps shifting under them. OS updates land every year, libraries deprecate, and users update their phones whether your app is ready or not. Our maintenance plans keep apps updated, monitored and crash-free — and most of our {city} clients treat that as part of the cost of running an app, because it is.
 
 If you have an app idea and no technical background, that is fine — most of our clients started exactly there. Bring the idea; we will bring the questions. The first consultation is free and you will leave with a realistic sense of scope, cost and timeline.`,
+    cityContentTemplate: `## Building Apps for the {city} Market
+
+{cityIntro}
+
+Sectors like {industries} increasingly serve their customers through mobile — bookings, orders, payments and loyalty all live on the phone now. An app puts your {city} business on the customer's home screen, instead of hoping they remember your name the next time they search.
+
+We build for clients across {city}, from businesses around {areas} to startups anywhere in {state}, with the entire process running remotely: requirement calls, Figma design reviews you can tap through on your own phone, a fresh test build every fortnight, and Play Store / App Store launch handled end to end.
+
+Most apps also need a backend, an admin panel and often a companion website — which our [web development team](/services/web-development-in-{citySlug}) builds alongside the app so everything ships together. And if you are still validating the idea, ask us honestly whether a mobile-first website or PWA can test demand in {city} before you commit an app-sized budget.`,
     features: [
       { title: 'Native iOS Development', desc: 'Swift-powered iOS apps with exceptional performance and Apple design guidelines' },
       { title: 'Native Android Development', desc: 'Kotlin-based Android apps with Material Design and Google Play compliance' },
@@ -442,6 +485,15 @@ A flaw caught in a Figma prototype takes an hour to fix. The same flaw caught af
 A landing page or small app design starts around ₹20,000. Full product design — research, flows, high-fidelity screens and a design system — typically runs ₹60,000 to ₹2,00,000+ depending on the number of screens and depth of research. Deliverables are developer-ready: organised Figma files, specs and assets that any competent team, ours or yours, can build from directly.
 
 If your product looks fine but underperforms, the problem is usually invisible to whoever built it. A fresh audit finds it fast. Send us the link — the first review call is free, and it is usually an eye-opener.`,
+    cityContentTemplate: `## Designing for {city} Audiences
+
+{cityIntro}
+
+Good design starts with knowing exactly who will use the product. The customers of {industries} bring very different expectations, patience levels and devices — and an interface designed for a metro SaaS user can thoroughly confuse a first-time buyer browsing on a budget Android phone over patchy 4G. We design for your real audience in {city}: clear visual hierarchy, familiar patterns, screens that load fast, and Hindi or regional language support where it genuinely helps conversion.
+
+We have collaborated with businesses around {areas} and across {city} entirely remotely — Figma links that open on any phone, feedback rounds over WhatsApp, and clickable prototypes your own customers can test before a single line of code is written.
+
+Once the design is approved, our [development team](/services/web-development-in-{citySlug}) can build it pixel-perfect, or we hand over developer-ready files to your existing team. Either way, nothing gets lost between design and build.`,
     features: [
       { title: 'User Research & Personas', desc: 'In-depth research to understand your users\' needs, pain points, and behavior' },
       { title: 'Information Architecture', desc: 'Logical content structure and navigation that users intuitively understand' },
@@ -526,6 +578,15 @@ Meta has firm rules on templates, opt-ins and messaging categories, and breaking
 Setup — from verification through go-live — typically takes three to seven working days. Costs have two parts: a one-time setup and platform configuration, plus Meta's per-conversation charges, which vary by message type. On a free demo call we will map your actual use case — support, marketing, or both — and give you a clear number for what it will cost and what it replaces.
 
 If your team is drowning in WhatsApp chats, or your offers keep dying in ignored email inboxes, this is the infrastructure that fixes both. Book the demo; bring your toughest support question and we will show you a bot answering it.`,
+    cityContentTemplate: `## WhatsApp Automation in {city}
+
+{cityIntro}
+
+In a market like this, speed of response decides who gets the customer. Businesses in {industries} field the same questions all day — price, availability, timings, delivery — and whoever answers first usually wins the sale. A WhatsApp chatbot answers instantly, at midnight or in the middle of the festival rush, and hands over to your team only when a human is genuinely needed.
+
+We have configured WhatsApp automation for businesses operating around {areas} and across {city}, all remotely: Meta verification, chatbot flows in Hindi and English, broadcast campaigns and CRM sync — typically live within a week.
+
+If you sell products, pairing WhatsApp with an [online store](/services/ecommerce-development-in-{citySlug}) closes the loop completely: the store takes orders while WhatsApp confirms them, shares tracking, and recovers abandoned carts automatically. And if you don't have a proper website yet, our [web development team](/services/web-development-in-{citySlug}) can set up the full stack together.`,
     features: [
       { title: 'WhatsApp Business API Setup', desc: 'Official Meta-approved API setup with verified green tick for your brand' },
       { title: 'AI-Powered Chatbots', desc: 'Intelligent chatbots that handle FAQs, orders, and lead qualification 24/7' },
@@ -609,6 +670,15 @@ We also take over websites we did not build. That happens more often than you wo
 Basic plans — monitoring, updates, backups, SSL — start at ₹3,000 per month. Plans that include content updates and priority same-day support start at ₹8,000. Compare that with the cost of one emergency: a hacked site cleaned professionally runs ₹10,000–₹25,000, plus days of downtime, plus the ranking penalty Google applies to compromised sites. Prevention is simply the cheaper product.
 
 Tell us what your website runs on and we will do a free health check — speed, security basics, backup status — and tell you honestly whether it needs attention or is doing fine.`,
+    cityContentTemplate: `## Keeping {city} Websites Healthy
+
+{cityIntro}
+
+Most of those businesses invested in a website at some point — and many of those sites are now running outdated plugins, expired SSL certificates, or contact forms that quietly stopped delivering enquiries months ago. In sectors like {industries}, where customers check you online before calling, a broken or hacked website costs real business long before anyone notices it.
+
+We maintain websites for clients around {areas} and across {city}, entirely remotely. Monitoring, backups, security updates and fixes happen behind the scenes, and a plain-language monthly report tells you exactly what was done — no jargon, no invisible charges.
+
+If your site is too old to be worth patching, we will say so honestly: sometimes a [rebuild](/services/web-development-in-{citySlug}) costs barely more than a year of firefighting, and pairing it with maintenance from day one keeps it permanently fast and secure. A free health check will tell you which side of that line your website is on.`,
     features: [
       { title: '24/7 Uptime Monitoring', desc: 'Real-time monitoring with instant alerts and rapid response to downtime' },
       { title: 'Security Updates & Patching', desc: 'Regular CMS, plugin, and server security updates to prevent vulnerabilities' },
