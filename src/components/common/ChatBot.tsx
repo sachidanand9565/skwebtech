@@ -7,6 +7,8 @@ import { X, Send, Bot, Minimize2, Sparkles } from 'lucide-react';
 interface Message {
   role: 'user' | 'assistant';
   text: string;
+  /** Rendered as a warning bubble instead of a normal reply */
+  isError?: boolean;
 }
 
 const WELCOME_MESSAGE: Message = {
@@ -46,12 +48,31 @@ export default function ChatBot() {
         body: JSON.stringify({ messages: updatedMessages }),
       });
 
-      const data = await res.json();
-      setMessages([...updatedMessages, { role: 'assistant', text: data.text || data.error }]);
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok || !data.text) {
+        setMessages([
+          ...updatedMessages,
+          {
+            role: 'assistant',
+            isError: true,
+            text:
+              data.error ||
+              'Our assistant is unavailable right now. Please try again, or WhatsApp us at +91 6386103750.',
+          },
+        ]);
+        return;
+      }
+
+      setMessages([...updatedMessages, { role: 'assistant', text: data.text }]);
     } catch {
       setMessages([
         ...updatedMessages,
-        { role: 'assistant', text: 'Something went wrong. Please try again.' },
+        {
+          role: 'assistant',
+          isError: true,
+          text: 'Could not reach our assistant. Please check your connection and try again.',
+        },
       ]);
     } finally {
       setIsLoading(false);
@@ -117,10 +138,12 @@ export default function ChatBot() {
               {messages.map((msg, i) => (
                 <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                   <div
-                    className={`max-w-[80%] px-3.5 py-2.5 rounded-2xl text-sm leading-relaxed ${
+                    className={`max-w-[80%] px-3.5 py-2.5 rounded-2xl text-sm leading-relaxed whitespace-pre-wrap ${
                       msg.role === 'user'
                         ? 'bg-primary-500 text-void font-medium rounded-br-sm'
-                        : 'bg-white text-slate-200 border border-slate-200 rounded-bl-sm'
+                        : msg.isError
+                          ? 'bg-amber-50 text-amber-900 border border-amber-300 rounded-bl-sm'
+                          : 'bg-white text-slate-700 border border-slate-200 rounded-bl-sm'
                     }`}
                   >
                     {msg.text}
