@@ -34,6 +34,20 @@ const DB_PASSWORD = process.env.DB_PASSWORD || '';
 const DB_NAME = process.env.DB_NAME || 'skwebtech';
 const DB_PORT = parseInt(process.env.DB_PORT || '3306');
 
+/**
+ * Build aur runtime ki connection needs ulti hain:
+ *
+ * Build par Next parallel workers me pages banata hai — ek hi machine, jitni
+ * zyada parallel connections utna tez build.
+ *
+ * Runtime par (Vercel serverless) har instance ka apna pool hota hai aur ek
+ * instance ek waqt me ek hi request handle karta hai. Wahan 10 connections
+ * per instance shared MySQL ki max_user_connections jaldi bhar deta hai —
+ * Googlebot ek saath kai city pages crawl kare to pages 500 dene lagenge.
+ */
+const IS_BUILD = process.env.NEXT_PHASE === 'phase-production-build';
+const CONNECTION_LIMIT = Number(process.env.DB_CONNECTION_LIMIT || (IS_BUILD ? 10 : 3));
+
 let pool: mysql.Pool | null = null;
 
 // Get or create database pool
@@ -46,8 +60,13 @@ function getPool() {
       database: DB_NAME,
       port: DB_PORT,
       waitForConnections: true,
-      connectionLimit: 10,
+      connectionLimit: CONNECTION_LIMIT,
       queueLimit: 0,
+      // Idle connections ko pakad ke mat rakho — serverless instances aate
+      // jaate rehte hain, warna DB par dead connections jama hote hain
+      idleTimeout: 30_000,
+      maxIdle: IS_BUILD ? 10 : 2,
+      enableKeepAlive: true,
       // utf8mb4 so ₹, emoji and Hindi text survive read/write cycles
       charset: 'utf8mb4',
     });
