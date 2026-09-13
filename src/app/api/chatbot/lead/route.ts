@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getContacts, saveContacts, ContactMessage } from '@/lib/db';
+import { addContact, ContactMessage } from '@/lib/db';
 
 /**
  * Public chatbot API — creates a lead from the WhatsApp flow.
@@ -43,9 +43,7 @@ export async function POST(req: NextRequest) {
       createdAt: new Date().toISOString(),
     };
 
-    const contacts = await getContacts();
-    contacts.unshift(newContact);
-    await saveContacts(contacts);
+    await addContact(newContact);
 
     return NextResponse.json({ success: true, lead_id: newContact.id });
   } catch (error) {

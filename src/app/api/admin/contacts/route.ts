@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getContacts, saveContacts } from '@/lib/db';
+import { getContacts, updateContactStatus, deleteContact, deleteAllContacts } from '@/lib/db';
 import { verifySessionToken } from '@/lib/session';
 
 async function checkAuth(req: NextRequest) {
@@ -17,16 +17,12 @@ export async function PUT(req: NextRequest) {
 
   try {
     const { id, status } = await req.json();
-    const contacts = await getContacts();
-    const index = contacts.findIndex((c) => c.id === id);
+    const updated = await updateContactStatus(id, status);
 
-    if (index === -1) {
+    if (!updated) {
       return NextResponse.json({ error: 'Contact submission not found' }, { status: 404 });
     }
-
-    contacts[index].status = status;
-    await saveContacts(contacts);
-    return NextResponse.json({ success: true, contact: contacts[index] });
+    return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json({ error: 'Failed to update contact submission' }, { status: 500 });
   }
@@ -36,17 +32,20 @@ export async function DELETE(req: NextRequest) {
   if (!(await checkAuth(req))) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   try {
-    const { id } = await req.json();
-    const contacts = await getContacts();
-    const filtered = contacts.filter((c) => c.id !== id);
+    const { id, all } = await req.json();
 
-    if (filtered.length === contacts.length) {
-      return NextResponse.json({ error: 'Contact submission not found' }, { status: 404 });
+    // Bulk clear — spam flood ke baad saari leads ek saath hatane ke liye
+    if (all === true) {
+      const deleted = await deleteAllContacts();
+      return NextResponse.json({ success: true, deleted });
     }
 
-    await saveContacts(filtered);
+    const deleted = await deleteContact(id);
+    if (!deleted) {
+      return NextResponse.json({ error: 'Contact submission not found' }, { status: 404 });
+    }
     return NextResponse.json({ success: true });
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to delete contact submission' }, { status: 505 });
+    return NextResponse.json({ error: 'Failed to delete contact submission' }, { status: 500 });
   }
 }

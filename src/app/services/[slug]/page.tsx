@@ -25,6 +25,11 @@ import { interpolate, interpolateCity, formatList, CityContext } from '@/data/lo
 // ISR: DB-driven content (admin panel edits) refreshes within 5 minutes
 export const revalidate = 300;
 
+// Jo slugs generateStaticParams me nahi hain wo pehli request par render hokar
+// ISR cache me chale jaate hain — uske baad static jitne hi fast serve hote
+// hain. Isi wajah se build time cities ki ginti ke saath nahi badhta.
+export const dynamicParams = true;
+
 // Markdown (##, ###, **bold**, links, - lists) → HTML for the long-form content section
 function renderMarkdown(md: string): string {
   const inline = (s: string) =>
@@ -84,15 +89,25 @@ interface Props {
   params: { slug: string };
 }
 
+/**
+ * Build par sirf ye pre-render hote hain: 7 pillar pages + har service ke
+ * top metros (sabse zyada traffic wale). Baaki saare service×city pages
+ * on-demand render hote hain (dynamicParams), isliye 90 cities ho ya 900,
+ * deploy ka time lagbhag utna hi rehta hai.
+ *
+ * Kisi aur city me traffic badhe to uska slug yahan jod dena — wo bhi
+ * build par pre-render hone lagegi.
+ */
+const PREBUILD_CITIES = ['delhi', 'mumbai', 'bangalore', 'hyderabad', 'chennai', 'pune', 'ahmedabad', 'jaipur'];
+
 export async function generateStaticParams() {
   const templates = await getServicePageTemplates();
-  const locs = await getLocations();
   const params: { slug: string }[] = [];
   for (const service of templates) {
     // Pillar page: /services/web-development (no city)
     params.push({ slug: service.slug });
-    for (const location of locs) {
-      params.push({ slug: `${service.slug}-in-${location.slug}` });
+    for (const citySlug of PREBUILD_CITIES) {
+      params.push({ slug: `${service.slug}-in-${citySlug}` });
     }
   }
   return params;

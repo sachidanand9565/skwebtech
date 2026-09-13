@@ -406,6 +406,35 @@ export async function initDb() {
   }
 }
 
+/**
+ * Short-TTL read cache for the read-heavy tables that every service page
+ * touches (service_pages, locations, location_content).
+ *
+ * Build time par ye sabse bada fark laata hai: 637 pages × ~7 queries =
+ * hazaaron round-trips remote MySQL tak. Cache ke saath poore build me
+ * sirf ek baar har table padhi jaati hai. Runtime par TTL chhota hai, aur
+ * page-level ISR (revalidate=300) waise bhi is se lamba hai, isliye admin
+ * panel ke edits utni hi tezi se dikhte hain jitne pehle dikhte the.
+ *
+ * Writes cache ko turant clear kar dete hain (invalidateCache), isliye admin
+ * panel me save karte hi agli read fresh data uthati hai.
+ */
+const CACHE_TTL_MS = Number(process.env.DB_CACHE_TTL_MS || 30_000);
+const readCache = new Map<string, { at: number; value: unknown }>();
+
+async function cachedRead<T>(key: string, loader: () => Promise<T>): Promise<T> {
+  const hit = readCache.get(key);
+  if (hit && Date.now() - hit.at < CACHE_TTL_MS) return hit.value as T;
+  const value = await loader();
+  readCache.set(key, { at: Date.now(), value });
+  return value;
+}
+
+function invalidateCache(...keys: string[]) {
+  if (keys.length === 0) readCache.clear();
+  else for (const k of keys) readCache.delete(k);
+}
+
 // Auto-run DB init on demand or wrap call in helpers to ensure it runs
 let isInitialized = false;
 async function ensureInit() {
@@ -571,28 +600,30 @@ export async function saveServices(services: Omit<Service, 'icon'>[]): Promise<b
 
 // 4. Service Page Templates (SEO templates)
 export async function getServicePageTemplates(): Promise<ServicePageTemplate[]> {
-  await ensureInit();
-  const db = getPool();
-  const [rows] = await db.query('SELECT * FROM service_pages');
-  return (rows as any[]).map((r) => ({
-    id: r.id,
-    slug: r.slug,
-    title: r.title,
-    color: r.color,
-    textColor: r.textColor,
-    metaTitleTemplate: r.metaTitleTemplate,
-    metaDescriptionTemplate: r.metaDescriptionTemplate,
-    keywordsTemplate: JSON.parse(r.keywordsTemplate || '[]'),
-    h1Template: r.h1Template,
-    introTemplate: r.introTemplate,
-    subIntroTemplate: r.subIntroTemplate,
-    contentTemplate: r.contentTemplate || '',
-    cityContentTemplate: r.cityContentTemplate || '',
-    features: JSON.parse(r.features || '[]'),
-    technologies: JSON.parse(r.technologies || '[]'),
-    benefits: JSON.parse(r.benefits || '[]'),
-    faqsTemplate: JSON.parse(r.faqsTemplate || '[]'),
-  }));
+  return cachedRead('service_pages', async () => {
+    await ensureInit();
+    const db = getPool();
+    const [rows] = await db.query('SELECT * FROM service_pages');
+    return (rows as any[]).map((r) => ({
+      id: r.id,
+      slug: r.slug,
+      title: r.title,
+      color: r.color,
+      textColor: r.textColor,
+      metaTitleTemplate: r.metaTitleTemplate,
+      metaDescriptionTemplate: r.metaDescriptionTemplate,
+      keywordsTemplate: JSON.parse(r.keywordsTemplate || '[]'),
+      h1Template: r.h1Template,
+      introTemplate: r.introTemplate,
+      subIntroTemplate: r.subIntroTemplate,
+      contentTemplate: r.contentTemplate || '',
+      cityContentTemplate: r.cityContentTemplate || '',
+      features: JSON.parse(r.features || '[]'),
+      technologies: JSON.parse(r.technologies || '[]'),
+      benefits: JSON.parse(r.benefits || '[]'),
+      faqsTemplate: JSON.parse(r.faqsTemplate || '[]'),
+    }));
+  });
 }
 
 export async function saveServicePageTemplates(templates: ServicePageTemplate[]): Promise<boolean> {
@@ -625,6 +656,7 @@ export async function saveServicePageTemplates(templates: ServicePageTemplate[])
         ]
       );
     }
+    invalidateCache('service_pages');
     return true;
   } catch (err) {
     console.error('Error saving service templates to MySQL:', err);
@@ -634,10 +666,12 @@ export async function saveServicePageTemplates(templates: ServicePageTemplate[])
 
 // 5. Locations
 export async function getLocations(): Promise<Location[]> {
-  await ensureInit();
-  const db = getPool();
-  const [rows] = await db.query('SELECT * FROM locations');
-  return rows as Location[];
+  return cachedRead('locations', async () => {
+    await ensureInit();
+    const db = getPool();
+    const [rows] = await db.query('SELECT * FROM locations');
+    return rows as Location[];
+  });
 }
 
 export async function saveLocations(locations: Location[]): Promise<boolean> {
@@ -651,6 +685,7 @@ export async function saveLocations(locations: Location[]): Promise<boolean> {
         [loc.slug, loc.name, loc.state]
       );
     }
+    invalidateCache('locations');
     return true;
   } catch (err) {
     console.error('Error saving locations to MySQL:', err);
@@ -673,6 +708,61 @@ export async function getContacts(): Promise<ContactMessage[]> {
     status: r.status as any,
     createdAt: r.createdAt,
   }));
+}
+
+/**
+ * Ek single lead insert karta hai. saveContacts() poori table rewrite karta hai,
+ * jo concurrent submissions par race karta hai (do requests ek saath aayen to
+ * ek dusre ki rows wapas laa deti hai, aur delete ki hui rows bhi restore ho
+ * jaati hain). Naye leads ke liye hamesha yahi use karo.
+ */
+export async function addContact(contact: ContactMessage): Promise<boolean> {
+  await ensureInit();
+  const db = getPool();
+  try {
+    await db.query(
+      `INSERT INTO contacts (id, name, email, phone, service, message, status, createdAt)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        contact.id,
+        contact.name,
+        contact.email,
+        contact.phone || '',
+        contact.service || '',
+        contact.message,
+        contact.status,
+        contact.createdAt,
+      ]
+    );
+    return true;
+  } catch (err) {
+    console.error('Error inserting contact into MySQL:', err);
+    return false;
+  }
+}
+
+/** Targeted status update — poori table rewrite kiye bina */
+export async function updateContactStatus(id: string, status: string): Promise<boolean> {
+  await ensureInit();
+  const db = getPool();
+  const [result] = await db.query('UPDATE contacts SET status = ? WHERE id = ?', [status, id]);
+  return (result as any).affectedRows > 0;
+}
+
+/** Targeted delete — poori table rewrite kiye bina */
+export async function deleteContact(id: string): Promise<boolean> {
+  await ensureInit();
+  const db = getPool();
+  const [result] = await db.query('DELETE FROM contacts WHERE id = ?', [id]);
+  return (result as any).affectedRows > 0;
+}
+
+/** Saari leads delete karta hai (admin "Clear All"). Deleted row count return karta hai. */
+export async function deleteAllContacts(): Promise<number> {
+  await ensureInit();
+  const db = getPool();
+  const [result] = await db.query('DELETE FROM contacts');
+  return (result as any).affectedRows || 0;
 }
 
 export async function saveContacts(contacts: ContactMessage[]): Promise<boolean> {
@@ -781,17 +871,27 @@ export async function getLocationBySlug(slug: string): Promise<Location | undefi
   return locations.find((l) => l.slug === slug);
 }
 
-// 8. Location content — unique per-city SEO content
+// 8. Location content — unique per-city SEO content.
+// Poori table ek baar load hoti hai aur slug se index ho jaati hai; per-city
+// query karne se har page par ek extra remote round-trip lagta tha.
+async function getLocationContentMap(): Promise<Map<string, LocationContent>> {
+  return cachedRead('location_content', async () => {
+    await ensureInit();
+    const db = getPool();
+    const [rows] = await db.query('SELECT * FROM location_content');
+    const map = new Map<string, LocationContent>();
+    for (const r of rows as any[]) {
+      map.set(r.slug, {
+        slug: r.slug,
+        intro: r.intro || '',
+        industries: JSON.parse(r.industries || '[]'),
+        areas: JSON.parse(r.areas || '[]'),
+      });
+    }
+    return map;
+  });
+}
+
 export async function getLocationContent(slug: string): Promise<LocationContent | undefined> {
-  await ensureInit();
-  const db = getPool();
-  const [rows] = await db.query('SELECT * FROM location_content WHERE slug = ?', [slug]);
-  const r = (rows as any[])[0];
-  if (!r) return undefined;
-  return {
-    slug: r.slug,
-    intro: r.intro || '',
-    industries: JSON.parse(r.industries || '[]'),
-    areas: JSON.parse(r.areas || '[]'),
-  };
+  return (await getLocationContentMap()).get(slug);
 }

@@ -5,8 +5,14 @@
 
 'use client';
 
-import { useState, FormEvent } from 'react';
-import { Send, Loader2, CheckCircle } from 'lucide-react';
+import { useState, useEffect, useCallback, FormEvent } from 'react';
+import { Send, Loader2, CheckCircle, ShieldCheck, RefreshCw } from 'lucide-react';
+
+interface CaptchaChallenge {
+  a: number;
+  b: number;
+  token: string;
+}
 
 interface FormData {
   name: string;
@@ -45,6 +51,27 @@ export default function ContactForm({ services }: { services?: ServiceOption[] }
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+  // Anti-bot: server-signed math captcha + honeypot field
+  const [captcha, setCaptcha] = useState<CaptchaChallenge | null>(null);
+  const [captchaAnswer, setCaptchaAnswer] = useState('');
+  const [honeypot, setHoneypot] = useState('');
+
+  const loadCaptcha = useCallback(async () => {
+    try {
+      const res = await fetch('/api/captcha', { cache: 'no-store' });
+      if (res.ok) {
+        setCaptcha(await res.json());
+        setCaptchaAnswer('');
+      }
+    } catch {
+      // network hiccup — user refresh button se dobara try kar sakta hai
+    }
+  }, []);
+
+  useEffect(() => {
+    loadCaptcha();
+  }, [loadCaptcha]);
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setErrorMessage(null);
@@ -56,13 +83,22 @@ export default function ContactForm({ services }: { services?: ServiceOption[] }
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          captchaToken: captcha?.token || '',
+          captchaAnswer,
+          company: honeypot,
+        }),
       });
 
       const result = await response.json();
 
       if (!response.ok) {
         setErrorMessage(result.error || 'Unable to send message. Please try again later.');
+        if (result.captchaFailed) {
+          // Fresh challenge do — purana token expire/wrong ho chuka hai
+          loadCaptcha();
+        }
         setIsSubmitting(false);
         return;
       }
@@ -107,7 +143,7 @@ export default function ContactForm({ services }: { services?: ServiceOption[] }
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="relative space-y-6">
       {/* Name and Email Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
@@ -210,6 +246,56 @@ export default function ContactForm({ services }: { services?: ServiceOption[] }
           placeholder="Tell us about your project..."
           className="form-textarea"
         />
+      </div>
+
+      {/* Honeypot — invisible to humans; bots that auto-fill every field get discarded */}
+      <div className="absolute -left-[9999px] top-auto w-px h-px overflow-hidden" aria-hidden="true">
+        <label htmlFor="company">Company</label>
+        <input
+          type="text"
+          id="company"
+          name="company"
+          value={honeypot}
+          onChange={(e) => setHoneypot(e.target.value)}
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
+
+      {/* Security Check (math captcha) */}
+      <div>
+        <label htmlFor="captchaAnswer" className="block text-sm font-medium text-slate-700 mb-2">
+          Security Check *
+        </label>
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 select-none">
+            <ShieldCheck size={18} className="text-primary-400 flex-shrink-0" />
+            <span className="font-heading font-semibold text-slate-900 whitespace-nowrap">
+              {captcha ? `${captcha.a} + ${captcha.b} = ?` : '...'}
+            </span>
+            <button
+              type="button"
+              onClick={loadCaptcha}
+              className="text-slate-400 hover:text-primary-500 transition-colors"
+              aria-label="New security question"
+              title="New question"
+            >
+              <RefreshCw size={15} />
+            </button>
+          </div>
+          <input
+            type="text"
+            inputMode="numeric"
+            id="captchaAnswer"
+            name="captchaAnswer"
+            value={captchaAnswer}
+            onChange={(e) => setCaptchaAnswer(e.target.value.replace(/[^0-9]/g, ''))}
+            required
+            placeholder="Answer"
+            className="form-input !w-28 text-center"
+          />
+        </div>
+        <p className="text-xs text-slate-500 mt-2">This quick check keeps spam bots away.</p>
       </div>
 
       {/* Submit Button */}

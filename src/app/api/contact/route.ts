@@ -1,15 +1,72 @@
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 import { siteConfig } from '@/config/site';
-import { getContacts, saveContacts, ContactMessage } from '@/lib/db';
+import { addContact, ContactMessage } from '@/lib/db';
+import { verifyCaptcha } from '@/lib/captcha';
 
 const recipient =
   process.env.CONTACT_EMAIL_RECIPIENT || siteConfig.contact.email;
 
+// Rate limit: ek IP se 15 minute me max 3 submissions
+const RATE_LIMIT = 3;
+const RATE_WINDOW_MS = 15 * 60 * 1000;
+const submissions = new Map<string, number[]>();
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const recent = (submissions.get(ip) || []).filter((t) => now - t < RATE_WINDOW_MS);
+  if (recent.length >= RATE_LIMIT) {
+    submissions.set(ip, recent);
+    return true;
+  }
+  recent.push(now);
+  submissions.set(ip, recent);
+  // Purane IP entries saaf karo taaki map unbounded na bade
+  if (submissions.size > 5000) {
+    submissions.forEach((times, key) => {
+      if (times.every((t: number) => now - t >= RATE_WINDOW_MS)) submissions.delete(key);
+    });
+  }
+  return false;
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, phone, service, message } = body;
+    const { name, email, phone, service, message, captchaToken, captchaAnswer, company } = body;
+
+    // 🍯 Honeypot — hidden field jo sirf bots bharte hain. Silently "success"
+    // return karte hain taaki bot ko pata na chale ki lead discard hui.
+    if (company) {
+      return NextResponse.json({ success: true });
+    }
+
+    // 🚦 Rate limit per IP
+    const ip =
+      request.headers.get('x-forwarded-for')?.split(',')[0].trim() ||
+      request.headers.get('x-real-ip') ||
+      'unknown';
+    if (isRateLimited(ip)) {
+      return NextResponse.json(
+        { error: 'Too many submissions. Please try again in a few minutes.' },
+        { status: 429 }
+      );
+    }
+
+    // 🤖 Captcha verification — direct API POST karne wale bots yahin rukte hain
+    const captcha = verifyCaptcha(captchaToken, captchaAnswer);
+    if (!captcha.ok) {
+      return NextResponse.json(
+        {
+          error:
+            captcha.reason === 'wrong'
+              ? 'Security answer is incorrect. Please try again.'
+              : 'Security check failed. Please answer the verification question and try again.',
+          captchaFailed: true,
+        },
+        { status: 400 }
+      );
+    }
 
     // ✅ Validation
     if (!name || !email || !message) {
@@ -32,10 +89,7 @@ export async function POST(request: NextRequest) {
         status: 'Pending',
         createdAt: new Date().toISOString(),
       };
-      const contacts = await getContacts();
-      contacts.unshift(newContact); // Insert at beginning so newest shows first
-      await saveContacts(contacts);
-      dbSaved = true;
+      dbSaved = await addContact(newContact);
     } catch (dbErr) {
       console.error('Failed to save contact lead to database:', dbErr);
     }

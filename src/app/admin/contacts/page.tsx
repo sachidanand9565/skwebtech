@@ -33,6 +33,7 @@ export default function AdminContactsPage() {
   const [error, setError] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedContact, setSelectedContact] = useState<ContactMessage | null>(null);
+  const [isClearing, setIsClearing] = useState(false);
 
   const fetchContacts = async () => {
     setIsLoading(true);
@@ -97,6 +98,36 @@ export default function AdminContactsPage() {
     }
   };
 
+  const handleClearAll = async () => {
+    if (
+      !confirm(
+        `Delete ALL ${contacts.length} leads permanently?\n\nThis cannot be undone. Use this to clear a spam flood.`
+      )
+    )
+      return;
+    if (!confirm('Last check — really delete every lead?')) return;
+
+    setIsClearing(true);
+    try {
+      const res = await fetch('/api/admin/contacts', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ all: true }),
+      });
+
+      if (res.ok) {
+        setContacts([]);
+        setSelectedContact(null);
+      } else {
+        setError('Failed to clear leads');
+      }
+    } catch (err) {
+      setError('Connection error while clearing leads');
+    } finally {
+      setIsClearing(false);
+    }
+  };
+
   const filteredContacts = contacts.filter(
     c =>
       c.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -132,7 +163,7 @@ export default function AdminContactsPage() {
       )}
 
       {/* Toolbar */}
-      <div className="bg-slate-900 border border-white/5 rounded-2xl p-4 flex items-center">
+      <div className="bg-slate-900 border border-white/5 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center gap-3 justify-between">
         <div className="relative w-full max-w-md">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={16} />
           <input
@@ -142,6 +173,20 @@ export default function AdminContactsPage() {
             placeholder="Search leads by name, email, or content..."
             className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-white/5 bg-slate-950 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-all text-sm"
           />
+        </div>
+
+        <div className="flex items-center gap-3">
+          <span className="text-slate-500 text-xs whitespace-nowrap">
+            {contacts.length} lead{contacts.length === 1 ? '' : 's'}
+          </span>
+          <button
+            onClick={handleClearAll}
+            disabled={isClearing || contacts.length === 0}
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-red-500/25 bg-red-500/10 text-red-400 text-sm font-medium hover:bg-red-500/20 transition-colors disabled:opacity-40 disabled:cursor-not-allowed whitespace-nowrap"
+          >
+            <Trash2 size={15} />
+            {isClearing ? 'Clearing...' : 'Clear All'}
+          </button>
         </div>
       </div>
 
