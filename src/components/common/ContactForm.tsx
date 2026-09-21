@@ -5,8 +5,11 @@
 
 'use client';
 
-import { useState, useEffect, useCallback, FormEvent } from 'react';
+import { useState, useEffect, useCallback, useRef, FormEvent } from 'react';
 import { Send, Loader2, CheckCircle, ShieldCheck, RefreshCw } from 'lucide-react';
+
+// Server challenges live 30 minutes; refresh a little before that
+const CAPTCHA_REFRESH_MS = 25 * 60 * 1000;
 
 interface CaptchaChallenge {
   a: number;
@@ -55,6 +58,7 @@ export default function ContactForm({ services }: { services?: ServiceOption[] }
   const [captcha, setCaptcha] = useState<CaptchaChallenge | null>(null);
   const [captchaAnswer, setCaptchaAnswer] = useState('');
   const [honeypot, setHoneypot] = useState('');
+  const captchaFetchedAt = useRef(0);
 
   const loadCaptcha = useCallback(async () => {
     try {
@@ -62,6 +66,7 @@ export default function ContactForm({ services }: { services?: ServiceOption[] }
       if (res.ok) {
         setCaptcha(await res.json());
         setCaptchaAnswer('');
+        captchaFetchedAt.current = Date.now();
       }
     } catch {
       // network hiccup — user refresh button se dobara try kar sakta hai
@@ -70,6 +75,21 @@ export default function ContactForm({ services }: { services?: ServiceOption[] }
 
   useEffect(() => {
     loadCaptcha();
+  }, [loadCaptcha]);
+
+  // A form left open in a background tab outlives its challenge; swap in a
+  // fresh one when the visitor comes back, before they type an answer
+  useEffect(() => {
+    const onVisible = () => {
+      if (
+        document.visibilityState === 'visible' &&
+        Date.now() - captchaFetchedAt.current > CAPTCHA_REFRESH_MS
+      ) {
+        loadCaptcha();
+      }
+    };
+    document.addEventListener('visibilitychange', onVisible);
+    return () => document.removeEventListener('visibilitychange', onVisible);
   }, [loadCaptcha]);
 
   const handleSubmit = async (e: FormEvent) => {
@@ -130,12 +150,12 @@ export default function ContactForm({ services }: { services?: ServiceOption[] }
     return (
       <div className="rounded-2xl border border-green-500/25 bg-green-500/[0.06] p-8 text-center backdrop-blur-sm">
         <div className="w-16 h-16 bg-green-500/15 border border-green-500/25 rounded-full flex items-center justify-center mx-auto mb-4">
-          <CheckCircle size={32} className="text-green-400" />
+          <CheckCircle size={32} className="text-green-600" />
         </div>
         <h3 className="font-heading font-semibold text-xl text-slate-900 mb-2">
           Message Sent Successfully!
         </h3>
-        <p className="text-green-400/90">
+        <p className="text-green-800">
           Thank you for reaching out. We&apos;ll get back to you within 24 hours.
         </p>
       </div>
@@ -199,7 +219,7 @@ export default function ContactForm({ services }: { services?: ServiceOption[] }
             name="phone"
             value={formData.phone}
             onChange={handleChange}
-            placeholder="+91 6386103750"
+            placeholder="+91 98765 43210"
             className="form-input"
           />
         </div>
@@ -319,7 +339,7 @@ export default function ContactForm({ services }: { services?: ServiceOption[] }
       </button>
 
       {errorMessage ? (
-        <div className="rounded-2xl border border-red-500/25 bg-red-500/[0.07] px-4 py-3 text-sm text-red-300">
+        <div className="rounded-2xl border border-red-500/25 bg-red-500/[0.07] px-4 py-3 text-sm text-red-700">
           {errorMessage}
         </div>
       ) : null}

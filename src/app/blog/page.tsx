@@ -4,6 +4,7 @@
  */
 
 import { Metadata } from 'next';
+import { ogImage } from '@/lib/seo';
 import BlogContent from '@/components/sections/BlogContent';
 import CTASection from '@/components/common/CTASection';
 import { getAllPosts, getFeaturedPosts, getAllCategories } from '@/lib/db';
@@ -34,6 +35,7 @@ export const metadata: Metadata = {
       'Insights, tips, and resources on web development, SEO, and digital marketing.',
     type: 'website',
     url: 'https://www.skwebtech.in/blog',
+    images: [ogImage('Blog: Insights & Resources')],
   },
 };
 

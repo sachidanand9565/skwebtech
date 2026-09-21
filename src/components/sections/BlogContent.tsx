@@ -4,6 +4,7 @@ import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Search, X, ArrowRight } from 'lucide-react';
 import BlogCard from '@/components/common/BlogCard';
+import NewsletterForm from '@/components/common/NewsletterForm';
 import { BlogPost } from '@/data/blog';
 
 interface BlogContentProps {
@@ -214,17 +215,8 @@ export default function BlogContent({ allPosts, featuredPosts, categories }: Blo
             <div className="relative z-10">
               <h2 className="text-2xl font-heading font-bold text-slate-900 mb-3">Subscribe to Our Newsletter</h2>
               <p className="text-slate-600 text-sm mb-7">Get the latest articles, tips, and insights delivered to your inbox. No spam, unsubscribe anytime.</p>
-              <form className="flex flex-col sm:flex-row gap-3 max-w-sm mx-auto">
-                <input
-                  type="email"
-                  placeholder="Your email address"
-                  className="flex-1 px-4 py-3 rounded-full bg-white border border-slate-200 text-slate-900 placeholder-slate-500 focus:outline-none focus:border-primary-500/50 focus:ring-2 focus:ring-primary-500/20 text-sm transition-all"
-                />
-                <button type="submit" className="btn-accent whitespace-nowrap flex items-center gap-2 text-sm">
-                  Subscribe <ArrowRight size={15} />
-                </button>
-              </form>
-              <p className="text-xs text-slate-500 mt-4">By subscribing, you agree to our Privacy Policy.</p>
+              <NewsletterForm />
+              <p className="text-xs text-slate-600 mt-4">By subscribing, you agree to our <a href="/privacy-policy" className="underline hover:text-primary-700">Privacy Policy</a>.</p>
             </div>
           </div>
         </div>

@@ -3,32 +3,18 @@ import nodemailer from 'nodemailer';
 import { siteConfig } from '@/config/site';
 import { addContact, ContactMessage } from '@/lib/db';
 import { verifyCaptcha } from '@/lib/captcha';
+import { createRateLimiter, clientIp } from '@/lib/rateLimit';
 
 const recipient =
   process.env.CONTACT_EMAIL_RECIPIENT || siteConfig.contact.email;
 
-// Rate limit: ek IP se 15 minute me max 3 submissions
-const RATE_LIMIT = 3;
-const RATE_WINDOW_MS = 15 * 60 * 1000;
-const submissions = new Map<string, number[]>();
+// Visitor input goes into an HTML email — escape it so nobody can inject
+// markup or phishing links into the admin inbox
+const escapeHtml = (v: unknown) =>
+  String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
 
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const recent = (submissions.get(ip) || []).filter((t) => now - t < RATE_WINDOW_MS);
-  if (recent.length >= RATE_LIMIT) {
-    submissions.set(ip, recent);
-    return true;
-  }
-  recent.push(now);
-  submissions.set(ip, recent);
-  // Purane IP entries saaf karo taaki map unbounded na bade
-  if (submissions.size > 5000) {
-    submissions.forEach((times, key) => {
-      if (times.every((t: number) => now - t >= RATE_WINDOW_MS)) submissions.delete(key);
-    });
-  }
-  return false;
-}
+// Ek IP se 15 minute me max 3 submissions
+const isRateLimited = createRateLimiter(3, 15 * 60 * 1000);
 
 export async function POST(request: NextRequest) {
   try {
@@ -42,11 +28,7 @@ export async function POST(request: NextRequest) {
     }
 
     // 🚦 Rate limit per IP
-    const ip =
-      request.headers.get('x-forwarded-for')?.split(',')[0].trim() ||
-      request.headers.get('x-real-ip') ||
-      'unknown';
-    if (isRateLimited(ip)) {
+    if (isRateLimited(clientIp(request))) {
       return NextResponse.json(
         { error: 'Too many submissions. Please try again in a few minutes.' },
         { status: 429 }
@@ -61,7 +43,9 @@ export async function POST(request: NextRequest) {
           error:
             captcha.reason === 'wrong'
               ? 'Security answer is incorrect. Please try again.'
-              : 'Security check failed. Please answer the verification question and try again.',
+              : captcha.reason === 'expired'
+                ? 'The security question expired while the form was open. We have shown a new one — your message is still here, just answer it and send again.'
+                : 'Security check failed. Please answer the verification question and try again.',
           captchaFailed: true,
         },
         { status: 400 }
@@ -108,11 +92,11 @@ export async function POST(request: NextRequest) {
       <div style="font-family:Arial,sans-serif">
         <h2>📩 New Contact Request</h2>
         <table border="1" cellpadding="10" cellspacing="0">
-          <tr><td><b>Name</b></td><td>${name}</td></tr>
-          <tr><td><b>Email</b></td><td>${email}</td></tr>
-          <tr><td><b>Phone</b></td><td>${phone || 'Not provided'}</td></tr>
-          <tr><td><b>Service</b></td><td>${service || 'Not specified'}</td></tr>
-          <tr><td><b>Message</b></td><td>${message.replace(/\n/g, '<br/>')}</td></tr>
+          <tr><td><b>Name</b></td><td>${escapeHtml(name)}</td></tr>
+          <tr><td><b>Email</b></td><td>${escapeHtml(email)}</td></tr>
+          <tr><td><b>Phone</b></td><td>${escapeHtml(phone || 'Not provided')}</td></tr>
+          <tr><td><b>Service</b></td><td>${escapeHtml(service || 'Not specified')}</td></tr>
+          <tr><td><b>Message</b></td><td>${escapeHtml(message).replace(/\n/g, '<br/>')}</td></tr>
         </table>
       </div>
     `;

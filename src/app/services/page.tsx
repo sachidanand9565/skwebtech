@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { ogImage } from '@/lib/seo';
 import Link from 'next/link';
 import {
   Globe, ShoppingCart, Search, Smartphone, Settings, Palette,
@@ -39,6 +40,7 @@ export const metadata: Metadata = {
       'Web development, e-commerce, SEO, mobile apps, WhatsApp Business automation, and IT support from SK WebTech.',
     type: 'website',
     url: 'https://www.skwebtech.in/services',
+    images: [ogImage('Our Services')],
   },
 };
 
@@ -321,7 +323,7 @@ export default async function ServicesPage() {
                 <Reveal x={index % 2 !== 0 ? 28 : -28} y={0} className={index % 2 !== 0 ? 'lg:order-2' : ''}>
                   <div>
                     {service.featured && (
-                      <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-500/10 border border-green-500/25 text-green-400 text-xs font-bold rounded-full mb-4">
+                      <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-500/10 border border-green-500/25 text-green-700 text-xs font-bold rounded-full mb-4">
                         <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
                         New Platform Available
                       </div>
@@ -431,7 +433,7 @@ export default async function ServicesPage() {
                               <p className="text-xs text-slate-500 mt-0.5">by SK WebTech</p>
                             </div>
                             {service.featured && (
-                              <span className="ml-auto px-2.5 py-1 bg-green-500/15 border border-green-500/30 text-green-400 text-[10px] font-bold rounded-full uppercase tracking-wide">
+                              <span className="ml-auto px-2.5 py-1 bg-green-500/15 border border-green-500/30 text-green-700 text-[10px] font-bold rounded-full uppercase tracking-wide">
                                 New
                               </span>
                             )}

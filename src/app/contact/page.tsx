@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { ogImage } from '@/lib/seo';
 import { Mail, Phone, MapPin, Clock, ArrowRight, CheckCircle } from 'lucide-react';
 import ContactForm from '@/components/common/ContactForm';
 import WhatsAppIcon from '@/components/common/WhatsAppIcon';
@@ -11,7 +12,7 @@ export const revalidate = 300;
 
 
 export const metadata: Metadata = {
-  title: 'Contact Us - Get a Free Consultation | SK WebTech',
+  title: 'Contact Us - Get a Free Consultation',
   description:
     'Get in touch with SK WebTech for a free consultation. Contact us for web development, e-commerce, SEO, and IT services. We respond within 24 hours.',
   keywords: ['contact SK WebTech', 'web development quote', 'IT services consultation', 'hire developers', 'free consultation'],
@@ -21,11 +22,12 @@ export const metadata: Metadata = {
     description: 'Get in touch with us for a free consultation on your next digital project.',
     type: 'website',
     url: 'https://www.skwebtech.in/contact',
+    images: [ogImage('Contact Us - Free Consultation')],
   },
 };
 
 const contactInfo = [
-  { icon: Phone, title: 'Call Us', content: '+91 6386103750', subtext: 'Mon–Fri, 9am–6pm IST', href: 'tel:6386103750', color: 'from-cyan-500 to-blue-600' },
+  { icon: Phone, title: 'Call Us', content: '+91 6386103750', subtext: 'Mon–Fri, 9am–6pm IST', href: 'tel:+916386103750', color: 'from-cyan-500 to-blue-600' },
   { icon: Mail, title: 'Email Us', content: 'info@skwebtech.in', subtext: 'Reply within 24 hours', href: 'mailto:info@skwebtech.in', color: 'from-violet-500 to-purple-600' },
   { icon: MapPin, title: 'Location', content: 'Remote - India', subtext: 'Serving clients worldwide', href: undefined, color: 'from-emerald-500 to-green-600' },
   { icon: Clock, title: 'Business Hours', content: 'Mon–Fri: 9am–6pm', subtext: 'Sat: 10am–4pm', href: undefined, color: 'from-amber-500 to-orange-500' },
@@ -55,37 +57,32 @@ export default async function ContactPage() {
         <div className="glow-orb bottom-0 left-1/4 w-72 h-72 bg-secondary-500/[0.09]" style={{ animationDelay: '4s' }} />
 
         <div className="container-custom relative z-10 text-center">
-          <Reveal y={16}>
-            <span className="badge-chip mb-6">Get in Touch</span>
-          </Reveal>
+          <span className="badge-chip mb-6">Get in Touch</span>
           <h1 className="text-4xl sm:text-5xl font-heading font-bold text-slate-900 mb-5 leading-tight">
             <span>Let&apos;s Build Something</span>{' '}
             <span className="gradient-text">Amazing Together</span>
           </h1>
-          <Reveal delay={0.5}>
-            <p className="text-lg text-slate-600 max-w-xl mx-auto mb-10">
-              Have a project in mind? We&apos;d love to hear about it. Get in touch and let&apos;s discuss how we can transform your digital presence.
-            </p>
-          </Reveal>
+          <p className="text-lg text-slate-600 max-w-xl mx-auto mb-10">
+            Have a project in mind? We&apos;d love to hear about it. Get in touch and let&apos;s discuss how we can transform your digital presence.
+          </p>
 
           {/* Promise badges */}
-          <Reveal delay={0.6}>
-            <div className="flex flex-wrap justify-center gap-3">
+          <div className="flex flex-wrap justify-center gap-3">
               {promises.map((p) => (
                 <div key={p} className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-full backdrop-blur-sm">
                   <CheckCircle size={14} className="text-green-400 flex-shrink-0" />
                   <span className="text-slate-700 text-sm">{p}</span>
                 </div>
               ))}
-            </div>
-          </Reveal>
+          </div>
         </div>
       </section>
 
       {/* Contact Info Cards */}
-      <section className="relative py-12 bg-void-50">
+      <section className="relative py-12 bg-void-50" aria-labelledby="contact-info-heading">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
         <div className="container-custom">
+          <h2 id="contact-info-heading" className="sr-only">Contact Information</h2>
           <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {contactInfo.map((info) => (
               <StaggerItem key={info.title} className="h-full">
@@ -98,13 +95,13 @@ export default async function ContactPage() {
                   </div>
                   <h3 className="font-heading font-semibold text-slate-900 mb-1 text-sm uppercase tracking-wide">{info.title}</h3>
                   {info.href ? (
-                    <a href={info.href} className="text-slate-200 font-medium hover:text-primary-600 transition-colors text-sm block mb-1">
+                    <a href={info.href} className="text-slate-800 font-medium hover:text-primary-700 transition-colors text-sm block mb-1 break-words">
                       {info.content}
                     </a>
                   ) : (
-                    <p className="text-slate-200 font-medium text-sm mb-1">{info.content}</p>
+                    <p className="text-slate-800 font-medium text-sm mb-1">{info.content}</p>
                   )}
-                  <p className="text-xs text-slate-500">{info.subtext}</p>
+                  <p className="text-xs text-slate-600">{info.subtext}</p>
                 </div>
               </StaggerItem>
             ))}
@@ -137,7 +134,7 @@ export default async function ContactPage() {
                     </div>
                     <div>
                       <h3 className="font-heading font-bold text-slate-900">Prefer WhatsApp?</h3>
-                      <p className="text-green-400 text-xs font-medium">Typically reply in minutes</p>
+                      <p className="text-green-700 text-xs font-medium">Typically reply in minutes</p>
                     </div>
                   </div>
                   <p className="text-slate-600 text-sm mb-4 leading-relaxed">
@@ -221,7 +218,7 @@ export default async function ContactPage() {
           <Reveal>
             <h2 className="text-2xl md:text-3xl font-heading font-bold text-slate-900 mb-3">Ready to Start Your Project?</h2>
             <p className="text-slate-600 mb-8 max-w-xl mx-auto">Get a free consultation and detailed quote. Our team is ready to help you achieve your digital goals.</p>
-            <a href="tel:6386103750" className="btn-accent inline-flex text-lg gap-2 px-8 py-4">
+            <a href="tel:+916386103750" className="btn-accent inline-flex text-lg gap-2 px-8 py-4">
               <Phone size={20} /> Call: +91 6386103750
             </a>
           </Reveal>

@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { ogImage } from '@/lib/seo';
 import Link from 'next/link';
 import {
   FileText, Handshake, CreditCard, Copyright, Layers, ShieldAlert,
@@ -6,7 +7,7 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Terms & Conditions - SK WebTech',
+  title: 'Terms & Conditions',
   description:
     'Read the Terms & Conditions for using SK WebTech services including web development, e-commerce, SEO, app development, and WhatsApp Business solutions.',
   keywords: ['terms and conditions', 'SK WebTech terms', 'service agreement', 'web development terms'],
@@ -16,6 +17,7 @@ export const metadata: Metadata = {
     description: 'Terms and conditions for using SK WebTech services.',
     type: 'website',
     url: 'https://www.skwebtech.in/terms-and-conditions',
+    images: [ogImage('Terms & Conditions')],
   },
 };
 
@@ -238,7 +240,7 @@ export default function TermsAndConditionsPage() {
                 <div className="divide-y divide-white/[0.05]">
                   {section.content.map((item) => (
                     <div key={item.heading} className="p-7">
-                      <h3 className="font-heading font-semibold text-slate-200 mb-2 text-base">{item.heading}</h3>
+                      <h3 className="font-heading font-semibold text-slate-900 mb-2 text-base">{item.heading}</h3>
                       <p className="text-slate-600 leading-relaxed text-sm">{item.body}</p>
                     </div>
                   ))}

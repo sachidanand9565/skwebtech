@@ -4,6 +4,7 @@
  */
 
 import { Metadata } from 'next';
+import { ogImage } from '@/lib/seo';
 import HeroSection from '@/components/sections/HeroSection';
 import ServicesSection from '@/components/sections/ServicesSection';
 import WhyChooseUsSection from '@/components/sections/WhyChooseUsSection';
@@ -18,7 +19,7 @@ export const revalidate = 300;
 
 // Page-specific metadata
 export const metadata: Metadata = {
-  title: 'SK WebTech - Professional Web & IT Solutions',
+  title: { absolute: 'SK WebTech - Professional Web & IT Solutions' },
   description:
     'SK WebTech delivers cutting-edge web development, e-commerce solutions, SEO optimization, and IT services. Transform your business with our expert team. Get a free consultation today!',
   keywords: [
@@ -40,6 +41,7 @@ export const metadata: Metadata = {
       'Transform your business with professional web development, e-commerce, SEO, and IT solutions. Partner with SK WebTech for digital success.',
     type: 'website',
     url: 'https://www.skwebtech.in',
+    images: [ogImage()],
   },
 };
 
@@ -67,7 +69,7 @@ export default function HomePage() {
         subtitle="Let's discuss your project and see how we can help your business grow. 
                  Get a free consultation today!"
         primaryCTA={{ text: 'Get Free Consultation', href: '/contact' }}
-        secondaryCTA={{ text: 'Call Us Now', href: 'tel:6386103750' }}
+        secondaryCTA={{ text: 'Call Us Now', href: 'tel:+916386103750' }}
       />
     </>
   );

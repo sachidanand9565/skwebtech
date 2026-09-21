@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { ogImage } from '@/lib/seo';
 import Link from 'next/link';
 import {
   IndianRupee, XCircle, CheckCircle2, Clock, Ban, Wallet,
@@ -6,7 +7,7 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Refund Policy - SK WebTech',
+  title: 'Refund Policy',
   description:
     'Read SK WebTech\'s Refund Policy covering advance payments, project cancellations, milestone payments, and refund timelines for our web development and IT services.',
   keywords: ['refund policy', 'SK WebTech refund', 'cancellation policy', 'web development refund'],
@@ -16,6 +17,7 @@ export const metadata: Metadata = {
     description: 'Refund and cancellation policy for SK WebTech services.',
     type: 'website',
     url: 'https://www.skwebtech.in/refund-policy',
+    images: [ogImage('Refund Policy')],
   },
 };
 
@@ -217,7 +219,7 @@ export default function RefundPolicyPage() {
                 <div className="divide-y divide-white/[0.05]">
                   {section.content.map((item) => (
                     <div key={item.heading} className="p-7">
-                      <h3 className="font-heading font-semibold text-slate-200 mb-2 text-base">{item.heading}</h3>
+                      <h3 className="font-heading font-semibold text-slate-900 mb-2 text-base">{item.heading}</h3>
                       <p className="text-slate-600 leading-relaxed text-sm">{item.body}</p>
                     </div>
                   ))}

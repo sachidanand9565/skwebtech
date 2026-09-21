@@ -1,9 +1,10 @@
 import { Metadata } from 'next';
+import { ogImage } from '@/lib/seo';
 import Link from 'next/link';
 import { Shield, Eye, Lock, Share2, Cookie, UserCheck, Mail, ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy - SK WebTech',
+  title: 'Privacy Policy',
   description:
     'Read SK WebTech\'s Privacy Policy to understand how we collect, use, and protect your personal information when you use our services.',
   keywords: ['privacy policy', 'SK WebTech privacy', 'data protection', 'personal information'],
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
     description: 'Learn how SK WebTech collects, uses, and protects your personal information.',
     type: 'website',
     url: 'https://www.skwebtech.in/privacy-policy',
+    images: [ogImage('Privacy Policy')],
   },
 };
 
@@ -151,7 +153,7 @@ export default function PrivacyPolicyPage() {
         <div className="container-custom relative z-10 text-center">
           <span className="badge-chip mb-6">Legal</span>
           <h1 className="text-4xl sm:text-5xl font-heading font-bold text-slate-900 leading-tight mb-6">
-            Privacy & <span className="gradient-text">Policy</span>
+            Privacy <span className="gradient-text">Policy</span>
           </h1>
           <p className="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto mb-8">
             Your privacy matters to us. This policy explains how SK WebTech collects, uses, and safeguards your personal information when you visit our website or use our services.
@@ -225,7 +227,7 @@ export default function PrivacyPolicyPage() {
                 <div className="divide-y divide-white/[0.05]">
                   {section.content.map((item) => (
                     <div key={item.heading} className="p-7">
-                      <h3 className="font-heading font-semibold text-slate-200 mb-2 text-base">{item.heading}</h3>
+                      <h3 className="font-heading font-semibold text-slate-900 mb-2 text-base">{item.heading}</h3>
                       <p className="text-slate-600 leading-relaxed text-sm">{item.body}</p>
                     </div>
                   ))}

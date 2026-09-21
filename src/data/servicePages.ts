@@ -59,7 +59,7 @@ export const servicePageTemplates: ServicePageTemplate[] = [
     introTemplate:
       'SK WebTech provides top-rated web development services in {city}. We build fast, scalable, and conversion-optimized websites and web applications for startups, SMEs, and enterprises.',
     subIntroTemplate:
-      'From a simple landing page to a complex enterprise portal, our team in {city} delivers pixel-perfect, SEO-friendly websites that grow your business. Every project is built with modern technology and best practices.',
+      'From a simple landing page to a complex enterprise portal, our team delivers pixel-perfect, SEO-friendly websites that help {city} businesses grow. Every project is built with modern technology and best practices.',
     contentTemplate: `Your website is usually the first meeting a customer has with your business. Someone in {city} hears your name, searches on Google, and decides within a few seconds whether you look worth calling. That decision happens before you ever speak to them. Our job is to make sure it goes in your favour.
 
 ## A Website Development Company in {city} That Builds for Results
@@ -89,7 +89,7 @@ Honest answer: it depends on what you need, but here is the range we work in. A 
 
 Week one is discovery and design: we share layouts and you react to something concrete instead of imagining it. Then development, with a staging link you can open anytime to watch progress. Before launch we test on real phones, run speed checks and walk you through the admin panel so your team can update content without calling a developer for every small change.
 
-After launch you are not left alone either. Every project includes support, and most of our {city} clients stay with us on maintenance plans because it is cheaper than firefighting problems later.
+After launch you are not left alone either. Every project includes support, and most of our clients stay with us on maintenance plans because it is cheaper than firefighting problems later.
 
 If you have been putting off your website — or tolerating one that embarrasses you — talk to us. The consultation is free, and you will leave it with a clear plan and an honest price, whether or not you hire us.`,
     cityContentTemplate: `## Web Development for {city} Businesses
@@ -98,9 +98,9 @@ If you have been putting off your website — or tolerating one that embarrasses
 
 For businesses in sectors like {industries}, the website has quietly become the first salesperson. Customers in {city} compare options online before they visit or call, and the competitor who shows up first — and looks credible — wins the enquiry. We build websites that put {city} businesses in that winning position: fast to load on any connection, easy to find on Google, and structured to turn visitors into phone calls and orders.
 
-We work with clients across {city}, including businesses around {areas}. Our process is fully remote-friendly — requirement discussions on calls and WhatsApp, designs shared as clickable links, and a live staging site you can open from anywhere in {state} to watch your project take shape.
+We take on projects from businesses anywhere in {city}, around {areas} or elsewhere. Our process is fully remote-friendly — requirement discussions on calls and WhatsApp, designs shared as clickable links, and a live staging site you can open from anywhere in {state} to watch your project take shape.
 
-Many of our {city} clients pair a new website with [SEO services](/services/seo-services-in-{citySlug}) to rank for local searches, and [website maintenance](/services/website-maintenance-in-{citySlug}) to keep it fast and secure — all handled by the same team that built the site, so nothing falls between vendors.`,
+Many clients pair a new website with [SEO services](/services/seo-services-in-{citySlug}) to rank for local searches, and [website maintenance](/services/website-maintenance-in-{citySlug}) to keep it fast and secure — all handled by the same team that built the site, so nothing falls between vendors.`,
     features: [
       { title: 'Custom Website Design', desc: 'Pixel-perfect, brand-aligned designs built from scratch - no templates' },
       { title: 'Next.js & React Development', desc: 'Blazing-fast web apps with server-side rendering and modern frameworks' },
@@ -163,7 +163,7 @@ Many of our {city} clients pair a new website with [SEO services](/services/seo-
     introTemplate:
       'SK WebTech builds high-converting e-commerce stores for businesses in {city}. From Shopify and WooCommerce to fully custom solutions, we create online stores that sell.',
     subIntroTemplate:
-      'Our {city} e-commerce team delivers feature-rich platforms with secure payment gateways, smart inventory management, and shopping experiences that turn visitors into repeat customers.',
+      'Our e-commerce team delivers feature-rich platforms for {city} businesses, with secure payment gateways, smart inventory management, and shopping experiences that turn visitors into repeat customers.',
     contentTemplate: `Retail in {city} has changed. Customers who once walked into your shop now check whether you deliver, compare your price on Amazon, and expect to pay by UPI at eleven at night. An online store stopped being optional a while ago — the only real question is whether yours works well enough to compete.
 
 ## An E-Commerce Website That Actually Sells
@@ -227,7 +227,7 @@ Store owners in {city} get the best returns by combining their store with [SEO](
       },
       {
         q: 'Which platform is best for e-commerce - Shopify or custom development?',
-        a: 'Shopify is great for quick launches with standard features. Custom development is better for unique business logic, marketplace features, or deep integrations. Our {city} team helps you choose the right fit.',
+        a: 'Shopify is great for quick launches with standard features. Custom development is better for unique business logic, marketplace features, or deep integrations. Our team helps you choose the right fit.',
       },
       {
         q: 'Can you integrate Indian payment gateways like Razorpay and UPI?',
@@ -262,7 +262,7 @@ Store owners in {city} get the best returns by combining their store with [SEO](
     introTemplate:
       'SK WebTech delivers result-driven SEO services in {city} that improve your Google rankings, drive organic traffic, and generate quality leads for your business.',
     subIntroTemplate:
-      'Our {city} SEO specialists use proven white-hat strategies to help you dominate search results for your target keywords and outrank your competitors consistently.',
+      'Our SEO specialists use proven white-hat strategies to help your {city} business rank higher in search results for your target keywords and outrank your competitors consistently.',
     contentTemplate: `When someone in {city} needs what you sell, they do not open a directory or ask around the market. They type it into Google. The businesses on the first page get the call; everyone else gets nothing. SEO is simply the work of making sure you are in the first group — and doing it takes more than adding keywords to a page.
 
 ## What Our SEO Service in {city} Actually Involves
@@ -279,7 +279,7 @@ A typical engagement includes:
 
 ## The Honest Part: How Long It Takes
 
-Anyone promising you page one in thirty days is either lying or about to use techniques that will get your site penalised. Real SEO compounds: most of our {city} clients see movement in three to four months and meaningful business results — calls, enquiries, walk-ins — inside six to twelve. What you get from us in the meantime is a monthly report showing exactly what was done, what moved, and what is planned next. No jargon, no hiding.
+Anyone promising you page one in thirty days is either lying or about to use techniques that will get your site penalised. Real SEO compounds: most clients see movement in three to four months and meaningful business results — calls, enquiries, walk-ins — inside six to twelve. What you get from us in the meantime is a monthly report showing exactly what was done, what moved, and what is planned next. No jargon, no hiding.
 
 ## Why Local Businesses Choose Us
 
@@ -298,7 +298,7 @@ Search traffic is the cheapest customer acquisition channel you will ever have �
 
 Every one of those businesses is competing for the same first page of Google. When customers search for anything related to {industries} in {city}, the map pack and the top three organic results take almost all the clicks — everything below that is invisible. Our job is to get you into that visible group: a fully optimised Google Business Profile, landing pages tuned for searches from areas like {areas}, citations in the directories that matter in India, and content written around what {city} customers actually type.
 
-Because we [build websites ourselves](/services/web-development-in-{citySlug}), technical fixes never sit in another vendor's queue. Slow pages, broken links and crawl errors get fixed by the same team running your campaign — one reason our {city} clients typically see movement faster than businesses juggling separate SEO and web agencies.
+Because we [build websites ourselves](/services/web-development-in-{citySlug}), technical fixes never sit in another vendor's queue. Slow pages, broken links and crawl errors get fixed by the same team running your campaign — one reason our clients typically see movement faster than businesses juggling separate SEO and web agencies.
 
 If your website itself is holding rankings back, we will tell you honestly whether a tune-up or a [rebuild](/services/web-development-in-{citySlug}) is the cheaper path to page one.`,
     features: [
@@ -359,7 +359,7 @@ If your website itself is holding rankings back, we will tell you honestly wheth
     introTemplate:
       'SK WebTech is a leading mobile app development company in {city}, building powerful iOS and Android applications for startups, enterprises, and everything in between.',
     subIntroTemplate:
-      'Our {city} app development team transforms your idea into a feature-rich, user-friendly mobile application - from concept and design to app store launch and beyond.',
+      'Our app development team transforms your idea into a feature-rich, user-friendly mobile application - from concept and design to app store launch and beyond.',
     contentTemplate: `Every serious app you use — the one you order food from, pay through, book tickets with — started as somebody's rough idea. The distance between an idea and an app people actually keep on their phone is design, engineering and a hundred small decisions. That distance is what we cover.
 
 ## Mobile App Developers in {city} for iOS and Android
@@ -386,7 +386,7 @@ A focused single-purpose app starts around ₹50,000. Most business apps — log
 
 ## After Launch
 
-Apps are not websites; they live in an ecosystem that keeps shifting under them. OS updates land every year, libraries deprecate, and users update their phones whether your app is ready or not. Our maintenance plans keep apps updated, monitored and crash-free — and most of our {city} clients treat that as part of the cost of running an app, because it is.
+Apps are not websites; they live in an ecosystem that keeps shifting under them. OS updates land every year, libraries deprecate, and users update their phones whether your app is ready or not. Our maintenance plans keep apps updated, monitored and crash-free — and most of our clients treat that as part of the cost of running an app, because it is.
 
 If you have an app idea and no technical background, that is fine — most of our clients started exactly there. Bring the idea; we will bring the questions. The first consultation is free and you will leave with a realistic sense of scope, cost and timeline.`,
     cityContentTemplate: `## Building Apps for the {city} Market
@@ -395,7 +395,7 @@ If you have an app idea and no technical background, that is fine — most of ou
 
 Sectors like {industries} increasingly serve their customers through mobile — bookings, orders, payments and loyalty all live on the phone now. An app puts your {city} business on the customer's home screen, instead of hoping they remember your name the next time they search.
 
-We build for clients across {city}, from businesses around {areas} to startups anywhere in {state}, with the entire process running remotely: requirement calls, Figma design reviews you can tap through on your own phone, a fresh test build every fortnight, and Play Store / App Store launch handled end to end.
+We take on app projects from anywhere in {city}, from businesses around {areas} to startups across {state}, with the entire process running remotely: requirement calls, Figma design reviews you can tap through on your own phone, a fresh test build every fortnight, and Play Store / App Store launch handled end to end.
 
 Most apps also need a backend, an admin panel and often a companion website — which our [web development team](/services/web-development-in-{citySlug}) builds alongside the app so everything ships together. And if you are still validating the idea, ask us honestly whether a mobile-first website or PWA can test demand in {city} before you commit an app-sized budget.`,
     features: [
@@ -426,7 +426,7 @@ Most apps also need a backend, an admin panel and often a companion website — 
       },
       {
         q: 'Should I build a native app or a cross-platform app?',
-        a: 'If budget is a concern, React Native or Flutter (cross-platform) gives 80% of native performance at 60% of the cost. Our {city} team helps you make the right choice based on your specific needs.',
+        a: 'If budget is a concern, React Native or Flutter (cross-platform) gives 80% of native performance at 60% of the cost. Our team helps you make the right choice based on your specific needs.',
       },
       {
         q: 'Do you help with App Store and Google Play submission?',
@@ -457,10 +457,10 @@ Most apps also need a backend, an admin panel and often a companion website — 
     introTemplate:
       'SK WebTech delivers user-centered UI/UX design services in {city} that create memorable digital experiences, improve usability, and drive conversions for web and mobile products.',
     subIntroTemplate:
-      'Our {city} design team combines research, strategy, and visual craft to create interfaces that your users love - and that achieve your business goals.',
+      'Our design team combines research, strategy, and visual craft to create interfaces that your users love - and that achieve your business goals.',
     contentTemplate: `Two businesses can offer the same service at the same price, and one will convert twice as many visitors — purely because of design. Not prettier design; clearer design. Where the eye lands first, how obvious the next step is, whether a form feels like thirty seconds or ten minutes. That is what UI/UX work actually decides.
 
-## A UI/UX Design Team in {city} That Designs for Outcomes
+## UI/UX Design for {city} Businesses, Built for Outcomes
 
 SK WebTech designs interfaces for websites, web applications and mobile apps. Some clients come to us before development, wanting the product designed properly from the start. Others come after — with an app people download and abandon, or a website that gets traffic and no enquiries — and need a diagnosis before a redesign.
 
@@ -491,7 +491,7 @@ If your product looks fine but underperforms, the problem is usually invisible t
 
 Good design starts with knowing exactly who will use the product. The customers of {industries} bring very different expectations, patience levels and devices — and an interface designed for a metro SaaS user can thoroughly confuse a first-time buyer browsing on a budget Android phone over patchy 4G. We design for your real audience in {city}: clear visual hierarchy, familiar patterns, screens that load fast, and Hindi or regional language support where it genuinely helps conversion.
 
-We have collaborated with businesses around {areas} and across {city} entirely remotely — Figma links that open on any phone, feedback rounds over WhatsApp, and clickable prototypes your own customers can test before a single line of code is written.
+Design projects from anywhere in {city}, including around {areas}, run entirely remotely — Figma links that open on any phone, feedback rounds over WhatsApp, and clickable prototypes your own customers can test before a single line of code is written.
 
 Once the design is approved, our [development team](/services/web-development-in-{citySlug}) can build it pixel-perfect, or we hand over developer-ready files to your existing team. Either way, nothing gets lost between design and build.`,
     features: [
@@ -526,7 +526,7 @@ Once the design is approved, our [development team](/services/web-development-in
       },
       {
         q: 'Can you design for both web and mobile?',
-        a: 'Absolutely. Our {city} design team creates responsive web designs and native mobile app designs (iOS and Android) following platform-specific design guidelines.',
+        a: 'Absolutely. Our design team creates responsive web designs and native mobile app designs (iOS and Android) following platform-specific design guidelines.',
       },
     ],
   },
@@ -575,7 +575,7 @@ Meta has firm rules on templates, opt-ins and messaging categories, and breaking
 
 ## Getting Started in {city}
 
-Setup — from verification through go-live — typically takes three to seven working days. Costs have two parts: a one-time setup and platform configuration, plus Meta's per-conversation charges, which vary by message type. On a free demo call we will map your actual use case — support, marketing, or both — and give you a clear number for what it will cost and what it replaces.
+Setup — from verification through go-live — typically takes three to seven working days. Costs have two parts: our one-time setup and platform fee, and Meta's own messaging charges. Meta bills per delivered message, at rates that depend on the message category (marketing, utility or authentication) and the recipient's country, and some messages, such as replies inside an open customer-service window, are free. Rates change, so we point you to [Meta's current rate card](https://business.whatsapp.com/products/platform-pricing) instead of quoting a number that may be out of date. On a free demo call we will map your actual use case — support, marketing, or both — and give you a clear number for what it will cost and what it replaces.
 
 If your team is drowning in WhatsApp chats, or your offers keep dying in ignored email inboxes, this is the infrastructure that fixes both. Book the demo; bring your toughest support question and we will show you a bot answering it.`,
     cityContentTemplate: `## WhatsApp Automation in {city}
@@ -584,11 +584,11 @@ If your team is drowning in WhatsApp chats, or your offers keep dying in ignored
 
 In a market like this, speed of response decides who gets the customer. Businesses in {industries} field the same questions all day — price, availability, timings, delivery — and whoever answers first usually wins the sale. A WhatsApp chatbot answers instantly, at midnight or in the middle of the festival rush, and hands over to your team only when a human is genuinely needed.
 
-We have configured WhatsApp automation for businesses operating around {areas} and across {city}, all remotely: Meta verification, chatbot flows in Hindi and English, broadcast campaigns and CRM sync — typically live within a week.
+We set up WhatsApp automation for businesses anywhere in {city}, including around {areas}, entirely remotely: Meta verification, chatbot flows in Hindi and English, broadcast campaigns and CRM sync — typically live within a week.
 
 If you sell products, pairing WhatsApp with an [online store](/services/ecommerce-development-in-{citySlug}) closes the loop completely: the store takes orders while WhatsApp confirms them, shares tracking, and recovers abandoned carts automatically. And if you don't have a proper website yet, our [web development team](/services/web-development-in-{citySlug}) can set up the full stack together.`,
     features: [
-      { title: 'WhatsApp Business API Setup', desc: 'Official Meta-approved API setup with verified green tick for your brand' },
+      { title: 'WhatsApp Business API Setup', desc: 'Official Meta API onboarding, plus help applying for the verified badge (approval is at Meta\'s discretion)' },
       { title: 'AI-Powered Chatbots', desc: 'Intelligent chatbots that handle FAQs, orders, and lead qualification 24/7' },
       { title: 'Broadcast Messaging', desc: 'Send bulk messages to segmented customer lists with personalization' },
       { title: 'Campaign Management', desc: 'Plan, schedule, and track WhatsApp marketing campaigns with analytics' },
@@ -645,7 +645,7 @@ If you sell products, pairing WhatsApp with an [online store](/services/ecommerc
     introTemplate:
       'SK WebTech provides comprehensive website maintenance and support services in {city}, keeping your digital assets secure, fast, and always online.',
     subIntroTemplate:
-      'Focus on your business while our {city} team handles all technical aspects - from security patches and speed optimization to content updates and emergency fixes.',
+      'Focus on your business while our team handles all technical aspects - from security patches and speed optimization to content updates and emergency fixes.',
     contentTemplate: `Websites do not fail loudly. They slip — a plugin update missed, a certificate expired, a contact form silently failing for three weeks before someone mentions it. By the time an owner notices, the damage has usually been running quietly for a while: lost enquiries, a Google ranking sliding, sometimes a hacked page serving spam to customers. Maintenance is the unglamorous work that prevents all of it.
 
 ## What Website Maintenance Covers
@@ -676,7 +676,7 @@ Tell us what your website runs on and we will do a free health check — speed, 
 
 Most of those businesses invested in a website at some point — and many of those sites are now running outdated plugins, expired SSL certificates, or contact forms that quietly stopped delivering enquiries months ago. In sectors like {industries}, where customers check you online before calling, a broken or hacked website costs real business long before anyone notices it.
 
-We maintain websites for clients around {areas} and across {city}, entirely remotely. Monitoring, backups, security updates and fixes happen behind the scenes, and a plain-language monthly report tells you exactly what was done — no jargon, no invisible charges.
+We maintain websites for businesses anywhere in {city}, including around {areas}, entirely remotely. Monitoring, backups, security updates and fixes happen behind the scenes, and a plain-language monthly report tells you exactly what was done — no jargon, no invisible charges.
 
 If your site is too old to be worth patching, we will say so honestly: sometimes a [rebuild](/services/web-development-in-{citySlug}) costs barely more than a year of firefighting, and pairing it with maintenance from day one keeps it permanently fast and secure. A free health check will tell you which side of that line your website is on.`,
     features: [

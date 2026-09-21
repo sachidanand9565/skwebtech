@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { ogImage } from '@/lib/seo';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -11,7 +12,7 @@ import Reveal from '@/components/motion/Reveal';
 import { StaggerContainer, StaggerItem } from '@/components/motion/Stagger';
 
 export const metadata: Metadata = {
-  title: 'About Us - SK WebTech | Our Story, Mission & Vision',
+  title: 'About Us - Our Story, Mission & Vision',
   description:
     "Learn about SK WebTech's journey, our mission to empower businesses through technology, and our vision for the future of digital transformation. Founded by Sachhidanand Kushwaha.",
   keywords: ['about SK WebTech', 'web development agency India', 'Sachhidanand Kushwaha', 'IT company', 'digital transformation partner'],
@@ -21,6 +22,7 @@ export const metadata: Metadata = {
     description: 'Learn about our journey, mission, and vision for empowering businesses through technology.',
     type: 'website',
     url: 'https://www.skwebtech.in/about',
+    images: [ogImage('About SK WebTech')],
   },
 };
 

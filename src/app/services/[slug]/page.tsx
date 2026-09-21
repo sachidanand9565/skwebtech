@@ -21,6 +21,7 @@ import {
 } from '@/lib/db';
 import { parseServiceLocationSlug } from '@/data/servicePages';
 import { interpolate, interpolateCity, formatList, CityContext } from '@/data/locations';
+import { ogImage, pageTitle } from '@/lib/seo';
 
 // ISR: DB-driven content (admin panel edits) refreshes within 5 minutes
 export const revalidate = 300;
@@ -140,9 +141,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const description = interpolate(service.metaDescriptionTemplate, city);
   const keywords = service.keywordsTemplate.map((k) => interpolate(k, city));
   const canonicalUrl = `https://www.skwebtech.in/services/${params.slug}`;
+  const shareImage = ogImage(
+    location ? `${service.title} in ${city}` : service.title,
+    location
+      ? `${location.name === location.state ? location.name : `${location.name}, ${location.state}`} · Free consultation`
+      : 'Across India · Free consultation'
+  );
 
   return {
-    title,
+    // DB title templates already end in "| SK WebTech"; don't let the layout add it again
+    title: pageTitle(title),
     description,
     keywords,
     alternates: { canonical: canonicalUrl },
@@ -152,11 +160,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: canonicalUrl,
       type: 'website',
       siteName: 'SK WebTech',
+      images: [shareImage],
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
+      images: [shareImage.url],
     },
     robots: {
       index: true,
@@ -209,7 +219,7 @@ export default async function ServiceLocationPage({ params }: Props) {
     faqs.push(
       {
         q: `Do you provide ${service.title} across all areas of ${city}?`,
-        a: `Yes. We work with clients across ${city} — including ${formatList(cityData.areas.slice(0, 5))} — and our process is fully remote-friendly. Calls, WhatsApp updates and screen-shares keep you involved at every step, so your location in ${location.state} never slows a project down.`,
+        a: `Yes. We take on projects from businesses anywhere in ${city}, including around ${formatList(cityData.areas.slice(0, 5))}, and our process is fully remote-friendly. Calls, WhatsApp updates and screen-shares keep you involved at every step, so your location in ${location.state} never slows a project down.`,
       },
       {
         q: `Which industries in ${city} do you work with?`,
@@ -254,7 +264,6 @@ export default async function ServiceLocationPage({ params }: Props) {
           address: {
             '@type': 'PostalAddress',
             addressCountry: 'IN',
-            ...(location ? { addressLocality: city } : {}),
           },
         },
         areaServed: location
@@ -336,7 +345,7 @@ export default async function ServiceLocationPage({ params }: Props) {
                   <ArrowRight size={18} className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
                 <a
-                  href="tel:6386103750"
+                  href="tel:+916386103750"
                   className="btn-secondary gap-2"
                 >
                   <Phone size={18} /> Call Now: +91 6386103750

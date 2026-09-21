@@ -107,7 +107,7 @@ export default function Header() {
               href="https://wa.skwebtech.in"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-green-500/10 border border-green-500/30 text-green-400 text-sm font-semibold rounded-full hover:bg-green-500/20 hover:border-green-400/50 transition-all hover:-translate-y-0.5 group"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-green-500/10 border border-green-500/30 text-green-700 text-sm font-semibold rounded-full hover:bg-green-500/20 hover:border-green-400/50 transition-all hover:-translate-y-0.5 group"
             >
               <WhatsAppIcon size={14} className="animate-pulse-slow" />
               WA Platform
@@ -164,7 +164,7 @@ export default function Header() {
                         className={`flex items-center justify-between px-4 py-3.5 text-lg font-heading font-medium rounded-xl transition-all ${
                           isActive(link.href)
                             ? 'text-primary-400 bg-primary-500/[0.06] border border-primary-500/20'
-                            : 'text-slate-700 hover:text-white hover:bg-white/5'
+                            : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
                         }`}
                       >
                         {link.name}
@@ -186,7 +186,7 @@ export default function Header() {
                     </div>
                     <div>
                       <p className="text-slate-900 font-semibold text-sm">WhatsApp Platform</p>
-                      <p className="text-green-400 text-xs">Manage campaigns & automation</p>
+                      <p className="text-green-700 text-xs">Manage campaigns & automation</p>
                     </div>
                   </div>
                   <a
@@ -214,7 +214,7 @@ export default function Header() {
                     Get Free Quote
                   </Link>
                   <p className="text-center text-slate-900/40 text-sm">
-                    Call: <a href="tel:6386103750" className="text-primary-400 hover:text-primary-600">+91 6386103750</a>
+                    Call: <a href="tel:+916386103750" className="text-primary-400 hover:text-primary-600">+91 6386103750</a>
                   </p>
                 </motion.div>
               </div>

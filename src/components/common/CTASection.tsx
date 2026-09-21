@@ -16,7 +16,7 @@ export default function CTASection({
   title = 'Ready to Transform Your Digital Presence?',
   subtitle = "Let's discuss your project and see how we can help your business grow. Get a free consultation today!",
   primaryCTA = { text: 'Get Free Consultation', href: '/contact' },
-  secondaryCTA = { text: 'Call Us Now', href: 'tel:6386103750' },
+  secondaryCTA = { text: 'Call Us Now', href: 'tel:+916386103750' },
 }: CTASectionProps) {
   return (
     <section className="relative py-12 md:py-16 overflow-hidden bg-void">
@@ -92,7 +92,7 @@ export default function CTASection({
               href="https://wa.me/919654603750?text=Hi%20SK%20WebTech!%20I%20would%20like%20to%20get%20a%20free%20consultation."
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-green-400 hover:text-green-300 text-sm transition-colors"
+              className="inline-flex items-center gap-2 text-green-700 hover:text-green-800 text-sm font-medium transition-colors"
             >
               <WhatsAppIcon size={16} />
               Or chat directly on WhatsApp - we reply in minutes

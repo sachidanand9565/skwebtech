@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { ogImage } from '@/lib/seo';
 import PortfolioContent from '@/components/sections/PortfolioContent';
 import CTASection from '@/components/common/CTASection';
 import Counter from '@/components/motion/Counter';
@@ -10,7 +11,7 @@ export const revalidate = 300;
 
 
 export const metadata: Metadata = {
-  title: 'Our Portfolio - Web Development & IT Projects | SK WebTech',
+  title: 'Our Portfolio - Web Development & IT Projects',
   description:
     "Explore SK WebTech's portfolio of successful web development, e-commerce, mobile app, and IT projects. See how we've helped businesses transform their digital presence.",
   keywords: ['web development portfolio', 'IT project showcase', 'e-commerce projects', 'mobile app portfolio', 'web design examples'],
@@ -20,6 +21,7 @@ export const metadata: Metadata = {
     description: 'Explore our portfolio of successful web development, e-commerce, and IT projects.',
     type: 'website',
     url: 'https://www.skwebtech.in/portfolio',
+    images: [ogImage('Our Portfolio')],
   },
 };
 

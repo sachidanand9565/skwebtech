@@ -24,6 +24,7 @@ export default function PortfolioCard({
   href = '#',
   tags = [],
 }: PortfolioCardProps) {
+  const isExternal = /^https?:\/\//.test(href);
   return (
     <div className="group relative h-full flex flex-col rounded-2xl overflow-hidden border border-slate-200 bg-white
                     backdrop-blur-sm transition-all duration-500 ease-out-expo
@@ -46,15 +47,29 @@ export default function PortfolioCard({
         <div className="absolute inset-0 flex items-center justify-center
                         opacity-0 group-hover:opacity-100 transition-all duration-300
                         translate-y-4 group-hover:translate-y-0">
-          <Link
-            href={href}
-            className="bg-primary-500 text-void px-5 py-2.5 rounded-full font-heading font-semibold text-sm
-                       flex items-center space-x-2 hover:bg-primary-400 hover:shadow-glow
-                       transition-all duration-200"
-          >
-            <span>View Project</span>
-            <ExternalLink size={16} />
-          </Link>
+          {/* A live site gets its own link; otherwise say where the click really goes */}
+          {isExternal ? (
+            <a
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-primary-600 text-white px-5 py-2.5 rounded-full font-heading font-semibold text-sm
+                         flex items-center space-x-2 hover:bg-primary-700 hover:shadow-glow
+                         transition-all duration-200"
+            >
+              <span>View Live Site</span>
+              <ExternalLink size={16} />
+            </a>
+          ) : (
+            <Link
+              href={href}
+              className="bg-primary-600 text-white px-5 py-2.5 rounded-full font-heading font-semibold text-sm
+                         flex items-center space-x-2 hover:bg-primary-700 hover:shadow-glow
+                         transition-all duration-200"
+            >
+              <span>View Portfolio</span>
+            </Link>
+          )}
         </div>
 
         {/* Category Badge */}

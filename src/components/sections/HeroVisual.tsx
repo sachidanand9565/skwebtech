@@ -138,7 +138,7 @@ export default function HeroVisual() {
                 </div>
                 <div>
                   <p className="text-sm font-bold text-slate-900">WhatsApp Business Solutions</p>
-                  <p className="mt-0.5 text-xs font-medium text-green-400">Official API Setup & Automation</p>
+                  <p className="mt-0.5 text-xs font-medium text-green-700">Official API Setup & Automation</p>
                 </div>
               </div>
               <a

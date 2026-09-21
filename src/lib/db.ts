@@ -760,6 +760,17 @@ export async function addContact(contact: ContactMessage): Promise<boolean> {
   }
 }
 
+/** Dedupe check, e.g. so a repeat newsletter signup doesn't create a second lead */
+export async function hasContactWithEmail(email: string, service: string): Promise<boolean> {
+  await ensureInit();
+  const db = getPool();
+  const [rows] = await db.query(
+    'SELECT 1 FROM contacts WHERE LOWER(email) = ? AND service = ? LIMIT 1',
+    [email.toLowerCase(), service]
+  );
+  return (rows as any[]).length > 0;
+}
+
 /** Targeted status update — poori table rewrite kiye bina */
 export async function updateContactStatus(id: string, status: string): Promise<boolean> {
   await ensureInit();

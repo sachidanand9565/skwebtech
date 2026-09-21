@@ -15,7 +15,9 @@ const SECRET =
   process.env.GATEWAY_RELAY_SECRET ||
   'skwebtech-captcha-fallback-secret';
 
-const TTL_MS = 10 * 60 * 1000; // challenge 10 minute valid
+// Long enough for someone to write a real message; the form also refreshes a
+// stale challenge when its tab regains focus
+const TTL_MS = 30 * 60 * 1000;
 const MIN_AGE_MS = 1500; // isse tez submit = bot (form bharne me insaan ko waqt lagta hai)
 
 function sign(answer: number, issuedAt: number): string {

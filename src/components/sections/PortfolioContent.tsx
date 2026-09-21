@@ -84,7 +84,8 @@ export default function PortfolioContent({ initialProjects }: { initialProjects:
         {/* Results count */}
         <div className="flex items-center justify-between mb-7">
           <p className="text-slate-500 text-sm">
-            Showing <span className="font-semibold text-slate-900">{filteredProjects.length}</span> projects
+            Showing <span className="font-semibold text-slate-900">{filteredProjects.length}</span>{' '}
+            {filteredProjects.length === 1 ? 'project' : 'projects'}
           </p>
           <div className="flex items-center gap-1.5 text-xs text-slate-500">
             <Filter size={14} />

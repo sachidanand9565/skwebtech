@@ -13,6 +13,7 @@ import WhatsAppButton from '@/components/common/WhatsAppButton';
 import CallButton from '@/components/common/CallButton';
 import ChatBot from '@/components/common/LazyChatBot';
 import SiteChrome from '@/components/layout/SiteChrome';
+import { ogImage } from '@/lib/seo';
 import ScrollProgress from '@/components/motion/ScrollProgress';
 
 // Load Inter font for body text
@@ -77,21 +78,14 @@ export const metadata: Metadata = {
     title: 'SK WebTech - Professional Web & IT Solutions',
     description:
       'Transform your business with professional web development, e-commerce, SEO, and IT solutions. Partner with SK WebTech for digital success.',
-    images: [
-      {
-        url: '/og-image.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'SK WebTech - Web & IT Solutions',
-      },
-    ],
+    images: [ogImage()],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'SK WebTech - Professional Web & IT Solutions',
     description:
       'Transform your business with professional web development, e-commerce, SEO, and IT solutions.',
-    images: ['/og-image.jpg'],
+    images: [ogImage().url],
   },
   robots: {
     index: true,

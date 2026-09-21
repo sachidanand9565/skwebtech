@@ -62,7 +62,7 @@ export default function Footer() {
                     <p className="text-slate-900 font-heading font-bold text-base">WhatsApp Business Platform</p>
                     <span className="px-2 py-0.5 bg-green-500 text-white text-[10px] font-bold rounded-full uppercase tracking-wide">New</span>
                   </div>
-                  <p className="text-green-400/80 text-sm">Connect your WhatsApp Business, run campaigns & automate customer communication</p>
+                  <p className="text-green-800 text-sm">Connect your WhatsApp Business, run campaigns & automate customer communication</p>
                 </div>
               </div>
               <a
@@ -125,7 +125,7 @@ export default function Footer() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-60" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400" />
               </span>
-              <span className="text-green-400 text-xs font-medium">Available for new projects</span>
+              <span className="text-green-700 text-xs font-medium">Available for new projects</span>
             </div>
           </div>
 
@@ -171,11 +171,11 @@ export default function Footer() {
                   href="https://wa.skwebtech.in"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-green-400 hover:text-green-300 transition-colors text-sm font-medium"
+                  className="inline-flex items-center gap-1.5 text-green-700 hover:text-green-800 transition-colors text-sm font-medium"
                 >
                   <WhatsAppIcon size={13} />
                   WhatsApp Platform
-                  <span className="px-1.5 py-0.5 bg-green-500/20 text-green-400 text-[9px] font-bold rounded uppercase tracking-wide">New</span>
+                  <span className="px-1.5 py-0.5 bg-green-500/20 text-green-800 text-[9px] font-bold rounded uppercase tracking-wide">New</span>
                 </a>
               </li>
             </ul>
@@ -195,7 +195,7 @@ export default function Footer() {
                 </span>
               </li>
               <li>
-                <a href="tel:6386103750" className="flex items-center gap-3 text-slate-500 hover:text-primary-400 transition-colors text-sm">
+                <a href="tel:+916386103750" className="flex items-center gap-3 text-slate-500 hover:text-primary-400 transition-colors text-sm">
                   <Phone size={16} className="text-primary-400 flex-shrink-0" />
                   +91 6386103750
                 </a>
