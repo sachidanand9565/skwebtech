@@ -109,6 +109,12 @@ const orgJsonLd = {
       '@type': 'Organization',
       '@id': 'https://www.skwebtech.in/#organization',
       name: 'SK WebTech',
+      // People search the brand as one word ("skwebtech") far more than the
+      // spaced form, and that query currently resolves to a different company.
+      // alternateName is how Google is told these spellings are the same brand.
+      alternateName: ['SKWebTech', 'SK Web Tech', 'skwebtech', 'skwebtech.in'],
+      description:
+        'SK WebTech (SKWebTech) is an Indian web development and IT services company offering websites, e-commerce, SEO, mobile apps and WhatsApp Business automation.',
       url: 'https://www.skwebtech.in',
       logo: {
         '@type': 'ImageObject',
@@ -130,6 +136,7 @@ const orgJsonLd = {
       '@id': 'https://www.skwebtech.in/#website',
       url: 'https://www.skwebtech.in',
       name: 'SK WebTech',
+      alternateName: ['SKWebTech', 'skwebtech'],
       publisher: { '@id': 'https://www.skwebtech.in/#organization' },
     },
   ],

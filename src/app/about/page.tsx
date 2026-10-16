@@ -80,7 +80,7 @@ export default function AboutPage() {
               </h1>
               <Reveal delay={0.5}>
                 <p className="text-lg text-slate-600 leading-relaxed mb-8 max-w-xl">
-                  Since 2022, SK WebTech has been at the forefront of digital transformation, helping businesses leverage technology to achieve their goals. Our passion for innovation drives everything we do.
+                  Since 2022, SK WebTech — also written SKWebTech — has been at the forefront of digital transformation, helping businesses leverage technology to achieve their goals. Our passion for innovation drives everything we do.
                 </p>
               </Reveal>
               <Reveal delay={0.6}>
