@@ -6,8 +6,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Menu, X, ExternalLink, ArrowUpRight } from 'lucide-react';
+import { Menu, X, ExternalLink, ArrowUpRight, Phone } from 'lucide-react';
 import WhatsAppIcon from '@/components/common/WhatsAppIcon';
+import { siteConfig } from '@/config/site';
 
 const navLinks = [
   { name: 'Home', href: '/' },
@@ -103,6 +104,16 @@ export default function Header() {
 
           {/* Desktop Right Actions */}
           <div className="hidden lg:flex items-center gap-3">
+            {/* Click-to-call — the number is the shortest path to an enquiry */}
+            <a
+              href={`tel:${siteConfig.contact.phone.replace(/\s/g, '')}`}
+              className="inline-flex items-center gap-1.5 text-slate-800 text-sm font-semibold hover:text-primary-700 transition-colors whitespace-nowrap"
+            >
+              <Phone size={15} className="text-primary-600 flex-shrink-0" />
+              <span className="hidden xl:inline">{siteConfig.contact.phone}</span>
+              <span className="xl:hidden">Call</span>
+            </a>
+
             <a
               href="https://wa.skwebtech.in"
               target="_blank"
@@ -121,16 +132,28 @@ export default function Header() {
             </Link>
           </div>
 
-          {/* Mobile Menu Toggle */}
-          <button
-            type="button"
-            className="lg:hidden p-2 rounded-xl z-50 text-slate-900 bg-white border border-slate-200 hover:bg-white/10 transition-colors"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={isMenuOpen}
-          >
-            {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
+          {/* Mobile actions — call stays one tap away without opening the menu */}
+          <div className="flex items-center gap-2 lg:hidden">
+            {!isMenuOpen && (
+              <a
+                href={`tel:${siteConfig.contact.phone.replace(/\s/g, '')}`}
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-primary-600 text-white text-xs font-bold hover:bg-primary-700 transition-colors"
+                aria-label={`Call ${siteConfig.contact.phone}`}
+              >
+                <Phone size={15} />
+                <span className="hidden sm:inline">Call Now</span>
+              </a>
+            )}
+            <button
+              type="button"
+              className="p-2 rounded-xl z-50 text-slate-900 bg-white border border-slate-200 hover:bg-slate-50 transition-colors"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={isMenuOpen}
+            >
+              {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Navigation — portalled to <body> so it always paints above page content */}
@@ -214,7 +237,13 @@ export default function Header() {
                     Get Free Quote
                   </Link>
                   <p className="text-center text-slate-900/40 text-sm">
-                    Call: <a href="tel:+916386103750" className="text-primary-400 hover:text-primary-600">+91 6386103750</a>
+                    Call:{' '}
+                    <a
+                      href={`tel:${siteConfig.contact.phone.replace(/\s/g, '')}`}
+                      className="text-primary-700 font-semibold hover:text-primary-800"
+                    >
+                      {siteConfig.contact.phone}
+                    </a>
                   </p>
                 </motion.div>
               </div>
