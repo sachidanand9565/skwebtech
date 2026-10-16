@@ -20,6 +20,10 @@ export interface BlogPost {
   readTime: string;
   tags: string[];
   featured?: boolean;
+  /** Search-result title. Falls back to `title` when empty. */
+  metaTitle?: string;
+  /** Search-result description. Falls back to `excerpt` when empty. */
+  metaDescription?: string;
 }
 
 export const blogPosts: BlogPost[] = [

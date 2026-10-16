@@ -36,6 +36,8 @@ interface BlogPost {
   readTime: string;
   tags: string[];
   featured?: boolean;
+  metaTitle?: string;
+  metaDescription?: string;
 }
 
 export default function AdminBlogsPage() {
@@ -53,12 +55,18 @@ export default function AdminBlogsPage() {
   const [content, setContent] = useState('');
   const [coverImage, setCoverImage] = useState('');
   const [category, setCategory] = useState('Web Development');
+  // Typing the category freehand every time is how duplicates like
+  // "Whatsapp Automation" vs "WhatsApp Business" crept in; pick an existing one.
+  const [isNewCategory, setIsNewCategory] = useState(false);
   const [authorName, setAuthorName] = useState('Sachidanand Kushwaha');
   const [authorRole, setAuthorRole] = useState('Lead Digital Strategist');
   const [tags, setTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState('');
   const [readTime, setReadTime] = useState('5 min read');
   const [featured, setFeatured] = useState(false);
+  // Optional SEO overrides — blank means the post title/excerpt are used
+  const [metaTitle, setMetaTitle] = useState('');
+  const [metaDescription, setMetaDescription] = useState('');
 
   // Preview Mode inside Editor
   const [previewMode, setPreviewMode] = useState(false);
@@ -96,12 +104,15 @@ export default function AdminBlogsPage() {
     setContent('');
     setCoverImage('');
     setCategory('Web Development');
+    setIsNewCategory(false);
     setAuthorName('Sachidanand Kushwaha');
     setAuthorRole('Lead Digital Strategist');
     setTags([]);
     setTagInput('');
     setReadTime('5 min read');
     setFeatured(false);
+    setMetaTitle('');
+    setMetaDescription('');
     setPreviewMode(false);
     setFormError('');
     setIsOpen(true);
@@ -115,16 +126,40 @@ export default function AdminBlogsPage() {
     setContent(post.content);
     setCoverImage(post.coverImage);
     setCategory(post.category);
+    setIsNewCategory(false);
     setAuthorName(post.author.name);
     setAuthorRole(post.author.role);
     setTags(post.tags || []);
     setTagInput('');
     setReadTime(post.readTime || '5 min read');
     setFeatured(!!post.featured);
+    setMetaTitle(post.metaTitle || '');
+    setMetaDescription(post.metaDescription || '');
     setPreviewMode(false);
     setFormError('');
     setIsOpen(true);
   };
+
+  // Categories already in use, plus the starters, so the dropdown always has
+  // something sensible even on an empty blog.
+  const categoryOptions = Array.from(
+    new Set([
+      ...blogs.map(b => b.category?.trim()).filter(Boolean) as string[],
+      'Web Development',
+      'SEO',
+      'E-Commerce',
+      'App Development',
+      'UI/UX Design',
+      'WhatsApp Automation',
+      'Security',
+    ])
+  ).sort((a, b) => a.localeCompare(b));
+
+  // What Google will actually show: the override if present, else the post
+  // title, plus the brand suffix the layout appends.
+  const seoTitlePreview = `${metaTitle.trim() || title || 'Your post title'} | SK WebTech`;
+  const seoTitleLength = seoTitlePreview.length;
+  const seoDescLength = (metaDescription.trim() || excerpt).length;
 
   const handleTitleChange = (val: string) => {
     setTitle(val);
@@ -133,10 +168,34 @@ export default function AdminBlogsPage() {
     }
   };
 
+  /** Accepts "a, b, c" in one go; skips blanks and tags already added. */
+  const addTags = (raw: string) => {
+    const incoming = raw
+      .split(',')
+      .map(t => t.trim())
+      .filter(Boolean);
+    if (!incoming.length) return;
+    setTags(prev => {
+      const seen = new Set(prev.map(t => t.toLowerCase()));
+      const fresh = incoming.filter(t => !seen.has(t.toLowerCase()) && seen.add(t.toLowerCase()));
+      return [...prev, ...fresh];
+    });
+  };
+
   const handleAddTag = () => {
-    if (!tagInput.trim()) return;
-    setTags(prev => [...prev, tagInput.trim()]);
+    addTags(tagInput);
     setTagInput('');
+  };
+
+  /** Typing or pasting a comma commits everything before it right away. */
+  const handleTagInputChange = (val: string) => {
+    if (val.includes(',')) {
+      const parts = val.split(',');
+      addTags(parts.slice(0, -1).join(','));
+      setTagInput(parts[parts.length - 1]);
+      return;
+    }
+    setTagInput(val);
   };
 
   const handleRemoveTag = (idx: number) => {
@@ -202,6 +261,8 @@ export default function AdminBlogsPage() {
         tags,
         readTime,
         featured,
+        metaTitle: metaTitle.trim(),
+        metaDescription: metaDescription.trim(),
         publishedAt: isEdit ? editingPost.publishedAt : new Date().toISOString().split('T')[0]
       };
 
@@ -307,7 +368,54 @@ export default function AdminBlogsPage() {
         </div>
       ) : filteredBlogs.length > 0 ? (
         <div className="bg-slate-900 border border-white/5 rounded-2xl overflow-hidden">
-          <div className="overflow-x-auto">
+          {/* Phone: stacked cards. A four-column table only sideways-scrolls here. */}
+          <ul className="divide-y divide-white/5 md:hidden">
+            {filteredBlogs.map(post => (
+              <li key={post.id} className="p-4">
+                <div className="flex gap-3">
+                  <div className="w-14 h-14 rounded-lg relative overflow-hidden bg-slate-950 flex-shrink-0">
+                    {post.coverImage && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={post.coverImage} alt="" className="object-cover w-full h-full" />
+                    )}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-start gap-2">
+                      <p className="font-semibold text-white text-sm leading-snug line-clamp-2 flex-1 break-words">
+                        {post.title}
+                      </p>
+                      {post.featured && (
+                        <span className="text-[9px] bg-indigo-500/10 text-indigo-400 px-1.5 py-0.5 rounded-full border border-indigo-500/20 font-bold flex-shrink-0">
+                          FEATURED
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-xs text-slate-400 mt-1 line-clamp-2 break-words">{post.excerpt}</p>
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-2 text-[11px] text-slate-500">
+                      <span>{post.author?.name}</span>
+                      <span className="font-mono">{post.publishedAt}</span>
+                    </div>
+                    <div className="flex gap-2 mt-3">
+                      <button
+                        onClick={() => handleOpenEdit(post)}
+                        className="flex-1 py-2 px-3 bg-slate-950 border border-white/5 text-slate-300 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 active:bg-slate-800"
+                      >
+                        <Edit2 size={13} /> Edit
+                      </button>
+                      <button
+                        onClick={() => handleDelete(post.id)}
+                        className="py-2 px-3 bg-red-500/10 border border-red-500/20 text-red-400 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 active:bg-red-500/20"
+                      >
+                        <Trash2 size={13} /> Delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+
+          <div className="overflow-x-auto hidden md:block">
             <table className="w-full border-collapse text-left">
               <thead>
                 <tr className="border-b border-white/5 bg-white/[0.02] text-xs font-semibold text-slate-400 uppercase">
@@ -378,32 +486,35 @@ export default function AdminBlogsPage() {
       )}
 
       {/* Editor Modal Drawer */}
+      {/* Full screen on phones, centred dialog from sm up. The body scrolls on
+          its own so the header and the Save bar stay reachable. */}
       {isOpen && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-start sm:items-center justify-center p-3 sm:p-4 overflow-y-auto">
-          <div className="bg-slate-900 border border-white/5 w-full max-w-4xl rounded-3xl p-4 sm:p-6 shadow-2xl relative space-y-5 sm:space-y-6 my-4 sm:my-8">
-            <div className="flex items-center justify-between">
-              <h3 className="font-heading font-bold text-lg text-white">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex sm:items-center justify-center sm:p-4">
+          <div className="bg-slate-900 border-white/5 w-full h-full sm:h-auto sm:max-h-[90vh] sm:border sm:max-w-4xl sm:rounded-3xl shadow-2xl relative flex flex-col">
+            <div className="flex items-center justify-between gap-2 p-4 sm:p-6 sm:pb-0 flex-shrink-0">
+              <h3 className="font-heading font-bold text-base sm:text-lg text-white truncate">
                 {editingPost ? 'Edit Blog Article' : 'Compose New Blog Post'}
               </h3>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 flex-shrink-0">
                 <button
                   type="button"
                   onClick={() => setPreviewMode(!previewMode)}
-                  className="flex items-center gap-1.5 px-3.5 py-1.5 bg-slate-950 border border-white/5 text-slate-400 hover:text-white rounded-lg text-xs font-bold"
+                  className="flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 bg-slate-950 border border-white/5 text-slate-400 hover:text-white rounded-lg text-xs font-bold"
                 >
                   {previewMode ? <EyeOff size={13} /> : <Eye size={13} />}
-                  <span>{previewMode ? 'Write Mode' : 'Preview Live'}</span>
+                  <span className="hidden xs:inline sm:inline">{previewMode ? 'Write' : 'Preview'}</span>
                 </button>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="p-1 text-slate-500 hover:text-white rounded-lg hover:bg-slate-800"
+                  className="p-1.5 text-slate-500 hover:text-white rounded-lg hover:bg-slate-800"
+                  aria-label="Close editor"
                 >
                   <X size={18} />
                 </button>
               </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="flex flex-col flex-1 min-h-0 p-4 sm:p-6 pt-4 gap-4">
               {formError && (
                 <div className="flex items-center gap-2 p-3.5 bg-red-500/10 border border-red-500/20 text-red-400 rounded-xl text-xs">
                   <AlertCircle size={14} className="flex-shrink-0" />
@@ -411,9 +522,11 @@ export default function AdminBlogsPage() {
                 </div>
               )}
 
+              {/* Only this region scrolls, so the Save bar is always reachable */}
+              <div className="flex-1 min-h-0 overflow-y-auto -mx-1 px-1">
               {previewMode ? (
                 /* Markdown Preview Block */
-                <div className="border border-white/5 bg-slate-950 rounded-2xl p-6 max-h-[450px] overflow-y-auto space-y-6">
+                <div className="border border-white/5 bg-slate-950 rounded-2xl p-4 sm:p-6 space-y-6">
                   <div>
                     <span className="px-2.5 py-1 bg-indigo-500/10 text-indigo-400 text-xs font-semibold rounded-full uppercase">
                       {category}
@@ -487,14 +600,51 @@ export default function AdminBlogsPage() {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="space-y-1.5">
                       <label className="text-slate-400 text-xs font-semibold uppercase tracking-wider block">Category</label>
-                      <input
-                        type="text"
-                        value={category}
-                        onChange={e => setCategory(e.target.value)}
-                        placeholder="e.g. Web Development, SEO"
-                        className="w-full px-4 py-2.5 rounded-xl border border-white/5 bg-slate-950 text-white placeholder-slate-650 focus:outline-none focus:border-indigo-500 text-sm font-medium"
-                        required
-                      />
+                      {isNewCategory ? (
+                        <div className="flex gap-2">
+                          <input
+                            type="text"
+                            value={category}
+                            onChange={e => setCategory(e.target.value)}
+                            placeholder="New category name"
+                            className="flex-1 min-w-0 px-4 py-2.5 rounded-xl border border-white/5 bg-slate-950 text-white placeholder-slate-650 focus:outline-none focus:border-indigo-500 text-sm font-medium"
+                            autoFocus
+                            required
+                          />
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setIsNewCategory(false);
+                              setCategory(categoryOptions[0] || 'Web Development');
+                            }}
+                            className="px-3 py-2.5 bg-slate-950 border border-white/5 text-slate-400 hover:text-white rounded-xl text-xs font-bold flex-shrink-0"
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      ) : (
+                        <select
+                          value={category}
+                          onChange={e => {
+                            if (e.target.value === '__new__') {
+                              setIsNewCategory(true);
+                              setCategory('');
+                            } else {
+                              setCategory(e.target.value);
+                            }
+                          }}
+                          className="w-full px-4 py-2.5 rounded-xl border border-white/5 bg-slate-950 text-white focus:outline-none focus:border-indigo-500 text-sm font-medium"
+                          required
+                        >
+                          {!categoryOptions.includes(category) && category && (
+                            <option value={category}>{category}</option>
+                          )}
+                          {categoryOptions.map(c => (
+                            <option key={c} value={c}>{c}</option>
+                          ))}
+                          <option value="__new__">+ Add new category…</option>
+                        </select>
+                      )}
                     </div>
 
                     <div className="space-y-1.5">
@@ -538,13 +688,13 @@ export default function AdminBlogsPage() {
                   {/* Image Cover */}
                   <div className="space-y-2 border-t border-white/5 pt-4">
                     <label className="text-slate-400 text-xs font-semibold uppercase tracking-wider block">Cover Image URL</label>
-                    <div className="flex gap-2">
+                    <div className="flex flex-col sm:flex-row gap-2">
                       <input
                         type="text"
                         value={coverImage}
                         onChange={e => setCoverImage(e.target.value)}
                         placeholder="Paste image address or upload file..."
-                        className="flex-1 px-4 py-2.5 rounded-xl border border-white/5 bg-slate-950 text-white text-sm"
+                        className="flex-1 min-w-0 px-4 py-2.5 rounded-xl border border-white/5 bg-slate-950 text-white placeholder-slate-650 text-sm"
                         required
                       />
                       <label className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-750 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 cursor-pointer flex-shrink-0 transition-colors">
@@ -570,23 +720,27 @@ export default function AdminBlogsPage() {
                   {/* Dynamic Tags */}
                   <div className="space-y-2 border-t border-white/5 pt-4">
                     <label className="text-slate-400 text-xs font-semibold uppercase tracking-wider block">Tags</label>
-                    <div className="flex gap-2">
+                    <div className="flex flex-col sm:flex-row gap-2">
                       <input
                         type="text"
                         value={tagInput}
-                        onChange={e => setTagInput(e.target.value)}
-                        placeholder="Add tag e.g. Business, Marketing"
-                        className="flex-1 px-4 py-2 rounded-xl border border-white/5 bg-slate-950 text-white text-sm"
+                        onChange={e => handleTagInputChange(e.target.value)}
+                        onBlur={handleAddTag}
+                        placeholder="Business, Marketing, SEO — commas split them"
+                        className="flex-1 min-w-0 px-4 py-2.5 rounded-xl border border-white/5 bg-slate-950 text-white placeholder-slate-650 text-sm"
                         onKeyDown={e => e.key === 'Enter' && (e.preventDefault(), handleAddTag())}
                       />
                       <button
                         type="button"
                         onClick={handleAddTag}
-                        className="px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-xl"
+                        className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-750 text-white text-xs font-bold rounded-xl flex-shrink-0"
                       >
                         Add
                       </button>
                     </div>
+                    <p className="text-[11px] text-slate-500">
+                      Paste or type several at once — separate them with commas.
+                    </p>
                     <div className="flex flex-wrap gap-1.5 mt-2">
                       {tags.map((tag, idx) => (
                         <span key={idx} className="flex items-center gap-1 px-2.5 py-1 bg-white/5 border border-white/5 rounded-lg text-xs text-slate-350">
@@ -599,8 +753,71 @@ export default function AdminBlogsPage() {
                     </div>
                   </div>
 
+                  {/* Search appearance — optional overrides for the SERP snippet */}
+                  <div className="space-y-3 border-t border-white/5 pt-4">
+                    <div>
+                      <h4 className="text-slate-300 text-xs font-bold uppercase tracking-wider">Search Appearance (SEO)</h4>
+                      <p className="text-slate-500 text-[11px] mt-1">
+                        Leave blank to reuse the post title and excerpt. Fill these in when you want
+                        Google to show something shorter or more click-worthy.
+                      </p>
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <div className="flex items-center justify-between gap-2">
+                        <label className="text-slate-400 text-xs font-semibold uppercase tracking-wider">SEO Title</label>
+                        <span className={`text-[11px] font-mono ${seoTitleLength > 60 ? 'text-amber-400' : 'text-slate-500'}`}>
+                          {seoTitleLength}/60
+                        </span>
+                      </div>
+                      <input
+                        type="text"
+                        value={metaTitle}
+                        onChange={e => setMetaTitle(e.target.value)}
+                        placeholder={title || 'Defaults to the post title'}
+                        className="w-full px-4 py-2.5 rounded-xl border border-white/5 bg-slate-950 text-white placeholder-slate-650 focus:outline-none focus:border-indigo-500 text-sm font-medium"
+                      />
+                      <p className="text-[11px] text-slate-500">
+                        {seoTitleLength > 60
+                          ? `Google will cut this off — about ${seoTitleLength - 60} characters too long (includes " | SK WebTech").`
+                          : 'Fits in Google results, including the " | SK WebTech" suffix.'}
+                      </p>
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <div className="flex items-center justify-between gap-2">
+                        <label className="text-slate-400 text-xs font-semibold uppercase tracking-wider">Meta Description</label>
+                        <span className={`text-[11px] font-mono ${seoDescLength > 155 ? 'text-amber-400' : 'text-slate-500'}`}>
+                          {seoDescLength}/155
+                        </span>
+                      </div>
+                      <textarea
+                        value={metaDescription}
+                        onChange={e => setMetaDescription(e.target.value)}
+                        placeholder={excerpt || 'Defaults to the excerpt'}
+                        rows={3}
+                        className="w-full px-4 py-2.5 rounded-xl border border-white/5 bg-slate-950 text-white placeholder-slate-650 focus:outline-none focus:border-indigo-500 text-sm leading-relaxed"
+                      />
+                      <p className="text-[11px] text-slate-500">
+                        {seoDescLength > 155
+                          ? `Google will cut this off — about ${seoDescLength - 155} characters too long.`
+                          : 'Fits in Google results.'}
+                      </p>
+                    </div>
+
+                    {/* How the result will look */}
+                    <div className="rounded-xl border border-white/5 bg-slate-950 p-3.5 overflow-hidden">
+                      <p className="text-slate-500 text-[10px] uppercase tracking-wider font-bold mb-2">Google preview</p>
+                      <p className="text-slate-500 text-[11px] truncate">www.skwebtech.in › blog › {slug || 'your-post-slug'}</p>
+                      <p className="text-[#8ab4f8] text-sm sm:text-base mt-0.5 line-clamp-2 break-words">{seoTitlePreview}</p>
+                      <p className="text-slate-400 text-xs mt-1 line-clamp-2 break-words">
+                        {metaDescription.trim() || excerpt || 'Your description will appear here.'}
+                      </p>
+                    </div>
+                  </div>
+
                   {/* Featured checkbox */}
-                  <div className="flex items-center gap-3 pt-3">
+                  <div className="flex items-center gap-3 pt-3 border-t border-white/5">
                     <input
                       type="checkbox"
                       id="featured"
@@ -615,7 +832,9 @@ export default function AdminBlogsPage() {
                 </div>
               )}
 
-              <div className="flex gap-3 pt-6 border-t border-white/5">
+              </div>
+
+              <div className="flex gap-3 pt-4 border-t border-white/5 flex-shrink-0">
                 <button
                   type="button"
                   onClick={() => setIsOpen(false)}

@@ -21,22 +21,27 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const post = await getPostBySlug(params.slug);
   if (!post) return { title: 'Post Not Found' };
+  // Search-result copy is written separately from the on-page title/excerpt
+  // when the admin fills those fields in; otherwise it reuses them.
+  const metaTitle = post.metaTitle?.trim() || post.title;
+  const metaDescription = post.metaDescription?.trim() || post.excerpt;
+
   return {
-    title: post.title,
-    description: post.excerpt,
+    title: metaTitle,
+    description: metaDescription,
     keywords: post.tags,
     authors: [{ name: post.author.name }],
     alternates: { canonical: `https://www.skwebtech.in/blog/${post.slug}` },
     openGraph: {
-      title: post.title,
-      description: post.excerpt,
+      title: metaTitle,
+      description: metaDescription,
       type: 'article',
       publishedTime: post.publishedAt,
       authors: [post.author.name],
       images: [{ url: post.coverImage, width: 1200, height: 630, alt: post.title }],
       url: `https://www.skwebtech.in/blog/${post.slug}`,
     },
-    twitter: { card: 'summary_large_image', title: post.title, description: post.excerpt, images: [post.coverImage] },
+    twitter: { card: 'summary_large_image', title: metaTitle, description: metaDescription, images: [post.coverImage] },
   };
 }
 
@@ -117,14 +122,11 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
                 </div>
               </Reveal>
 
-              <Reveal delay={0.1}>
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-slate-900 mb-5 leading-tight">
-                  {post.title}
-                </h1>
-              </Reveal>
-              <Reveal delay={0.2}>
-                <p className="text-lg text-slate-600 leading-relaxed mb-8">{post.excerpt}</p>
-              </Reveal>
+              {/* Title and excerpt are shown on the blog listing cards, so the
+                  article page doesn't repeat them visually — the cover image
+                  carries the headline. The H1 stays in the markup (screen
+                  readers and search engines rely on it) but is not painted. */}
+              <h1 className="sr-only">{post.title}</h1>
 
               <Reveal delay={0.3}>
                 <div className="flex flex-wrap items-center gap-6">

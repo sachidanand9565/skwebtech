@@ -107,9 +107,33 @@ export async function initDb() {
       publishedAt VARCHAR(50),
       readTime VARCHAR(50),
       tags TEXT,
-      featured TINYINT(1) DEFAULT 0
+      featured TINYINT(1) DEFAULT 0,
+      metaTitle VARCHAR(255),
+      metaDescription VARCHAR(500)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
   `);
+
+  // Migration: per-post SEO overrides. Without these the search-result title
+  // and description are forced to reuse the on-page title and the card
+  // excerpt, which are written for different jobs and different lengths.
+  for (const [col, type] of [
+    ['metaTitle', 'VARCHAR(255)'],
+    ['metaDescription', 'VARCHAR(500)'],
+  ] as const) {
+    const [metaColRows] = await db.query(
+      `SELECT COUNT(*) as count FROM information_schema.COLUMNS
+       WHERE TABLE_SCHEMA = ? AND TABLE_NAME = 'blogs' AND COLUMN_NAME = ?`,
+      [DB_NAME, col]
+    );
+    if ((metaColRows as any)[0].count === 0) {
+      console.log(`Adding ${col} column to blogs table...`);
+      try {
+        await db.query(`ALTER TABLE blogs ADD COLUMN \`${col}\` ${type} NULL`);
+      } catch (err: any) {
+        if (err?.code !== 'ER_DUP_FIELDNAME') throw err;
+      }
+    }
+  }
 
   // 2. Create Projects table
   await db.query(`
@@ -290,8 +314,8 @@ export async function initDb() {
     console.log('Seeding initial blogs into MySQL...');
     for (const post of initialBlogs) {
       await db.query(
-        `INSERT INTO blogs (id, slug, title, excerpt, content, coverImage, category, authorName, authorRole, publishedAt, readTime, tags, featured)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        `INSERT INTO blogs (id, slug, title, excerpt, content, coverImage, category, authorName, authorRole, publishedAt, readTime, tags, featured, metaTitle, metaDescription)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         [
           post.id,
           post.slug,
@@ -305,7 +329,9 @@ export async function initDb() {
           post.publishedAt,
           post.readTime,
           JSON.stringify(post.tags),
-          post.featured ? 1 : 0
+          post.featured ? 1 : 0,
+          post.metaTitle || null,
+          post.metaDescription || null
         ]
       );
     }
@@ -485,6 +511,8 @@ export async function getBlogs(): Promise<BlogPost[]> {
     readTime: r.readTime,
     tags: JSON.parse(r.tags || '[]'),
     featured: !!r.featured,
+    metaTitle: r.metaTitle || '',
+    metaDescription: r.metaDescription || '',
   }));
 }
 
@@ -497,8 +525,8 @@ export async function saveBlogs(blogs: BlogPost[]): Promise<boolean> {
     await db.query('DELETE FROM blogs');
     for (const post of blogs) {
       await db.query(
-        `INSERT INTO blogs (id, slug, title, excerpt, content, coverImage, category, authorName, authorRole, publishedAt, readTime, tags, featured)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        `INSERT INTO blogs (id, slug, title, excerpt, content, coverImage, category, authorName, authorRole, publishedAt, readTime, tags, featured, metaTitle, metaDescription)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         [
           post.id,
           post.slug,
@@ -512,7 +540,9 @@ export async function saveBlogs(blogs: BlogPost[]): Promise<boolean> {
           post.publishedAt,
           post.readTime,
           JSON.stringify(post.tags),
-          post.featured ? 1 : 0
+          post.featured ? 1 : 0,
+          post.metaTitle || null,
+          post.metaDescription || null
         ]
       );
     }
